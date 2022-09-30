@@ -1,0 +1,32 @@
+package Day14;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+public class ArrayRank {
+    public static void main(String[] args) {
+        int[] nums = {30, 10, 30, 40, 20};
+        getArrayRank(nums);
+        System.out.println(Arrays.toString(nums));
+    }
+
+    public static int[] getArrayRank(int[] nums) {
+        //create a copy
+        int[] newArr = Arrays.copyOfRange(nums, 0, nums.length);
+        int rank = 1;
+        Arrays.sort(newArr);
+        //create a map for nums and the rank
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < newArr.length; i++) {
+            if (!map.containsKey(newArr[i])) {
+                map.put(newArr[i], rank);
+                rank++;
+            }
+        }
+        for (int i = 0; i < nums.length; i++) {
+            nums[i] = map.get(nums[i]);
+        }
+        return nums;
+    }
+}
