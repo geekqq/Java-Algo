@@ -16,7 +16,7 @@ public class GuessingNumber {
             guess = new Scanner(System.in).nextInt();
             if (guess == target) {
                 win = true;
-                break;
+          
             } else if (guess < target) {
                 System.out.println("太小了：");
             } else {
