@@ -26,7 +26,7 @@ public class BinarySearch {
                 right = mid - 1;
             }
         }
-        return mid;
+        return -1;  //如果代码执行完但是未找到target就执行该行
     }
 
     public static int binarySearchS3(int[] nums, int target) {
