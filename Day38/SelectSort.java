@@ -2,7 +2,7 @@ package Day38;
 
 import java.util.Arrays;
 
-public class InsertSort {
+public class SelectSort {
     public static void main(String[] args) {
         int[] nums = {4,7,0,-1,9,5,7};
 
