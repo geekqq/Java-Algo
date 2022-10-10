@@ -2,7 +2,7 @@ package Day39;
 
 public class FindDuplicatesInArray {
     public static void main(String[] args) {
-        int[] nums = {4,6,2,-1,0,2,5,2};
+        int[] nums = {4,6,2,-1,0,2,5,2,2};
         findDuplicates(nums);
     }
 
