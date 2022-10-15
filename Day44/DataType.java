@@ -8,5 +8,12 @@ public class DataType {
         System.out.println(n);
         System.out.println(m);
 
+        char c = '1';
+        String s = String.valueOf(c);
+        System.out.println(s instanceof String);
+
+        double db = 5.724;
+        int x = (int) db;
+        System.out.println(x);
     }
 }
