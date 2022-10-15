@@ -7,6 +7,7 @@ public class MergeTwoSortedLinkedList {
         int value;
         ListNode prev;
         ListNode next;
+        ListNode head;
 
 
         public ListNode(int value) {
@@ -57,7 +58,6 @@ public class MergeTwoSortedLinkedList {
     public static void main(String[] args) {
         LinkedList list1 = new LinkedList();
         LinkedList list2 = new LinkedList();
-
         list1.add(2);
         list1.add(4);
         list1.add(6);
