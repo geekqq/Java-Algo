@@ -5,8 +5,7 @@ import java.util.Arrays;
 public class MergeSort {
     public static void main(String[] args) {
         int[] nums = {1,4,3,0,-5,8,4,7};
-        MergeSort ob = new MergeSort();
-        ob.mergeSort(nums, 0, nums.length - 1);
+        MergeSort.mergeSort(nums, 0, nums.length - 1);
         System.out.println(Arrays.toString(nums)); //not working
     }
 
