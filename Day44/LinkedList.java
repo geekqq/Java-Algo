@@ -17,6 +17,7 @@ public class LinkedList {
 
         ListNode head = new ListNode(2);
         LinkedList ob = new LinkedList();
+        ob.addNode(4);
         ob.printList(head);
     }
 
