@@ -12,5 +12,6 @@ public class StringDemo {
         System.out.println(str1.replaceFirst("o", "E"));
         System.out.println(str1.replaceAll("o", "E"));
         System.out.println(str1.replaceAll("o", " "));
+        System.out.println(str1.trim());
     }
 }
