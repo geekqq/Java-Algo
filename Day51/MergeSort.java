@@ -1,4 +1,4 @@
-package Day50;
+package Day51;
 
 public class MergeSort {
     public static void merge(int[] arr, int l, int mid, int r) {
@@ -14,7 +14,7 @@ public class MergeSort {
         for (int j = 0; j < rightLen; j++) {
             rightArr[j] = arr[mid + 1 + j];
         }
-        //initiate the indexes of the left and right subarray
+
         int i = 0;
         int j = 0;
         int k = l;
@@ -36,7 +36,7 @@ public class MergeSort {
 
     public static void sort(int[] arr, int l, int r) {
         if (l < r) {
-            int m = l + (r - l) / 2; //右移1位，相当于除以2
+            int m = l + (r - l) / 2;
             sort(arr, l, m);
             sort(arr, m + 1, r);
             merge(arr, l, m, r);
@@ -51,9 +51,7 @@ public class MergeSort {
     }
 
     public static void main(String[] args) {
-        int[] nums =  { 10, 7, 8, 9, 1, 5 };
-//        MergeSort ob = new MergeSort();
-//        ob.sort(nums, 0, nums.length - 1);
+        int[] nums = {-1,7,2,9,4,6};
         sort(nums, 0, nums.length - 1);
         printArray(nums);
     }
