@@ -1,24 +1,23 @@
-package Day49;
+package Day50;
 
 public class LinkedList<E> {
     //fields
-    private  int size;
     private ListNode<E> head;
     private ListNode<E> tail;
+    private int size;
 
-    //methods
+    //method
     public LinkedList() {
         head = null;
         tail = null;
         size = 0;
     }
 
-    public E getVal(int index){
+    public E getVal(int index) {
         if (head == null || index < 0 || index >= size) {
-            return null; // throw new IllegalArgumentException("getVal");
+            return null; //throw new IllegalArgumentException("getVal()");
         }
         ListNode<E> cur = head;
-
         while (index > 0) {
             cur = cur.next;
             index--;
@@ -28,7 +27,7 @@ public class LinkedList<E> {
 
     public void addHead(E val) {
         ListNode<E> newHead = new ListNode<E>(val);
-        if (head == null) { // tail is null when head is null
+        if (head == null) {
             tail = newHead;
         } else {
             newHead.next = head;
@@ -58,10 +57,10 @@ public class LinkedList<E> {
 class ListNode<E> {
     //fields
     E val;
-    ListNode<E> prev;
     ListNode<E> next;
+    ListNode<E> prev;
 
-    //methods
+    //method
     public ListNode(E val) {
         this.val = val;
         next = null;
