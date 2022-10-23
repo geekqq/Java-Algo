@@ -1,9 +1,9 @@
 package Day52;
 
 public class AddTwoNumbers {
-    ListNode head;
+    static ListNode head;
 
-    class ListNode {
+    static class ListNode {
         int val;
         ListNode next;
 
@@ -12,6 +12,25 @@ public class AddTwoNumbers {
         public ListNode(int val) {
             this.val = val;
             next = null;
+        }
+
+        public void add(int val) {
+            ListNode newNode = new ListNode(val);
+            if (head == null) {
+                head = newNode;
+            } else {
+                head.next = newNode;
+                //newNode.next = null;
+            }
+        }
+
+        public static void printList(ListNode head) {
+            ListNode cur = head;
+            while (cur != null) {
+                System.out.print(cur.val + " ");
+                cur = cur.next;
+            }
+            System.out.println();
         }
     }
 
@@ -39,5 +58,15 @@ public class AddTwoNumbers {
             l2 = l2.next;
         }
         return dummyHead.next;
+    }
+
+    public static void main(String[] args) {
+        ListNode l1 = new ListNode(7);
+        ListNode l2 = new ListNode(4);
+        l1.add(3);
+        l1.add(6);
+        l2.add(3);
+        l2.add(7);
+        l2.add(9);
     }
 }
