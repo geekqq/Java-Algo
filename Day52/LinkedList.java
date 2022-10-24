@@ -1,6 +1,6 @@
 package Day52;
 
-public class LinkedList {
+public class LinkedList<I extends Number> {
     private ListNode head;
     private ListNode tail;
     private int size;
