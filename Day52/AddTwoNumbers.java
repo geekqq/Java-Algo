@@ -60,13 +60,19 @@ public class AddTwoNumbers {
         return dummyHead.next;
     }
 
-    public static void main(String[] args) {
-        ListNode l1 = new ListNode(7);
-        ListNode l2 = new ListNode(4);
-        l1.add(3);
-        l1.add(6);
-        l2.add(3);
-        l2.add(7);
-        l2.add(9);
-    }
+//    public static void main(String[] args) {
+//        AddTwoNumbers list1 = new AddTwoNumbers();
+//        AddTwoNumbers list2 = new AddTwoNumbers();
+//        list1.head = new ListNode(7);
+//        list1.head.next = new ListNode(4);
+//        list1.head.next.next = new ListNode(6);
+//        ListNode.printList(list1.head);
+//        list2.head = new ListNode(3);
+//        list2.head.next = new ListNode(5);
+//        list2.head.next.next = new ListNode(8);
+//        ListNode.printList(list2.head);
+//        AddTwoNumbers ob = new AddTwoNumbers();
+//        ListNode newNode = ob.addTwoNumbers(list1.head, list2.head);
+//        ListNode.printList(newNode);
+//    }
 }
