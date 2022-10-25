@@ -3,7 +3,7 @@ package Day52;
 import java.util.Queue;
 import java.util.Stack;
 
-public class MyQueue <T> {
+public class MyQueue<T> {
     private Stack<T> stack1;
     private Stack<T> stack2;
 
