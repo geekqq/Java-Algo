@@ -1,8 +1,10 @@
 package Day54;
 
+import java.util.Arrays;
+
 public class MergeSort {
     public static void merge(int[] nums, int l, int m, int r) {
-        int leftLen = l - m + 1;
+        int leftLen = m - l + 1;
         int rightLen = r - m;
 
         int[] leftArr = new int[leftLen];
@@ -14,20 +16,22 @@ public class MergeSort {
         for (int i = 0; i < rightLen; i++) {
             rightArr[i] = nums[m + 1 + i];
         }
+
         int i = 0;
         int j = 0;
         int k = l;
-        while (l < leftLen && r < rightLen) {
+
+        while (i < leftLen && j < rightLen) {
             if (leftArr[i] < rightArr[j]) {
                 nums[k++] = leftArr[i++];
             } else {
                 nums[k++] = rightArr[j++];
             }
         }
-        while (l < leftLen) {
+        while (i < leftLen) {
             nums[k++] = leftArr[i++];
         }
-        while (r < rightLen) {
+        while (j < rightLen) {
             nums[k++] = rightArr[j++];
         }
     }
@@ -39,6 +43,12 @@ public class MergeSort {
             mergeSort(nums, m + 1, r);
             merge(nums, l, m, r);
         }
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {5,2,7,9,0,-3};
+        mergeSort(nums, 0, nums.length - 1);
+        System.out.println(Arrays.toString(nums));
     }
 
 }

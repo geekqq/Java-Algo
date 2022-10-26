@@ -42,7 +42,7 @@ public class MergeSort {
             int m = l + (r - l) / 2;
             sort(nums, l, m);
             sort(nums, m + 1, r);
-            merge(nums, l, m , r);
+            merge(nums, l, m, r);
         }
     }
 
