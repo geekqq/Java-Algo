@@ -2,11 +2,13 @@ package Day55;
 
 public class Fibonacci {
     public static void main(String[] args) {
-
+        for (int i = 0; i < 20; i++) {
+            System.out.print(fibonacci(i) + " ");
+        }
     }
 
     public static int fibonacci(int n) {
-        if (n < 3) return n;
+        if (n < 2) return n;
         int a = 0;
         int b = 0;
         int next = 1;
