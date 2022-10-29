@@ -1,7 +1,5 @@
 package Day47;
 
-import Package_1.A;
-
 import java.util.Arrays;
 
 public class ReverseArray {
