@@ -3,6 +3,8 @@
 Day00是从2022年9月1日开始计算，
 每天都坚持练习写代码，重复+坚持。
 
-Practice makes perfact.
+Practice makes perfect.
+
 Coding everyday makes the skill sharp.
+
 Keep working hard.
