@@ -1,10 +1,12 @@
-package Day61;
+package Day63;
 
 import java.util.Arrays;
 
+import static Day63.BubbleSort.swap;
+
 public class SelectSort {
     public static void main(String[] args) {
-        int[] nums = {23, 12, 1, 8, -3, 0, -3, 90};
+        int[] nums = {23, 12, -3, 1, 8, -3, 0, 90, 90};
         selectSort(nums);
         System.out.println(Arrays.toString(nums));
     }
@@ -20,10 +22,5 @@ public class SelectSort {
             }
             swap(nums, minIndex, i);
         }
-    }
-    public static void swap(int[] nums, int i, int j) {
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
     }
 }
