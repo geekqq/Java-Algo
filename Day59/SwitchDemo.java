@@ -5,8 +5,8 @@ public class SwitchDemo {
         char c = 'A';
         int num = 10;
         switch (c) {
-//            case 'B':
-//                num++;
+            case 'B':
+                num++;
             case 'A':
                 num++;
                 //break;
@@ -14,7 +14,7 @@ public class SwitchDemo {
                 num++;
                 //break;
             default:
-                num--;
+                num++;
         }
         System.out.println(num);
         int i = 10;
