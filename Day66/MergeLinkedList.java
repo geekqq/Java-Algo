@@ -43,7 +43,7 @@ public class MergeLinkedList {
         list2.print();
 
         MergeLinkedList list3 = new MergeLinkedList();
-        list3.head = merge(list1.head, list2.head);
+        list3.head = mergeRecursion(list1.head, list2.head);
         list3.print();
     }
 
@@ -70,6 +70,19 @@ public class MergeLinkedList {
             tail = tail.next;
         }
         return dummyNode.next;
+    }
+
+    public static Node mergeRecursion(Node h1, Node h2) {
+        //base case
+        if (h1 == null) return h2;
+        if (h2 == null) return h1;
+        if (h1.val < h2.val) {
+            h1.next = mergeRecursion(h1.next, h2);
+            return h1;
+        } else {
+            h2.next = mergeRecursion(h1, h2.next);
+            return h2;
+        }
     }
 }
 
