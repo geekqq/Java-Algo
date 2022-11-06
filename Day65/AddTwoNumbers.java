@@ -1,38 +1,38 @@
-package Day64;
+package Day65;
 
 public class AddTwoNumbers {
+
     static ListNode head;
 
     static class ListNode {
         int val;
         ListNode next;
-
         public ListNode(int val) {
             this.val = val;
             next = null;
         }
     }
 
-    public static ListNode addTwoNumbers(ListNode head1, ListNode head2) {
-        if (head1 == null) return head2;
-        if (head2 == null) return head1;
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        if (l1 == null) return l2;
+        if (l2 == null) return l1;
 
         ListNode dummyNode = new ListNode(0);
         ListNode cur = dummyNode;
         int carry = 0;
-        while (head1 != null|| head2 != null || carry != 0) {
-            int x = (head1 != null) ? head1.val : 0;
-            int y = (head2 != null) ? head2.val : 0;
+        while (l1 != null || l2 != null || carry != 0) {
+            int x = l1 != null ? l1.val : 0;
+            int y = l2 != null ? l2.val : 0;
             int sum = x + y + carry;
-            carry = sum/ 10;
+            carry = sum / 10;
             cur.next = new ListNode(sum % 10);
             cur = cur.next;
 
-            if (head1 != null) {
-                head1 = head1.next;
+            if (l1 != null) {
+                l1 = l1.next;
             }
-            if (head2 != null) {
-                head2 = head2.next;
+            if (l2 != null) {
+                l2 = l2.next;
             }
         }
         return dummyNode.next;
