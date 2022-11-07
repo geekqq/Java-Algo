@@ -2,7 +2,8 @@ package Day40;
 
 public class MyPow {
     public static void main(String[] args) {
-        System.out.println(myPow(2,65));
+
+        System.out.println(myPow(2,5));
     }
     public static long myPow(int x, int n) {
         //x to the power of n
