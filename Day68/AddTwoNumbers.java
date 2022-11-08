@@ -35,6 +35,6 @@ public class AddTwoNumbers {
                 l2 = l2.next;
             }
         }
-        return dummyNode.next
+        return dummyNode.next;
     }
 }

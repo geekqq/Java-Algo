@@ -1,4 +1,4 @@
-package Day65;
+package Day68;
 
 public class SingletonClass {
     private static SingletonClass instance = null;
