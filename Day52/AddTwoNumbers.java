@@ -14,7 +14,7 @@ public class AddTwoNumbers {
             next = null;
         }
 
-        //this add method is not working. see Day58 AddTwoNumbers
+        //this add method is not working. see Day58 LinkedList
         public void add(int val) {
             ListNode newNode = new ListNode(val);
             if (head == null) {
@@ -62,8 +62,8 @@ public class AddTwoNumbers {
     }
 
 //    public static void main(String[] args) {
-//        AddTwoNumbers list1 = new AddTwoNumbers();
-//        AddTwoNumbers list2 = new AddTwoNumbers();
+//        LinkedList list1 = new LinkedList();
+//        LinkedList list2 = new LinkedList();
 //        list1.head = new ListNode(7);
 //        list1.head.next = new ListNode(4);
 //        list1.head.next.next = new ListNode(6);
@@ -72,7 +72,7 @@ public class AddTwoNumbers {
 //        list2.head.next = new ListNode(5);
 //        list2.head.next.next = new ListNode(8);
 //        ListNode.printList(list2.head);
-//        AddTwoNumbers ob = new AddTwoNumbers();
+//        LinkedList ob = new LinkedList();
 //        ListNode newNode = ob.addTwoNumbers(list1.head, list2.head);
 //        ListNode.printList(newNode);
 //    }
