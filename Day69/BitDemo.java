@@ -25,5 +25,7 @@ public class BitDemo {
         System.out.println(~0);
         System.out.println(~2);
         System.out.println(9 & 1);
+        System.out.println("=======");
+        System.out.println(-5 % 3);
     }
 }
