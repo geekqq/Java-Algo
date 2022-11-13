@@ -1,9 +1,7 @@
-package Day72;
+package Day73;
 
 public class ReverseLinkedList {
-
-    public static ListNode head;
-
+    static ListNode head;
     static class ListNode {
         int val;
         ListNode next;
@@ -19,11 +17,11 @@ public class ReverseLinkedList {
         if (head == null) {
             head = newNode;
         } else {
-            ListNode cur = head;
-            while (cur.next != null) {
-                cur = cur.next;
+            ListNode temp = head;
+            while (temp.next != null) {
+                temp= temp.next;
             }
-            cur.next = newNode;
+            temp.next = newNode;
         }
     }
 
@@ -40,9 +38,11 @@ public class ReverseLinkedList {
         if (head == null || head.next == null) {
             return head;
         }
+
         ListNode prev = null;
         ListNode cur = head;
         ListNode next = null;
+
         while (cur != null) {
             next = cur.next;
             cur.next = prev;
@@ -53,11 +53,11 @@ public class ReverseLinkedList {
         return head;
     }
 
-    public static ListNode reverse2(ListNode head) {
+    public static ListNode reverseRecursion(ListNode head) {
         if (head == null || head.next == null) {
             return head;
         }
-        ListNode rest = reverse2(head.next);
+        ListNode rest = reverseRecursion(head.next);
         head.next.next = head;
         head.next = null;
         return rest;
@@ -70,10 +70,15 @@ public class ReverseLinkedList {
         list.addLast(3);
         list.addLast(4);
         list.addLast(5);
+        list.addLast(6);
+        list.addLast(7);
+        list.addLast(8);
+        list.addLast(9);
+        list.addLast(10);
         list.print();
         head = reverse(head);
         list.print();
-        head = reverse2(head);
+        head = reverseRecursion(head);
         list.print();
     }
 }
