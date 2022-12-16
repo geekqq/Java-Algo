@@ -12,6 +12,7 @@ public class AddTwoNumbers {
     }
     public static ListNode addTwo(ListNode head1, ListNode head2) {
 
+
         ListNode dummyNode = new ListNode(0);
         ListNode cur = dummyNode;
         int carry = 0;
