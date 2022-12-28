@@ -1,4 +1,4 @@
-package Day116;
+package Day117;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,18 +28,19 @@ public class FindClosestElements {
                 right = mid;
             }
         }
-        return Math.abs(nums[left] - x) <= Math.abs(nums[right] - x) ? left : right;
+        return Math.abs(nums[left] - x) < Math.abs(nums[right] - x) ? left : right;
     }
+
     private static void addRemaining(List<Integer> res, int[] nums, int pos, int count, int x) {
-        if (count == 0) return;
+        if (count == 0) {
+            return;
+        }
         int left = pos - 1;
         int right = pos + 1;
         while (left >= 0 && right < nums.length) {
-            if (count == 0) {
-                return;
-            }
+            if (count == 0) return;
             if (Math.abs(nums[left] - x) <= Math.abs(nums[right] - x)) {
-                res.add(0, nums[left--]);
+                res.add(0,nums[left--]);
             } else {
                 res.add(nums[right++]);
             }
@@ -49,23 +50,16 @@ public class FindClosestElements {
             if (left < 0) {
                 res.add(nums[right++]);
             } else {
-                res.add(0, nums[left--]); //把结果加在list的前面index为0的位置
+                res.add(0, nums[left--]);
             }
             count--;
         }
     }
 
     public static void main(String[] args) {
-        int[] nums = {1,3};
-        int k = 1;
-        int x = 2;
+        int[] nums = {1,2,3,3,3,4,4,4,5,5};
+        int k = 3;
+        int x = 3;
         System.out.println(findClosestElements(nums, k, x));
-        List<Integer> list = new ArrayList<>();
-        list.add(10);
-        list.add(20);
-        for (int i = 0; i < 10; i++) {
-            list.add(0,i);
-        }
-        System.out.println(list);
     }
 }
