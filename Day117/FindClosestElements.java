@@ -57,7 +57,7 @@ public class FindClosestElements {
     }
 
     public static void main(String[] args) {
-        int[] nums = {1,2,3,3,3,4,4,4,5,5};
+        int[] nums = {1,2,3,4,4,4,5,5};
         int k = 3;
         int x = 3;
         System.out.println(findClosestElements(nums, k, x));
