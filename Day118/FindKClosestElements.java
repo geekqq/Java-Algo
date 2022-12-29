@@ -1,10 +1,13 @@
-package Day117;
+package Day118;
+
+import OODAdv.A;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class FindClosestElements {
-    public static List<Integer> findClosestElements(int[] nums, int k, int x) {
+public class FindKClosestElements {
+    public static List<Integer> findKClosestElements(int[] nums, int k, int x) {
         List<Integer> res = new ArrayList<>();
         if (nums == null || nums.length == 0 || k <= 0) {
             return res;
@@ -22,7 +25,7 @@ public class FindClosestElements {
             int mid = left + (right - left) / 2;
             if (nums[mid] == x) {
                 return mid;
-            } else if (nums[mid] < x) {
+            } else if (nums[mid] < x){
                 left = mid;
             } else {
                 right = mid;
@@ -30,7 +33,6 @@ public class FindClosestElements {
         }
         return Math.abs(nums[left] - x) <= Math.abs(nums[right] - x) ? left : right;
     }
-
     private static void addRemaining(List<Integer> res, int[] nums, int pos, int count, int x) {
         if (count == 0) {
             return;
@@ -38,9 +40,11 @@ public class FindClosestElements {
         int left = pos - 1;
         int right = pos + 1;
         while (left >= 0 && right < nums.length) {
-            if (count == 0) return;
+            if (count == 0) {
+                return;
+            }
             if (Math.abs(nums[left] - x) <= Math.abs(nums[right] - x)) {
-                res.add(0,nums[left--]);
+                res.add(0, nums[left--]);
             } else {
                 res.add(nums[right++]);
             }
@@ -57,9 +61,9 @@ public class FindClosestElements {
     }
 
     public static void main(String[] args) {
-        int[] nums = {1,2,3,3,3,4,4,4,5,5};
-        int k = 3;
+        int[] nums = {0,1,2,3,4,5,6,7};
+        int k = 4;
         int x = 3;
-        System.out.println(findClosestElements(nums, k, x));
+        System.out.println(findKClosestElements(nums, k, x));
     }
 }
