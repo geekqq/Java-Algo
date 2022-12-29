@@ -1,9 +1,6 @@
-package Day118;
-
-import OODAdv.A;
+package Day119;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class FindKClosestElements {
@@ -25,7 +22,7 @@ public class FindKClosestElements {
             int mid = left + (right - left) / 2;
             if (nums[mid] == x) {
                 return mid;
-            } else if (nums[mid] < x){
+            } else if (nums[mid] < x) {
                 left = mid;
             } else {
                 right = mid;
@@ -46,7 +43,7 @@ public class FindKClosestElements {
             if (Math.abs(nums[left] - x) <= Math.abs(nums[right] - x)) {
                 res.add(0, nums[left--]);
             } else {
-                res.add(nums[right++]);
+                res.add(nums[right]++);
             }
             count--;
         }
@@ -61,7 +58,7 @@ public class FindKClosestElements {
     }
 
     public static void main(String[] args) {
-        int[] nums = {0,1,2,3,4,5,6,7};
+        int[] nums = {1,2,3};
         int k = 1;
         int x = 3;
         System.out.println(findKClosestElements(nums, k, x));
