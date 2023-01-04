@@ -2,7 +2,7 @@ package Day124;
 
 public class Pow {
     public static void main(String[] args) {
-        System.out.println(myPow(5,-2));
+        System.out.println(myPow(2,-4));
     }
     public static double myPow(double x, int n) {
         int N = n;
