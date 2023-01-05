@@ -22,6 +22,6 @@ public class SqrtX {
     }
 
     public static void main(String[] args) {
-        System.out.println(mySqrt(15));
+        System.out.println(mySqrt(7));
     }
 }
