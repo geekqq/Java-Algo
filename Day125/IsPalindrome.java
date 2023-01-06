@@ -2,8 +2,8 @@ package Day125;
 
 public class IsPalindrome {
     public static void main(String[] args) {
-        System.out.println(isPalindrome(45554));
-        System.out.println(isPalindrome2(-45554));
+        System.out.println(isPalindrome2(4554));
+        System.out.println(isPalindrome2(1001));
     }
     public static boolean isPalindrome(int x) {
         if (x < 0) {
@@ -19,7 +19,7 @@ public class IsPalindrome {
     }
 
     public static boolean isPalindrome2(int x) {
-        if (x < 0) return false;
+        if (x < 0 ||(x % 10 ==0 && x != 0)) return false;
         int n = 0;
         while (x > n) {
             n = n * 10 + x % 10;
