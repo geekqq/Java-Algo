@@ -21,13 +21,13 @@ public class FindKClosestElements {
         return Math.abs(nums[left] - x) <= Math.abs(nums[right] - x) ? left : right;
     }
 
-    public static void addRemaning(List<Integer> res, int[] nums, int pos, int count, int x) {
+    public static void addRemaining(List<Integer> res, int[] nums, int pos, int count, int x) {
         if (count == 0) {
             return;
         }
         int left = pos - 1;
         int right = pos + 1;
-        while (left <= right) {
+        while (left >= 0 && right < nums.length) {
             if (count == 0) {
                 return;
             }
@@ -56,14 +56,14 @@ public class FindKClosestElements {
         k = Math.min(k, nums.length);
         int pos = findClosestIndex(nums, x);
         res.add(nums[pos]);
-        addRemaning(res, nums, pos, k - 1, x);
+        addRemaining(res, nums, pos, k - 1, x);
         return res;
     }
 
     public static void main(String[] args) {
         int[] nums = {1,2,3,3,4,4,5,5,5};
         int k = 3;
-        int x = 3;
+        int x = 5;
         System.out.println(findKClosestElements(nums, k, x));
     }
 }
