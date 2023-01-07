@@ -1,13 +1,11 @@
-package Day127;
+package Day128;
 
 public class SqrtX {
     public static void main(String[] args) {
-        System.out.println(mySqrt(4));
         for (int i = 0; i < 26; i++) {
-            System.out.println(i + "的平方根是：" + mySqrt(i));
+            System.out.print(i + "的平方根是：" + mySqrt(i) + "\n");
         }
     }
-
     public static int mySqrt(int x) {
         if (x < 2) {
             return x;
