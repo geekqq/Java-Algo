@@ -2,7 +2,7 @@ package Day129;
 
 public class FindMinElementInRotatedArray {
     public static void main(String[] args) {
-        int[] nums = {4,5,6,7,8,9,1,2};
+        int[] nums = {4,5,6,7,8,9,0,2};
         System.out.println(findMinInRotatedArray(nums));
     }
     public static int findMinInRotatedArray(int[] nums) {
