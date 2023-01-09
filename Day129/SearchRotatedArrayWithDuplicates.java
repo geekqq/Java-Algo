@@ -1,10 +1,9 @@
-package Day128;
+package Day129;
 
 public class SearchRotatedArrayWithDuplicates {
     public static void main(String[] args) {
         int[] nums = {4,4,5,5,6,6,7,7,1,1,1,2,3,3};
-        int target = 5;
-        System.out.println(findTargetInRotatedArrayWithDuplicates(nums, target));
+        int target = 4;
     }
 
     public static boolean findTargetInRotatedArrayWithDuplicates(int[] nums, int target) {
@@ -20,13 +19,13 @@ public class SearchRotatedArrayWithDuplicates {
                 left++;
             } else if (nums[mid] == nums[right]) {
                 right--;
-            } else if (nums[left] < nums[mid]) {
-                if (target > nums[left] && nums[mid] > target) {
+            } else if (nums[mid] > nums[left]) {
+                if (target > nums[left] && target < nums[mid]) {
                     right = mid - 1;
                 } else {
                     left = mid + 1;
                 }
-            }  else {
+            } else {
                 if (target > nums[mid] && target < nums[right]) {
                     left = mid + 1;
                 } else {
