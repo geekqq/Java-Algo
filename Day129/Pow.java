@@ -1,10 +1,11 @@
-package Day128;
+package Day129;
 
 public class Pow {
     public static void main(String[] args) {
-        System.out.println(myPow(2,-3));
-        System.out.println(myPow2(2,-3));
+        System.out.println(myPow(2,-4));
+        System.out.println(myPow2(2, -4));
     }
+
     public static double myPow(double x, int n) {
         if (x == 0) return 0;
         if (n < 0) {
@@ -17,6 +18,7 @@ public class Pow {
         }
         return res;
     }
+
     public static double myPow2(double x, int n) {
         if (x == 0) return 0;
         if (n < 0) {
