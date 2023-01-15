@@ -28,8 +28,7 @@ public class WallsAndGates {
             for (int[] d : directions) {
                 int x = pRowIndex + d[0];
                 int y = pColIndex + d[1];
-                if (x < 0 || x >= rooms.length || y < 0 || y >= rooms[0].length
-                        || rooms[x][y] <= rooms[pColIndex][pRowIndex] + 1) {
+                if (x < 0 || x >= row || y < 0 || y >= col || rooms[x][y] <= rooms[pColIndex][pRowIndex] + 1) {
                     continue;
                 }
                 rooms[x][y] = rooms[pRowIndex][pColIndex] + 1;
