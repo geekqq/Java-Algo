@@ -5,7 +5,7 @@ import java.util.Queue;
 
 public class WallsAndGates {
     public void wallsAndGates(int[][] rooms) {
-        if (rooms == null || rooms.length == 0) return;
+        if (rooms == null || rooms.length == 0 || rooms[0] == null || rooms[0].length == 0) return;
         int row = rooms.length;
         int col = rooms[0].length;
 
