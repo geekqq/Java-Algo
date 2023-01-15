@@ -1,4 +1,4 @@
-package Day135;
+package Day136;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,16 +10,13 @@ public class ThreeSum {
         System.out.println(threeSum(nums));
     }
 
-    private static List<List<Integer>> threeSum(int[] nums) {
-        if (nums == null || nums.length == 0) {
-            return null;
-        }
-        //sort + two pointers
-        List<List<Integer>> res = new ArrayList<List<Integer>>();
+    public static List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums == null || nums.length == 0) return null;
         Arrays.sort(nums);
         for (int i = 0; i < nums.length - 2; i++) {
             if (i > 0 && nums[i] == nums[i - 1]) {
-                continue; //如果重复则直接跳过后面的line 直接到i++再继续
+                continue;
             }
             int left = i + 1;
             int right = nums.length - 1;
@@ -28,8 +25,7 @@ public class ThreeSum {
                 if (temp + nums[i] == 0) {
                     res.add(Arrays.asList(nums[i], nums[left], nums[right]));
                     left++;
-                    //去重
-                    while (left < right && nums[left] == nums[left - 1]) {
+                    while (left < right && nums[i] == nums[i - 1]) {
                         left++;
                     }
                 } else if (temp + nums[i] < 0) {
