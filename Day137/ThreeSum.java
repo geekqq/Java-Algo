@@ -1,7 +1,7 @@
-package Day136;
+package Day137;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ThreeSum {
@@ -9,9 +9,8 @@ public class ThreeSum {
         int[] nums = {-1, 2, 1, 0, -4, -1, 4};
         System.out.println(threeSum(nums));
     }
-
-    public static List<List<Integer>> threeSum(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
+    private static List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> res = new LinkedList<>();
         if (nums == null || nums.length == 0) return null;
         Arrays.sort(nums);
         for (int i = 0; i < nums.length - 2; i++) {
