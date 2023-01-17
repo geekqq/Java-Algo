@@ -2,11 +2,13 @@ package Day134;
 
 public class IsPrime {
     public static void main(String[] args) {
-        for (int i = 0; i < 115; i++) {
+        int count = 0;
+        for (int i = 0; i < 500000; i++) {
             if (isPrime(i)) {
-                System.out.print(i + " ");
+                count++;
             }
         }
+        System.out.println(count);
     }
     public static boolean isPrime(int x) {
         if (x <= 3) {

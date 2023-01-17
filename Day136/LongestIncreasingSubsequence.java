@@ -11,7 +11,7 @@ public class LongestIncreasingSubsequence {
         increasingSeq[0] = nums[index++];
 
         for (int i = 1; i < len; i++) {
-            if (nums[i] > increasingSeq[index - 1]) {
+            if (nums[i] > nums[index - 1]) {
                 increasingSeq[index++] = nums[i];
             } else {
                 int pos = findPosition(increasingSeq, 0, index - 1, nums[i]);
@@ -37,7 +37,7 @@ public class LongestIncreasingSubsequence {
     }
 
     public static void main(String[] args) {
-        int[] nums = {5, 0, 6, 7, 8, 9, 1, 2, 10, 3, 4, 12, 15};
+        int[] nums = {5, 0, 6, 7, 8, 9, 1, 2, 10, 3, 4, 12};
         System.out.println(longestIncreasingSubsequence(nums));
     }
 }
