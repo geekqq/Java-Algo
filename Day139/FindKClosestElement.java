@@ -1,14 +1,13 @@
-package Day137;
+package Day139;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FindKClosestElements {
+public class FindKClosestElement {
     public static void main(String[] args) {
         int[] nums = {1,2,3,4,4,5,5,6,6,6,6};
-        System.out.println(findKClosestElements(nums, 4,5));
+        System.out.println(findKClosestElements(nums, 5,4));
     }
-
     private static List<Integer> findKClosestElements(int[] nums, int k, int x) {
         List<Integer> res = new ArrayList<>();
         if (nums == null || nums.length == 0 || k <= 0) return res;
@@ -24,13 +23,9 @@ public class FindKClosestElements {
         int right = nums.length - 1;
         while (left + 1 < right) {
             int mid = left + (right - left) / 2;
-            if (nums[mid] == x) {
-                return mid;
-            } else if (nums[mid] < x) {
-                left = mid;
-            } else {
-                right = mid;
-            }
+            if (nums[mid] == x) return mid;
+            else if (nums[mid] < x) left = mid;
+            else right = mid;
         }
         return Math.abs(nums[left] - x) <= Math.abs(nums[right] - x) ? left : right;
     }
@@ -39,7 +34,7 @@ public class FindKClosestElements {
         if (count == 0) return;
         int left = pos - 1;
         int right = pos + 1;
-        while (left <= right) {
+        while (left >= 0 && right < nums.length) {
             if (count == 0) return;
             if (Math.abs(nums[left] - x) <= Math.abs(nums[right] - x)) {
                 res.add(0, nums[left--]);
