@@ -1,11 +1,12 @@
-package Day142;
+package Day143;
 
 import java.util.Map;
 
-public class romanToInt {
+public class RomanToInteger {
     public static void main(String[] args) {
+        System.out.println(romanToInteger("CMXCIV"));
         System.out.println(romanToInt("CMXCIV"));
-        System.out.println(romanToInt2("CMXCIV"));
+
     }
 
     private static final Map<String, Integer> MAP = Map.of(
@@ -17,37 +18,37 @@ public class romanToInt {
             "V", 5,
             "I", 1
     );
-    private static int romanToInt(String s) {
-        if (s == null || s.length() == 0) return 0;
 
+    private static int romanToInteger(String s) {
+        if (s == null || s.length() == 0) return -1;
         int i = 0;
         int sum = 0;
         while (i < s.length()) {
-            String curSym = s.substring(i, i+1);
+            String curSym = s.substring(i, i + 1);
             int curVal = MAP.get(curSym);
-
             if (i + 1 < s.length()) {
-                String nextSym = s.substring(i +1, i +2);
+                String nextSym = s.substring(i + 1, i + 2);
                 int nextVal = MAP.get(nextSym);
+
                 if (curVal < nextVal) {
                     sum += nextVal - curVal;
                     i += 2;
                 } else {
                     sum += curVal;
-                    i++;
+                    i ++;
                 }
             }
         }
         return sum;
     }
 
-    private static int romanToInt2(String s) {
-        if (s == null || s.length() == 0) return 0;
+    private static int romanToInt(String s) {
+        if (s == null || s.length() == 0) return -1;
         String lastSym = s.substring(s.length() - 1);
         int lastVal = MAP.get(lastSym);
         int sum = lastVal;
         for (int i = s.length() - 2; i >= 0 ; i--) {
-            String curSym = s.substring(i, i +1);
+            String curSym = s.substring(i, i + 1);
             int curVal = MAP.get(curSym);
             if (curVal < lastVal) {
                 sum -= curVal;
@@ -58,5 +59,4 @@ public class romanToInt {
         }
         return sum;
     }
-
 }
