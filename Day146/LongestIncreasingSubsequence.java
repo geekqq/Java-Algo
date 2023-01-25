@@ -1,12 +1,17 @@
-package Day137;
+package Day146;
+
+import java.util.Arrays;
+
+import static Day138.RandomArray.randomArray;
 
 public class LongestIncreasingSubsequence {
     public static void main(String[] args) {
-        int[] nums = {10,9,2,5,3,7,101,180};
-        System.out.println(lengthOfLIS(nums));
+        int[] nums = {0,1,0,3,2,3,4,3,6,7};
+        System.out.println(Arrays.toString(nums));
+        System.out.println(findLIS(nums));
     }
 
-    private static int lengthOfLIS(int[] nums) {
+    private static int findLIS(int[] nums) {
         if (nums == null || nums.length == 0) return 0;
         int len = nums.length;
         int[] increasingSeq = new int[len];
@@ -27,13 +32,9 @@ public class LongestIncreasingSubsequence {
     private static int findInsertPos(int[] nums, int start, int end, int target) {
         while (start <= end) {
             int mid = start + (end - start) / 2;
-            if (nums[mid] == target) {
-                return mid;
-            } else if (nums[mid] < target) {
-                start = mid + 1;
-            } else {
-                end = mid - 1;
-            }
+            if (nums[mid] == target) return mid;
+            else if (nums[mid] < target) start = mid + 1;
+            else end = mid - 1;
         }
         return start;
     }
