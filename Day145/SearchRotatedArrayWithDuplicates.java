@@ -17,7 +17,11 @@ public class SearchRotatedArrayWithDuplicates {
             if (nums[left] == target) return true;
             if (nums[right] == target) return true;
             if (nums[mid] == target) return true;
-            if (nums[left] < nums[mid]) {
+            if (nums[left] == nums[mid]) {
+                left++;
+            } else if (nums[right] == nums[mid]) {
+                right--;
+            } else if (nums[left] < nums[mid]) {
                 if (target > nums[left] && target < nums[mid]) {
                     right = mid - 1;
                 } else {
