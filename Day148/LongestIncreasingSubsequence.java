@@ -1,6 +1,6 @@
 package Day148;
 
-public class LongestIncreasingSubsquence {
+public class LongestIncreasingSubsequence {
     public static void main(String[] args) {
         int[] nums = {0,1,0,3,2,3,4,3,6,7,9};
         System.out.println(getLIS(nums));
