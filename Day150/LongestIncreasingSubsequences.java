@@ -15,7 +15,7 @@ public class LongestIncreasingSubsequences {
         increasingSeq[0] = nums[index++];
 
         for (int i = 1; i < len; i++) {
-            if (nums[i] > nums[i - 1]) {
+            if (nums[i] > increasingSeq[index - 1]) {
                 increasingSeq[index++] = nums[i];
             } else {
                 int pos = findInsertPos(increasingSeq, 0, index - 1, nums[i]);

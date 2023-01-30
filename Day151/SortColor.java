@@ -7,7 +7,7 @@ import static Day44.SelectSort.swap;
 
 public class SortColor {
     public static void main(String[] args) {
-        int[] color = randomArray(3, 15);
+        int[] color = randomArray(3, 6);
         System.out.println(Arrays.toString(color));
         sortColor(color);
         System.out.println(Arrays.toString(color));
