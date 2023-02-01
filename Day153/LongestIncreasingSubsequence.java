@@ -1,4 +1,4 @@
-package Day152;
+package Day153;
 
 import java.util.Arrays;
 
@@ -18,8 +18,8 @@ public class LongestIncreasingSubsequence {
             throw new IllegalArgumentException();
         }
         int len = nums.length;
-        int[] increasingSeq = new int[len];
         int index = 0;
+        int[] increasingSeq = new int[len];
         increasingSeq[0] = nums[index++];
 
         for (int i = 1; i < len; i++) {
