@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class RomanToInteger {
     public static void main(String[] args) {
-        System.out.println(romanToInt("CMXCIV"));
+        System.out.println(romanToInt("CMXC"));
         System.out.println(romanToInt2("CMXCIV"));
 
     }
@@ -26,18 +26,17 @@ public class RomanToInteger {
         while (i < s.length()) {
             String curSym = s.substring(i, i + 1);
             int curVal = MAP.get(curSym);
-
+            int nextVal = 0;
             if (i + 1 < s.length()) {
                 String nextSym = s.substring(i + 1, i + 2);
-                int nextVal = MAP.get(nextSym);
-
-                if (curVal < nextVal) {
-                    sum += nextVal - curVal;
-                    i += 2;
-                } else {
-                    sum += curVal;
-                    i++;
-                }
+                nextVal = MAP.get(nextSym);
+            }
+            if (curVal < nextVal) {
+                sum += nextVal - curVal;
+                i += 2;
+            } else {
+                sum += curVal;
+                i++;
             }
         }
         return sum;

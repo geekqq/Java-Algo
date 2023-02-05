@@ -51,18 +51,18 @@ public class RomanToInteger {
         int sum = 0;
         while (i < s.length()) {
             String curSymbol = s.substring(i, i + 1);
-            int curValue = map.get(curSymbol);
-
+            int curVal = map.get(curSymbol);
+            int nextVal = 0;
             if (i + 1 < s.length()) {
                 String nextSymbol = s.substring(i + 1, i + 2);
-                int nextValue = map.get(nextSymbol);
-                if (curValue < nextValue) {
-                    sum += nextValue - curValue;
-                    i += 2;
-                } else {
-                    sum += curValue;
-                    i++;
-                }
+                nextVal = map.get(nextSymbol);
+            }
+            if (nextVal > curVal) {
+                sum += nextVal - curVal;
+                i += 2;
+            } else {
+                sum += curVal;
+                i++;
             }
         }
         return sum;

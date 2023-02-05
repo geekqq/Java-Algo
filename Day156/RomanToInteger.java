@@ -6,8 +6,8 @@ import static Day149.RomanToInteger.MAP;
 
 public class RomanToInteger {
     public static void main(String[] args) {
-        System.out.println(romanToInt("XCIIV"));
-        System.out.println(romanToInt2("CMXCIIV"));
+        System.out.println(romanToInt("CMX"));
+        System.out.println(romanToInt2("CMX"));
 
     }
 //
@@ -25,16 +25,17 @@ public class RomanToInteger {
             String curSym = s.substring(i, i + 1);
             int curVal = MAP.get(curSym);
 
+            int nextVal = 0;
             if (i + 1 < s.length()) {
                 String nextSym = s.substring(i + 1, i + 2);
-                int nextVal = MAP.get(nextSym);
-                if (curVal < nextVal) {
-                    sum += nextVal - curVal;
-                    i += 2;
-                } else {
-                    sum += curVal;
-                    i++;
-                }
+                nextVal = MAP.get(nextSym);
+            }
+            if (curVal < nextVal) {
+                sum += nextVal - curVal;
+                i += 2;
+            } else {
+                sum += curVal;
+                i++;
             }
         }
         return sum;

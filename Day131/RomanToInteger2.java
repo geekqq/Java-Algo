@@ -18,23 +18,23 @@ public class RomanToInteger2 {
         map.put("V", 5);
         map.put("I", 1);
 
-        int n = s.length();
         int total = 0;
         int i = 0;
 
         while (i < s.length()) {
             String curSym = s.substring(i, i + 1);
             int curVal = map.get(curSym);
+            int nextVal = 0;
             if (i + 1 < s.length()) {
                 String nextSym = s.substring(i + 1, i + 2);
-                int nextVal = map.get(nextSym);
-                if (curVal < nextVal) {
-                    total += nextVal - curVal;
-                    i += 2;
-                } else {
-                    total += curVal;
-                    i++;
-                }
+                nextVal = map.get(nextSym);
+            }
+            if (curVal < nextVal) {
+                total += nextVal - curVal;
+                i += 2;
+            } else {
+                total += curVal;
+                i++;
             }
         }
         return total;

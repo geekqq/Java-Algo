@@ -50,18 +50,18 @@ public class RomanToIntegerLC13 {
         int i = 0;
         while (i < s.length()) {
             String curSymbol = s.substring(i,i + 1);
-            int curValue = map.get(curSymbol);
-            int nextValue = 0;
+            int curVal = map.get(curSymbol);
+            int nextVal = 0;
             if (i + 1 < s.length()) {
                 String nextSymbol = s.substring(i + 1, i + 2);
-                nextValue = map.get(nextSymbol);
-                if (nextValue > curValue) {
-                    sum += nextValue - curValue;
-                    i += 2;
-                } else {
-                    sum += curValue;
-                    i++;
-                }
+                nextVal = map.get(nextSymbol);
+            }
+            if (nextVal > curVal) {
+                sum += nextVal - curVal;
+                i += 2;
+            } else {
+                sum += curVal;
+                i++;
             }
         }
         return sum;
