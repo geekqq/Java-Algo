@@ -46,7 +46,7 @@ public class ReverseLinkedListByRange {
         }
         next = subEnd.next;
         subEnd.next = null;
-        prev.next = reverseByOne(subStart);
+        prev.next = reverseByOneII(subStart);
         subStart.next = next;
         return dummy.next;
     }
@@ -57,6 +57,23 @@ public class ReverseLinkedListByRange {
         head.next.next = head;
         head.next = null;
         return rest;
+    }
+
+    private static ListNode reverseByOneII(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode prev = null;
+        ListNode cur = head;
+        ListNode next = null;
+        while (cur != null) {
+            next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        head = prev;
+        return head;
     }
 
     public static void main(String[] args) {
