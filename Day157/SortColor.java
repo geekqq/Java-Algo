@@ -1,4 +1,4 @@
-package Day156;
+package Day157;
 
 import java.util.Arrays;
 
@@ -11,13 +11,14 @@ public class SortColor {
         System.out.println(Arrays.toString(colors));
         sortColor(colors);
         System.out.println(Arrays.toString(colors));
+
     }
+
 
     private static void sortColor(int[] nums) {
         if (nums == null || nums.length == 0) {
             throw new IllegalArgumentException();
         }
-
         int left = 0;
         int right = nums.length - 1;
         for (int i = 0; i <= right; i++) {
