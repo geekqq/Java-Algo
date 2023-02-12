@@ -1,8 +1,10 @@
-package Day160;
+package Day163;
+
 
 import java.util.LinkedList;
 import java.util.Queue;
 
+import static Day160.WallsAndGates.DIRECTIONS;
 
 public class WallsAndGates {
     public static void main(String[] args) {
@@ -20,18 +22,13 @@ public class WallsAndGates {
             System.out.println();
         }
     }
-    public static final int[][] DIRECTIONS = {
-            {1,0}, {-1,0}, {0,1}, {0,-1}
-    };
+
     private static void wallsAndGates(int[][] rooms) {
-        if (rooms == null || rooms.length == 0
-        || rooms[0] == null || rooms[0].length == 0) {
+        if (rooms == null || rooms.length == 0 || rooms[0] == null || rooms[0].length == 0) {
             throw new IllegalArgumentException();
         }
-
         int rows = rooms.length;
         int cols = rooms[0].length;
-
         Queue<Integer> queue = new LinkedList<>();
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
@@ -50,8 +47,7 @@ public class WallsAndGates {
                 for (int[] dir : DIRECTIONS) {
                     int ii = pRowIndex + dir[0];
                     int jj = pColIndex + dir[1];
-                    if (ii >= 0 && ii < rows && jj >= 0 && jj < cols
-                    && rooms[ii][jj] == Integer.MAX_VALUE) {
+                    if (ii >= 0 && ii < rows && jj >= 0 && jj < cols && rooms[ii][jj] == Integer.MAX_VALUE) {
                         queue.offer(ii * cols + jj);
                         rooms[ii][jj] = minLen;
                     }
