@@ -1,0 +1,30 @@
+package Day170;
+
+import java.util.Stack;
+
+import static Day152.ValidParentheses.MAP;
+
+public class ValidParentheses {
+    private static boolean validParentheses(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (char c : s.toCharArray()) {
+            if (MAP.containsKey(c)) {
+                stack.push(c);
+            } else {
+                if (stack.isEmpty()) {
+                    return false;
+                } else {
+                    char open = stack.pop();
+                    if (MAP.get(open) != c) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return stack.isEmpty();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(validParentheses("()(){}{}[]"));
+    }
+}
