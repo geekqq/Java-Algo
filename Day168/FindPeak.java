@@ -19,6 +19,6 @@ public class FindPeak {
                 right = mid;
             }
         }
-        return Math.max(nums[left], nums[right]);
+        return nums[left] > nums[right] ? left : right;
     }
 }

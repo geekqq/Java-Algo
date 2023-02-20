@@ -1,14 +1,11 @@
 package Day171;
 
-import java.security.cert.CollectionCertStoreParameters;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import static Day138.RandomArray.randomArray;
 import static Day171.FindKthLargestElement.reverseArrayInPlace;
 
-public class findPeak {
+public class FindPeak {
     public static void main(String[] args) {
         int[] nums = randomArray(10,10);
         System.out.println(Arrays.toString(nums));
@@ -33,6 +30,6 @@ public class findPeak {
                 right = mid;
             }
         }
-        return Math.max(nums[left], nums[right]);
+        return nums[left] > nums[right] ? left : right;
     }
 }
