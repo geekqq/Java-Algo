@@ -45,7 +45,7 @@ public class FindKthLargestElement {
         return newArr;
     }
 
-    private static void reverseArrayInPlace(int[] nums) {
+    public static void reverseArrayInPlace(int[] nums) {
         int left = 0;
         int right = nums.length - 1;
         while (left < right) {
