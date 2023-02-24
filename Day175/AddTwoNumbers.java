@@ -4,7 +4,7 @@ import Day174.ListNode;
 
 public class AddTwoNumbers {
 
-    private static ListNode head;
+    private ListNode head;
 
     public void add(int val) {
         ListNode newNode = new ListNode(val);
@@ -39,6 +39,7 @@ public class AddTwoNumbers {
             carry = sum / 10;
             cur.next = new ListNode(sum % 10);
             cur = cur.next;
+
             if (head1 != null) {
                 head1 = head1.next;
             }
@@ -46,6 +47,7 @@ public class AddTwoNumbers {
                 head2 = head2.next;
             }
         }
+
         return dummy.next;
     }
 
