@@ -1,17 +1,20 @@
-package Day173;
+package Day174;
 
 import java.util.*;
 
 public class TopKFrequentWords {
     public static void main(String[] args) {
         String[] words = {"i","love","leetcode","i","love","coding"};
-        System.out.println(kFrequentWords(words, 2));
+        System.out.println(frequentWords(words, 2));
         String[] words2 = {"the","day","is","sunny","the","the","the","sunny","is","is"};
-        System.out.println(kFrequentWords(words2, 4));
+        System.out.println(frequentWords(words2, 4));
     }
 
-    private static List<String> kFrequentWords(String[] words, int k){
-        if (words == null || words.length == 0) return null;
+    private static List<String> frequentWords(String[] words, int k) {
+        if (words == null || words.length == 0) {
+            return null;
+        }
+
         Map<String, Integer> map = new HashMap<>();
         for (String word : words) {
             map.put(word, map.getOrDefault(word, 0) + 1);
