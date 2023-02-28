@@ -57,7 +57,7 @@ public class ReverseKGroupList {
         list.add(5);
         list.add(6);
         list.print();
-        list.head = reverseKList(list.head, 2);
+        list.head = reverseKList(list.head, 3);
         list.print();
     }
 }
