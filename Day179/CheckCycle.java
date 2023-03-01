@@ -23,10 +23,13 @@ public class CheckCycle {
     public static void main(String[] args) {
         CheckCycle list = new CheckCycle();
         list.head = new ListNode(3);
-        list.head.next = new ListNode(2);
-        list.head.next.next = new ListNode(0);
-        list.head.next.next.next = new ListNode(-4);
-        list.head.next.next.next.next = null;
+        ListNode node2 = new ListNode(2);
+        ListNode node3 = new ListNode(0);
+        ListNode node4 = new ListNode(-4);
+        list.head.next = node2;
+        node2.next = node3;
+        node3.next = node4;
+        node4.next = node2;
         list.checkCycle(list.head);
     }
 }
