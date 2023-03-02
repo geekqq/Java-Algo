@@ -30,6 +30,6 @@ public class CheckCycle {
         node2.next = node3;
         node3.next = node4;
         node4.next = node2;
-        list.checkCycle(list.head);
+        System.out.println(list.checkCycle(list.head));
     }
 }
