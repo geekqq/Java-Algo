@@ -131,6 +131,58 @@ public class LinkedList {
         return newHead;
     }
 
+    private static ListNode reverseInKGroup(ListNode head, int k) {
+        if (head == null || head.next == null) return head;
+        ListNode prev = head;
+        int count = 0;
+        while (prev != null && count < k) {
+            prev = prev.next;
+            count++;
+        }
+        if (count == k) {
+            prev = reverseInKGroup(prev, k);
+            ListNode cur = head;
+            ListNode post = head.next;
+            while (count-- > 0) {
+                post = cur.next;
+                cur.next = prev;
+                prev = cur;
+                cur = post;
+            }
+        }
+        return prev;
+    }
+
+    private static ListNode reverseInKGroupII(ListNode head, int k) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+
+        ListNode prev = dummy;
+        ListNode cur = dummy;
+        ListNode next = dummy;
+        int count = 0;
+        while (cur.next != null) {
+            count++;
+            cur = cur.next;
+        }
+        while (count >= k) {
+            cur = prev.next;
+            next = cur.next;
+            for (int i = 1; i < k; i++) {
+                cur.next = next.next;
+                next.next = prev.next;
+                prev.next = next;
+                next = cur.next;
+            }
+            prev = cur;
+            count -= k;
+        }
+        return dummy.next;
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         list.add(3);
@@ -146,6 +198,8 @@ public class LinkedList {
         list.head = reverseByRange(list.head, 1,3);
         list.print();
         list.head = swapInPairs(list.head);
+        list.print();
+        list.head = reverseInKGroupII(list.head, 3);
         list.print();
     }
 }
