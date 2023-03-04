@@ -212,6 +212,79 @@ public class LinkedListDemo {
         return temp;
     }
 
+    public static void reorderList(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode temp = slow.next;
+        slow.next = null;
+        ListNode secondHead = reverse(temp);
+
+        ListNode firstHead = head;
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        temp = dummy;
+        while (firstHead != null && secondHead != null) {
+            temp.next = firstHead;
+            firstHead = firstHead.next;
+            temp = temp.next;
+
+            temp.next = secondHead;
+            secondHead = secondHead.next;
+            temp = temp.next;
+        }
+
+        if (firstHead != null) {
+            temp.next = firstHead;
+        }
+        if (secondHead != null) {
+            temp.next = secondHead;
+        }
+    }
+
+    public static ListNode getIntersectionNode(ListNode head1, ListNode head2) {
+        if (head1 == null || head2 == null) return null;
+        ListNode p1 = head1;
+        ListNode p2 = head2;
+        while (p1 != p2) {
+            p1 = p1 != null ? p1.next : head2;
+            p2 = p2 != null ? p2.next : head1;
+        }
+        return p1;
+    }
+
+    private static ListNode reverse(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode prev = null;
+        ListNode cur = head;
+        ListNode post = null;
+        while (cur != null) {
+            post = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = post;
+        }
+        return prev;
+    }
+
+    public static void delDuplicates(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode slow = head;
+        ListNode fast = head.next;
+        while (slow != null) {
+            fast = slow.next;
+            while (fast != null && slow.val == fast.val) {
+                fast = fast.next;
+            }
+            slow.next = fast;
+            slow = slow.next;
+        }
+    }
     public static void main(String[] args) {
         LinkedListDemo list = new LinkedListDemo();
         list.add(3);
@@ -219,7 +292,11 @@ public class LinkedListDemo {
         list.add(2);
         list.add(6);
         list.add(4);
+        list.add(4);
+        list.add(4);
         list.add(5);
+        list.print();
+        delDuplicates(list.head);
         list.print();
         list.head = reverseByRange(list.head, 1,4);
         list.print();
@@ -230,6 +307,9 @@ public class LinkedListDemo {
         list.print();
         list.head = reverseInKGroups(list.head, 3);
         list.print();
+        reorderList(list.head);
+        list.print();
+        System.out.println("++++++++++++++++");
         LinkedListDemo num1 = new LinkedListDemo();
         LinkedListDemo num2 = new LinkedListDemo();
         LinkedListDemo num3 = new LinkedListDemo();
