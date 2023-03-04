@@ -179,6 +179,39 @@ public class LinkedListDemo {
         }
         return dummy.next;
     }
+
+    public static boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) return false;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static ListNode detectCycle(ListNode head) {
+        if (head == null || head.next == null) return null;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast =fast.next.next;
+            if (slow == fast) break;
+        }
+        if (slow != fast) return null;
+        ListNode temp = head;
+        while (temp != slow) {
+            temp = temp.next;
+            slow = slow.next;
+        }
+        return temp;
+    }
+
     public static void main(String[] args) {
         LinkedListDemo list = new LinkedListDemo();
         list.add(3);
@@ -209,5 +242,22 @@ public class LinkedListDemo {
         num2.add(9);
         num3.head = addTwoNumbers(num1.head, num2.head);
         num3.print();
+        LinkedListDemo cycle = new LinkedListDemo();
+        cycle.head = new ListNode(0);
+        ListNode node1 = new ListNode(1);
+        ListNode node2 = new ListNode(2);
+        ListNode node3 = new ListNode(3);
+        ListNode node4 = new ListNode(4);
+        ListNode node5 = new ListNode(5);
+        cycle.head.next = node1;
+        node1.next = node2;
+        node2.next = node3;
+        node3.next = node4;
+        node4.next = node5;
+        node5.next = node2;
+        //cycle.print();
+        System.out.println(hasCycle(num3.head));
+        System.out.println(hasCycle(cycle.head));
+        System.out.println(detectCycle(cycle.head).val);
     }
 }
