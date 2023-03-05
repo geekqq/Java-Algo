@@ -2,6 +2,8 @@ package Day183;
 
 import Day174.ListNode;
 
+import java.util.PriorityQueue;
+
 public class LinkedListDemo {
     private ListNode head;
 
@@ -307,6 +309,88 @@ public class LinkedListDemo {
         node.val = node.next.val;
         node.next = node.next.next;
     }
+
+    public static ListNode mergeKLists(ListNode[] lists) {
+        if (lists == null || lists.length == 0) return null;
+        PriorityQueue<ListNode> queue = new PriorityQueue<ListNode>((a, b) -> a.val - b.val);
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+        for (ListNode node : lists) {
+            if (node != null) {
+                queue.offer(node);
+            }
+        }
+        while (!queue.isEmpty()) {
+            tail.next = queue.poll();
+            tail = tail.next;
+            if (tail.next != null) {
+                queue.offer(tail.next);
+            }
+        }
+        return dummy.next;
+    }
+
+    public static void oddEvenList(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode evenHead = head.next;
+        while (even != null && even.next != null) {
+            odd.next = odd.next.next;
+            even.next = even.next.next;
+            odd = odd.next;
+            even = even.next;
+        }
+        odd.next = evenHead;
+    }
+
+    public static ListNode partitionList(ListNode head, int x) {
+        ListNode small = new ListNode(0);
+        ListNode large = new ListNode(0);
+        ListNode curSmall = small;
+        ListNode curLarge = large;
+        while (head != null) {
+            if (head.val < x) {
+                curSmall.next = head;
+                curSmall = curSmall.next;
+            } else {
+                curLarge.next = head;
+                curLarge = curLarge.next;
+            }
+            head = head.next;
+        }
+        curSmall.next = large.next;
+        curLarge.next = null;
+
+        return small.next;
+    }
+
+    public static ListNode plusOne(ListNode head) {
+        if (head == null) return null;
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode reverseHead = reverse(head);
+        addOne(reverseHead);
+        return reverse(reverseHead);
+    }
+    public static void addOne(ListNode head) {
+        ListNode cur = head;
+        ListNode prev = null;
+        int carry = 1;
+        while (cur != null) {
+            int sum = cur.val + carry;
+            carry = sum >= 10 ? 1 : 0;
+            if (sum < 10) {
+                cur.val = sum;
+                break;
+            } else {
+                cur.val = 0;
+                prev = cur;
+                cur = cur.next;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         LinkedListDemo list = new LinkedListDemo();
         list.add(3);
@@ -317,6 +401,8 @@ public class LinkedListDemo {
         list.add(4);
         list.add(4);
         list.add(5);
+        list.print();
+        list.head = partitionList(list.head, 5);
         list.print();
         delDuplicates(list.head);
         list.print();
@@ -366,5 +452,45 @@ public class LinkedListDemo {
         list.print();
         deleteNode(list.head);
         list.print();
+        LinkedListDemo list1 = new LinkedListDemo();
+        LinkedListDemo list2 = new LinkedListDemo();
+        LinkedListDemo list3 = new LinkedListDemo();
+        LinkedListDemo list4 = new LinkedListDemo();
+        list1.head = new ListNode(1);
+        list1.add(4);
+        list1.add(5);
+        list2.head = new ListNode(1);
+        list2.add(3);
+        list2.add(4);
+        list3.head = new ListNode(2);
+        list3.add(6);
+        list1.print();
+        list2.print();
+        list3.print();
+        ListNode[] lists = {list1.head, list2.head, list3.head};
+        list4.head = mergeKLists(lists);
+        list4.print();
+        System.out.println("-----------");
+        System.out.println("***********");
+        delDuplicates(list4.head);
+        removeElements(list4.head, 6);
+        list4.print();
+        oddEvenList(list.head);
+        list4.print();
+        System.out.println("-----------");
+        LinkedListDemo listOddEven = new LinkedListDemo();
+        for (int i = 1; i < 16; i++) {
+            listOddEven.add(i);
+        }
+        listOddEven.print();
+        oddEvenList(listOddEven.head);
+        listOddEven.print();
+        System.out.println("-----------");
+        LinkedListDemo plusOne = new LinkedListDemo();
+        plusOne.head = new ListNode(1);
+        plusOne.add(2);
+        plusOne.add(9);
+        plusOne.head = plusOne(plusOne.head);
+        plusOne.print();
     }
 }
