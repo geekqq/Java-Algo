@@ -1,4 +1,4 @@
-package Day171;
+package Day183;
 
 import java.util.Arrays;
 
@@ -6,14 +6,13 @@ import static Day138.RandomArray.randomArray;
 
 public class CountSort {
     public static void main(String[] args) {
-        int[] nums = randomArray(10,10);
+        int[] nums = randomArray(10, 10);
         System.out.println(Arrays.toString(nums));
-        int[] nums2 = {8, 2, 0, 8, 7, 2, 0, 4, 3, 6};
-        System.out.println(Arrays.toString(countSort(nums2)));
+        System.out.println(Arrays.toString(countSort(nums)));
     }
 
     private static int[] countSort(int[] nums) {
-        if (nums == null || nums.length == 0) return null;
+        if (nums == null || nums.length == 0) return nums;
         int[] newArr = Arrays.copyOf(nums, nums.length);
         int max = Arrays.stream(newArr).max().getAsInt();
         int len = max + 1;
