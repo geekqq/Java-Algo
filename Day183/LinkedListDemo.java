@@ -285,6 +285,28 @@ public class LinkedListDemo {
             slow = slow.next;
         }
     }
+
+    public static void removeElements(ListNode head, int val) {
+        if (head == null) return;
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prev = dummy;
+        ListNode cur = head;
+        while (cur != null) {
+            if (cur.val == val) {
+                prev.next  = cur.next;
+            } else {
+                prev = cur;
+            }
+            cur = cur.next;
+        }
+    }
+
+    public static void deleteNode(ListNode node) {
+        if (node == null || node.next == null) return;
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
     public static void main(String[] args) {
         LinkedListDemo list = new LinkedListDemo();
         list.add(3);
@@ -334,10 +356,15 @@ public class LinkedListDemo {
         node2.next = node3;
         node3.next = node4;
         node4.next = node5;
-        node5.next = node2;
+        node5.next = node3;
         //cycle.print();
         System.out.println(hasCycle(num3.head));
         System.out.println(hasCycle(cycle.head));
         System.out.println(detectCycle(cycle.head).val);
+        list.print();
+        removeElements(list.head, 0);
+        list.print();
+        deleteNode(list.head);
+        list.print();
     }
 }
