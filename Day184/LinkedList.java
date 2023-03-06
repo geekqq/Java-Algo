@@ -2,6 +2,8 @@ package Day184;
 
 import Day174.ListNode;
 
+import java.util.Stack;
+
 public class LinkedList {
     private ListNode head;
 
@@ -206,6 +208,108 @@ public class LinkedList {
         odd.next = evenHead;
     }
 
+    public static ListNode partitionList(ListNode head, int x) {
+        if (head == null || head.next == null) return head;
+        ListNode small = new ListNode(0);
+        ListNode large = new ListNode(0);
+        ListNode curSmall = small;
+        ListNode curLarge = large;
+        while (head != null) {
+            if (head.val < x) {
+                curSmall.next = head;
+                curSmall = curSmall.next;
+            } else {
+                curLarge.next = head;
+                curLarge = curLarge.next;
+            }
+            head = head.next;
+        }
+        curSmall.next = large.next;
+        curLarge.next = null;
+        return small.next;
+    }
+
+    public static ListNode plusOne(ListNode head) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode lastNotNine = dummy;
+        ListNode cur = head;
+
+        while (cur != null) {
+            if (cur.val != 9) {
+                lastNotNine = cur;
+            }
+            cur = cur.next;
+        }
+        lastNotNine.val++;
+        cur = lastNotNine.next;
+        while (cur != null) {
+            cur.val = 0;
+            cur = cur.next;
+        }
+        return dummy.val == 1 ? dummy : dummy.next;
+    }
+
+    public static ListNode plusOneII(ListNode head) {
+        if (head == null) return null;
+        Stack<ListNode> stack = new Stack<>();
+        ListNode cur = head;
+        while (cur != null) {
+            stack.push(cur);
+            cur = cur.next;
+        }
+        while (!stack.isEmpty()) {
+            ListNode n = stack.pop();
+            if (n.val < 9) {
+                n.val = n.val + 1;
+                return head;
+            } else {
+                n.val = 0;
+            }
+        }
+        ListNode newHead = new ListNode(1);
+        newHead.next = head;
+        return newHead;
+    }
+
+    public static ListNode reverseInKGroups(ListNode head, int k) {
+        if (head == null || head.next == null) return head;
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prev = dummy;
+        ListNode cur = dummy;
+        ListNode next = dummy;
+        int count = 0;
+        while (cur.next != null) {
+            count++;
+            cur = cur.next;
+        }
+        while (count >= k) {
+            cur = prev.next;
+            next = cur.next;
+            for (int i = 1; i < k; i++) {
+                cur.next = next.next;
+                next.next = prev.next;
+                prev.next = next;
+                next = cur.next;
+            }
+            prev = cur;
+            count -= k;
+        }
+        return dummy.next;
+    }
+
+    public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) return null;
+        ListNode cur1 = headA;
+        ListNode cur2 = headB;
+        while (cur1 != cur2) {
+            cur1 = cur1 != null ? cur1.next : headB;
+            cur2 = cur2 != null ? cur2.next : headA;
+        }
+        return cur1;
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         list.add(3);
@@ -225,6 +329,9 @@ public class LinkedList {
         list.print();
         list.head = swapInPairs(list.head);
         list.print();
+        System.out.println("----reverse in k----");
+        list.head = reverseInKGroups(list.head, 4);
+        list.print();
         deleteDuplicates(list.head);
         list.print();
         list.head = insertSortList(list.head);
@@ -233,6 +340,12 @@ public class LinkedList {
         list.head = removeElement(list.head, 1);
         list.print();
         oddEvenList(list.head);
+        list.print();
+        System.out.println("----partition list----");
+        list.head = mergeSortList(list.head);
+        deleteDuplicates(list.head);
+        list.print();
+        list.head = partitionList(list.head, 3);
         list.print();
         System.out.println("_______________");
         ListNode node0 = new ListNode(0);
@@ -272,6 +385,34 @@ public class LinkedList {
         node26.next = node24;
         System.out.println(hasCycle(list2.head));
         System.out.println(hasCycleII(list2.head).val);
-
+        System.out.println("----plus one----");
+        LinkedList num = new LinkedList();
+        num.add(9);
+        System.out.println(num.head.val);
+        num.print();
+        num.head = plusOne(num.head);
+        num.print();
+        System.out.println("----intersection node----");
+        LinkedList list3 = new LinkedList();
+        LinkedList list4 = new LinkedList();
+        LinkedList list5 = new LinkedList();
+        ListNode node30 = new ListNode(30);
+        ListNode node31 = new ListNode(31);
+        ListNode node41 = new ListNode(41);
+        ListNode node42 = new ListNode(42);
+        ListNode node43 = new ListNode(43);
+        ListNode node51 = new ListNode(51);
+        ListNode node52 = new ListNode(52);
+        ListNode node53 = new ListNode(53);
+        node30.next = node31;
+        node31.next = node51;
+        node41.next = node42;
+        node42.next = node43;
+        node43.next = node51;
+        node51.next = node52;
+        node52.next = node53;
+        list3.head = node30;
+        list4.head = node41;
+        System.out.println(getIntersectionNode(list3.head, list4.head).val);
     }
 }
