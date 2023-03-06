@@ -288,8 +288,8 @@ public class LinkedListDemo {
         }
     }
 
-    public static void removeElements(ListNode head, int val) {
-        if (head == null) return;
+    public static ListNode removeElements(ListNode head, int val) {
+        if (head == null) return null;
         ListNode dummy = new ListNode(0);
         dummy.next = head;
         ListNode prev = dummy;
@@ -302,6 +302,7 @@ public class LinkedListDemo {
             }
             cur = cur.next;
         }
+        return dummy.next;
     }
 
     public static void deleteNode(ListNode node) {
