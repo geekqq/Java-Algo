@@ -165,10 +165,32 @@ public class LinkedList {
     }
 
     public static void deleteNode(ListNode node) {
-        if (node == null || node.next == null) return;
-        node.val = node.next.val;
-        node.next = node.next.next;
+        node.val = (node.next).val;
+        node.next = (node.next).next;
     }
+
+    public static void deleteNodeII(ListNode head, ListNode node) {
+        if (head == null) return;
+        ListNode temp = head;
+        if (head == node) {
+            if (head.next == null) {
+                System.out.println("There is only one node, it can't be deleted!");
+                return;
+            }
+            head.val = head.next.val;
+            head.next = head.next.next;
+        }
+        while (temp.next != null && temp.next != node) {
+            temp = temp.next;
+        }
+        if (temp.next == null) {
+            System.out.println("The given node is not presented in the list!");
+            return;
+        }
+        temp.next = temp.next.next;
+        System.gc();
+    }
+
     public static void oddEvenList(ListNode head) {
         if (head == null || head.next == null) return;
         ListNode odd = head;
@@ -361,7 +383,7 @@ public class LinkedList {
         node2.next = node3;
         node3.next = null;
         list2.print();
-        list2.deleteNode(node3);
+        deleteNodeII(list2.head, node3);
         list2.print();
     }
 }
