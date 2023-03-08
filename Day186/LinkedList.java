@@ -171,7 +171,6 @@ public class LinkedList {
 
     public static void deleteNodeII(ListNode head, ListNode node) {
         if (head == null) return;
-        ListNode temp = head;
         if (head == node) {
             if (head.next == null) {
                 System.out.println("There is only one node, it can't be deleted!");
@@ -180,6 +179,8 @@ public class LinkedList {
             head.val = head.next.val;
             head.next = head.next.next;
         }
+
+        ListNode temp = head;
         while (temp.next != null && temp.next != node) {
             temp = temp.next;
         }
