@@ -147,6 +147,28 @@ public class LinkedList {
         }
     }
 
+    public static ListNode removeElements(ListNode head, int val) {
+        if (head == null) return null;
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prev = dummy;
+        ListNode cur = head;
+        while (cur != null) {
+            if (cur.val == val) {
+                prev.next = cur.next;
+            } else {
+                prev = cur;
+            }
+            cur = cur.next;
+        }
+        return dummy.next;
+    }
+
+    public static void deleteNode(ListNode node) {
+        if (node == null || node.next == null) return;
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
     public static void oddEvenList(ListNode head) {
         if (head == null || head.next == null) return;
         ListNode odd = head;
@@ -293,6 +315,9 @@ public class LinkedList {
         System.out.println("----remove duplicates----");
         deleteDuplicates(list.head);
         list.print();
+        System.out.println("----remove elements----");
+        list.head = removeElements(list.head, 3);
+        list.print();
         System.out.println("----swap in pairs----");
         list.head = swapInPairs(list.head);
         list.print();
@@ -324,5 +349,19 @@ public class LinkedList {
         num2.print();
         num3.head = addTwoNumbers(num1.head, num2.head);
         num3.print();
+        System.out.println("----delete node----");
+        LinkedList list2 = new LinkedList();
+        ListNode node0 = new ListNode(0);
+        ListNode node1 = new ListNode(1);
+        ListNode node2 = new ListNode(2);
+        ListNode node3 = new ListNode(3);
+        list2.head = node0;
+        node0.next = node1;
+        node1.next = node2;
+        node2.next = node3;
+        node3.next = null;
+        list2.print();
+        list2.deleteNode(node3);
+        list2.print();
     }
 }
