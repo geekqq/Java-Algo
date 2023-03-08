@@ -361,7 +361,7 @@ public class LinkedListDemo {
             head = head.next;
         }
         curSmall.next = large.next;
-        curLarge.next = null;
+        //curLarge.next = null; not necessary
 
         return small.next;
     }
