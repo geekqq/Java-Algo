@@ -498,6 +498,5 @@ public class LinkedList {
         list4.print();
         list5.print();
         System.out.println(getIntersectionNode(list4.head, list5.head).val);
-
     }
 }
