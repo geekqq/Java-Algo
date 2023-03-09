@@ -3,6 +3,7 @@ package Day186;
 import Day174.ListNode;
 
 import java.util.List;
+import java.util.Stack;
 
 public class LinkedList {
     private ListNode head;
@@ -165,11 +166,13 @@ public class LinkedList {
     }
 
     public static void deleteNode(ListNode node) {
+        // not the last node;
         node.val = (node.next).val;
         node.next = (node.next).next;
     }
 
     public static void deleteNodeII(ListNode head, ListNode node) {
+        // can delete any node;
         if (head == null) return;
         if (head == node) {
             if (head.next == null) {
@@ -314,6 +317,70 @@ public class LinkedList {
         return dummy.next;
     }
 
+    public static ListNode plusOne(ListNode head) {
+        if (head == null) return null;
+        Stack<ListNode> stack = new Stack<>();
+        ListNode cur = head;
+        while (cur != null) {
+            stack.push(cur);
+            cur = cur.next;
+        }
+        while (!stack.isEmpty()) {
+            ListNode node = stack.pop();
+            if (node.val < 9) {
+                node.val++;
+                return head;
+            } else {
+                node.val = 0;
+            }
+        }
+        ListNode newHead = new ListNode(1);
+        newHead.next = head;
+        return newHead;
+    }
+
+    public static boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) return false;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static ListNode hasCycleII(ListNode head) {
+        if (head == null || head.next == null) return null;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) break;
+        }
+        if (slow != fast) return null;
+        ListNode temp = head;
+        while (temp != slow) {
+            temp = temp.next;
+            slow = slow.next;
+        }
+        return temp;
+    }
+
+    public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) return null;
+        ListNode curA = headA;
+        ListNode curB = headB;
+        while (curA != curB) {
+            curA = curA != null ? curA.next : curB;
+            curB = curB != null ? curB.next : curA;
+        }
+        return curA;
+    }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         list.add(2);
@@ -363,15 +430,18 @@ public class LinkedList {
         LinkedList num1 = new LinkedList();
         LinkedList num2 = new LinkedList();
         LinkedList num3 = new LinkedList();
+        num1.add(8);
         num1.add(9);
-        num1.add(2);
-        num1.add(9);
+        num1.add(1);
         num2.add(3);
         num2.add(5);
         num1.print();
         num2.print();
         num3.head = addTwoNumbers(num1.head, num2.head);
         num3.print();
+        System.out.println("----plus One----");
+        num1.head = plusOne(num1.head);
+        num1.print();
         System.out.println("----delete node----");
         LinkedList list2 = new LinkedList();
         ListNode node0 = new ListNode(0);
@@ -386,5 +456,48 @@ public class LinkedList {
         list2.print();
         deleteNodeII(list2.head, node3);
         list2.print();
+        System.out.println("----has NO cycle ----");
+        System.out.println(hasCycle(list2.head));
+        System.out.println("----has cycle----");
+        LinkedList list3 = new LinkedList();
+        ListNode node30 = new ListNode(30);
+        ListNode node31 = new ListNode(31);
+        ListNode node32 = new ListNode(32);
+        ListNode node33 = new ListNode(33);
+        ListNode node34 = new ListNode(34);
+        ListNode node35 = new ListNode(35);
+        list3.head = node30;
+        node30.next = node31;
+        node31.next = node32;
+        node32.next = node33;
+        node33.next = node34;
+        node34.next = node35;
+        node35.next = node33;
+        System.out.println(hasCycleII(list3.head).val);
+        LinkedList list4 = new LinkedList();
+        LinkedList list5 = new LinkedList();
+        ListNode node40 = new ListNode(40);
+        ListNode node41 = new ListNode(41);
+        ListNode node42 = new ListNode(42);
+        ListNode node50 = new ListNode(50);
+        ListNode node51 = new ListNode(51);
+        ListNode node52 = new ListNode(52);
+        ListNode node60 = new ListNode(60);
+        ListNode node61 = new ListNode(61);
+        ListNode node62 = new ListNode(62);
+        list4.head = node40;
+        node40.next = node41;
+        node41.next = node42;
+        node42.next = node60;
+        node60.next = node61;
+        node61.next = node62;
+        list5.head = node50;
+        node50.next = node51;
+        node51.next = node52;
+        node52.next = node60;
+        list4.print();
+        list5.print();
+        System.out.println(getIntersectionNode(list4.head, list5.head).val);
+
     }
 }
