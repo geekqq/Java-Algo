@@ -160,6 +160,29 @@ public class LinkedList {
         prev.next = cur.next;
     }
 
+    public static void deleteNodeII(ListNode head, ListNode node) {
+        if (head == null) return;
+        ListNode temp = head;
+        if (head == node) {
+            if (head.next == null) {
+                System.out.println("only one node in the linked list, head can not be deleted");
+                return;
+            }
+            head.val = head.next.val;
+            head.next = head.next.next;
+        } else {
+            while (temp.next != null && temp.next != node) {
+                temp = temp.next;
+            }
+            if (temp.next == null) {
+                System.out.println("the node is not present in the list !!");
+                return;
+            }
+            temp.next = temp.next.next;
+            System.gc();
+        }
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         list.add(0);
@@ -191,5 +214,19 @@ public class LinkedList {
         System.out.println("----delete other node----");
         list.deleteNode(3);
         list.print();
+        System.out.println("----delete head II ----");
+        LinkedList list2 = new LinkedList();
+        ListNode node0 = new ListNode(0);
+        ListNode node1 = new ListNode(1);
+        ListNode node2 = new ListNode(2);
+        ListNode node3 = new ListNode(3);
+        ListNode node4 = new ListNode(4);
+        list2.head = node0;
+        node0.next = node1;
+        node1.next = node2;
+        node2.next = node3;
+        node3.next = node4;
+        list2.deleteNodeII(list2.head, node4);
+        list2.print();
     }
 }

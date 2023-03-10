@@ -181,18 +181,18 @@ public class LinkedList {
             }
             head.val = head.next.val;
             head.next = head.next.next;
+        } else {
+            ListNode temp = head;
+            while (temp.next != null && temp.next != node) {
+                temp = temp.next;
+            }
+            if (temp.next == null) {
+                System.out.println("The given node is not presented in the list!");
+                return;
+            }
+            temp.next = temp.next.next;
+            System.gc();
         }
-
-        ListNode temp = head;
-        while (temp.next != null && temp.next != node) {
-            temp = temp.next;
-        }
-        if (temp.next == null) {
-            System.out.println("The given node is not presented in the list!");
-            return;
-        }
-        temp.next = temp.next.next;
-        System.gc();
     }
 
     public static void oddEvenList(ListNode head) {
@@ -454,7 +454,7 @@ public class LinkedList {
         node2.next = node3;
         node3.next = null;
         list2.print();
-        deleteNodeII(list2.head, node3);
+        deleteNodeII(list2.head, node0);
         list2.print();
         System.out.println("----has NO cycle ----");
         System.out.println(hasCycle(list2.head));
