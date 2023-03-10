@@ -63,5 +63,7 @@ public class DeleteNode {
         System.out.println("----delete mid node----");
         list.deleteNode(5);
         list.print();
+
+
     }
 }
