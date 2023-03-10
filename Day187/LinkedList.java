@@ -231,6 +231,46 @@ public class LinkedList {
         }
         temp.next = firstHead != null ? firstHead : secondHead;
     }
+
+    public static ListNode deleteNode(ListNode head, int val) {
+        if (head == null) return null;
+        ListNode prev = null;
+        ListNode cur = head;
+        //if head is the value to be deleted
+        if (cur != null && cur.val == val) {
+            head = cur.next;
+            return head;
+        }
+        while (cur != null && cur.val != val) {
+            prev = cur;
+            cur = cur.next;
+        }
+        if (cur == null) {
+            System.out.println("the node is not present!");
+            return head;
+        }
+        prev.next = cur.next;
+        return head;
+    }
+
+    public void deleteNodeII(int val) {
+        ListNode temp = head;
+        ListNode prev = null;
+        if (temp != null && temp.val == val) {
+            head = head.next;
+            return;
+        }
+        while (temp != null && temp.val != val) {
+            prev = temp;
+            temp = temp.next;
+        }
+        if (temp == null) {
+            System.out.println("the node to be deleted is not present!");
+            return;
+        }
+        prev.next = temp.next;
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         list.add(0);
@@ -266,6 +306,12 @@ public class LinkedList {
         System.out.println("----reorder list----");
         reorderList(list.head);
         list.print();
+        System.out.println("----delete node----");
+        list.head = deleteNode(list.head, 9);
+        list.print();
+        System.out.println("----delete node II----");
+        list.deleteNodeII(1);
+        list.print();
         System.out.println("----plus one----");
         LinkedList num = new LinkedList();
         num.add(1);
@@ -273,5 +319,6 @@ public class LinkedList {
         num.add(3);
         num.head = plusOne(num.head);
         num.print();
+
     }
 }
