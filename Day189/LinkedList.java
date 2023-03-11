@@ -222,6 +222,22 @@ public class LinkedList {
             temp.next = temp.next.next;
         }
     }
+
+    public static ListNode insertNode(ListNode head, int val) {
+        ListNode newNode = new ListNode(val);
+        if (head == null || head.val >= val) {
+            newNode.next = head;
+            head = newNode;
+        } else {
+            ListNode cur = head;
+            while (cur.next != null && cur.next.val <= val) {
+                cur = cur.next;
+            }
+            newNode.next = cur.next;
+            cur.next = newNode;
+        }
+        return head;
+    }
     public static ListNode plusOne(ListNode head) {
         if (head == null) return head;
         Stack<ListNode> stack = new Stack<>();
@@ -242,6 +258,36 @@ public class LinkedList {
         ListNode newNode = new ListNode(1);
         newNode.next = head;
         return newNode;
+    }
+
+    public static boolean hasCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static ListNode hasCycleII(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) break;
+        }
+        if (slow != fast) return null;
+        ListNode temp = slow;
+        while (temp != slow) {
+            temp = temp.next;
+            slow = slow.next;
+        }
+        return temp;
     }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
@@ -280,6 +326,11 @@ public class LinkedList {
         System.out.println("----delete node----");
         list.deleteNode(list.head, 9);
         list.print();
+        System.out.println("----insert node----");
+        list.head = mergeSortList(list.head);
+        list.print();
+        list.head = insertNode(list.head, 2);
+        list.print();
         System.out.println("----plus one----");
         LinkedList num = new LinkedList();
         num.add(1);
@@ -287,5 +338,23 @@ public class LinkedList {
         num.add(3);
         num.head = plusOne(num.head);
         num.print();
+        System.out.println("----has cycle----");
+        LinkedList list2 = new LinkedList();
+        ListNode node0 = new ListNode(0);
+        ListNode node1 = new ListNode(1);
+        ListNode node2 = new ListNode(2);
+        ListNode node3 = new ListNode(3);
+        ListNode node4 = new ListNode(4);
+        ListNode node5 = new ListNode(5);
+        ListNode node6 = new ListNode(6);
+        list2.head = node0;
+        node0.next = node1;
+        node1.next = node2;
+        node2.next = node3;
+        node3.next = node4;
+        node4.next = node5;
+        node5.next = node6;
+        node6.next = node3;
+        System.out.println(hasCycleII(list2.head).val);
     }
 }
