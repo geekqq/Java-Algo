@@ -238,6 +238,37 @@ public class LinkedList {
         }
         return head;
     }
+
+    public static void deleteDuplicates(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode slow = head;
+        while (slow != null) {
+            ListNode fast = slow.next;
+            while (fast != null && fast.val == slow.val) {
+                fast = fast.next;
+            }
+            slow.next = fast;
+            slow = slow.next;
+        }
+
+    }
+
+    public static ListNode removeElements(ListNode head, int val) {
+        if (head == null) return null;
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prev = dummy;
+        ListNode cur = head;
+        while (cur != null) {
+            if (cur.val == val) {
+                prev.next = cur.next;
+            } else {
+                prev = cur;
+            }
+            cur = cur.next;
+        }
+        return dummy.next;
+    }
     public static ListNode plusOne(ListNode head) {
         if (head == null) return head;
         Stack<ListNode> stack = new Stack<>();
@@ -330,6 +361,12 @@ public class LinkedList {
         list.head = mergeSortList(list.head);
         list.print();
         list.head = insertNode(list.head, 2);
+        list.print();
+        System.out.println("----delete duplicates----");
+        deleteDuplicates(list.head);
+        list.print();
+        System.out.println("----remove elements----");
+        removeElements(list.head, 6);
         list.print();
         System.out.println("----plus one----");
         LinkedList num = new LinkedList();
