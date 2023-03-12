@@ -313,7 +313,7 @@ public class LinkedList {
             if (slow == fast) break;
         }
         if (slow != fast) return null;
-        ListNode temp = slow;
+        ListNode temp = head;
         while (temp != slow) {
             temp = temp.next;
             slow = slow.next;
