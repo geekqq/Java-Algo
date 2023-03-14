@@ -3,6 +3,8 @@ package Day191;
 import Day108.IsEvenNumber;
 import Day174.ListNode;
 
+import java.util.Stack;
+
 public class LinkedList {
 
     private ListNode head;
@@ -254,6 +256,30 @@ public class LinkedList {
             slow = slow.next;
         }
     }
+
+    public static ListNode plusOne(ListNode head) {
+        if (head == null) return head;
+        Stack<ListNode> stack = new Stack<>();
+        ListNode cur = head;
+        while (cur != null) {
+            stack.push(cur);
+            cur = cur.next;
+        }
+        if (!stack.isEmpty()) {
+            ListNode node = stack.pop();
+            if (node.val < 9) {
+                node.val++;
+                return head;
+            } else {
+                node.val = 0;
+            }
+        }
+        ListNode newNode = new ListNode(1);
+        newNode.next = head;
+        return newNode;
+
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 10; i++) {
@@ -301,5 +327,12 @@ public class LinkedList {
         System.out.println("----delete duplicates----");
         deleteDuplicates(list.head);
         list.print();
+        System.out.println("----plus one----");
+        LinkedList num = new LinkedList();
+        num.add(1);
+        num.add(2);
+        num.add(3);
+        num.head = plusOne(num.head);
+        num.print();
     }
 }
