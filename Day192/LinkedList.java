@@ -231,6 +231,54 @@ public class LinkedList {
         return head;
     }
 
+    public static ListNode insertNode(ListNode head, int val) {
+        ListNode newNode = new ListNode(val);
+        if (head == null || head.val >= val) {
+            newNode.next = head;
+            head = newNode;
+        } else {
+            ListNode cur = head;
+            while (cur.next != null && cur.next.val < val) {
+                cur = cur.next;
+            }
+            newNode.next = cur.next;
+            cur.next = newNode;
+        }
+        return head;
+    }
+
+    public static void removeDuplicates(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode slow = head;
+        while (slow != null) {
+            ListNode fast = slow.next;
+            while (fast != null && fast.val == slow.val) {
+                fast = fast.next;
+            }
+            slow.next = fast;
+            slow = slow.next;
+        }
+    }
+
+    public static ListNode partitionList(ListNode head, int x) {
+        if (head == null || head.next == null) return head;
+        ListNode small = new ListNode(0);
+        ListNode large = new ListNode(0);
+        ListNode curSmall = small;
+        ListNode curLarge = large;
+        while (head != null) {
+            if (head.val < x) {
+                curSmall.next = head;
+                curSmall = curSmall.next;
+            } else {
+                curLarge.next = head;
+                curLarge = curLarge.next;
+            }
+            head = head.next;
+        }
+        curSmall.next = large.next;
+        return small.next;
+    }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 10; i++) {
@@ -261,6 +309,9 @@ public class LinkedList {
         System.out.println("----reorder list----");
         list.head = reorderList(list.head);
         list.print();
+        System.out.println("----partition list----");
+        partitionList(list.head, 3);
+        list.print();
         System.out.println("----odd even list----");
         list.head = oddEvenList(list.head);
         list.print();
@@ -275,6 +326,14 @@ public class LinkedList {
         list.print();
         System.out.println("----delete middle node----");
         list.head = deleteNode(list.head, 5);
+        list.print();
+        System.out.println("----add node----");
+        list.head = insertNode(list.head, 2);
+        list.head = insertNode(list.head, 0);
+        list.head = insertNode(list.head, 8);
+        list.print();
+        System.out.println("----remove duplicates----");
+        removeDuplicates(list.head);
         list.print();
 
     }
