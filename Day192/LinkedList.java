@@ -193,6 +193,44 @@ public class LinkedList {
         return dummy.next;
     }
 
+    public static ListNode oddEvenList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode evenHead = head.next;
+        while (even != null && even.next != null) {
+            odd.next = odd.next.next;
+            even.next = even.next.next;
+            odd = odd.next;
+            even = even.next;
+        }
+        odd.next = evenHead;
+        return head;
+    }
+
+    public static ListNode deleteNode(ListNode head, int val) {
+        if (head == null) return null;
+        if (head.val == val) {
+            if (head.next == null) {
+                System.out.println("head is the only node in the list, can not be deleted");
+            } else {
+                head.val = head.next.val;
+                head.next = head.next.next;
+            }
+        } else {
+            ListNode cur = head;
+            while (cur.next != null && cur.next.val != val) {
+                cur = cur.next;
+            }
+            if (cur.next == null) {
+                System.out.println("the node is not presented!");
+            } else {
+                cur.next = cur.next.next;
+            }
+        }
+        return head;
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 10; i++) {
@@ -223,5 +261,21 @@ public class LinkedList {
         System.out.println("----reorder list----");
         list.head = reorderList(list.head);
         list.print();
+        System.out.println("----odd even list----");
+        list.head = oddEvenList(list.head);
+        list.print();
+        System.out.println("----sort list----");
+        list.head = mergeSortList(list.head);
+        list.print();
+        System.out.println("----delete head----");
+        list.head = deleteNode(list.head, 0);
+        list.print();
+        System.out.println("----delete tail----");
+        list.head = deleteNode(list.head, 9);
+        list.print();
+        System.out.println("----delete middle node----");
+        list.head = deleteNode(list.head, 5);
+        list.print();
+
     }
 }
