@@ -299,7 +299,7 @@ public class LinkedList {
         list.head = mergeSortList(list.head);
         list.print();
         System.out.println("----reverse in k groups----");
-        list.head = reverseInKGroups(list.head, 3);
+        list.head = reverseInKGroups(list.head, 4);
         list.print();
         System.out.println("----delete head node----");
         deleteNode(list.head, 2);
