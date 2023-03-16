@@ -235,6 +235,35 @@ public class LinkedList {
         temp.next = firstHead != null ? firstHead : secondHead;
         return dummy.next;
     }
+
+    public static ListNode hasCycleII(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) break;
+        }
+        if (slow != fast) return null;
+        ListNode temp = head;
+        while (temp != slow) {
+            temp = temp.next;
+            slow = slow.next;
+        }
+        return temp;
+    }
+
+    public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) return null;
+        ListNode curA = headA;
+        ListNode curB = headB;
+        while (curA != curB) {
+            curA = curA != null ? curA.next : headB;
+            curB = curB != null ? curB.next : headA;
+        }
+        return curA;
+    }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 15; i++) {
