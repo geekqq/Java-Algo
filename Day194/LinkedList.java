@@ -151,6 +151,70 @@ public class LinkedList {
         }
     }
 
+    public static ListNode reverseInKGroups(ListNode head, int k) {
+        if (head == null || head.next == null) return head;
+        ListNode prev = null;
+        ListNode cur = head;
+        ListNode next = null;
+        int count = 0;
+        while (cur != null && count < k) {
+            count++;
+            cur = cur.next;
+        }
+        if (count < k) {
+            return head;
+        }
+        cur = head;
+        for (int i = 0; i < k; i++) {
+            next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        head.next = reverseInKGroups(cur, k);
+        return prev;
+    }
+
+    public static void oddEvenList(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode evenHead = head.next;
+        while (even != null && even.next != null) {
+            odd.next = odd.next.next;
+            even.next = even.next.next;
+            odd = odd.next;
+            even = even.next;
+        }
+        odd.next = evenHead;
+    }
+
+    public static ListNode reorderList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode temp = slow.next;
+        slow.next = null;
+        ListNode firstHead = head;
+        ListNode secondHead = reverse(temp);
+        ListNode dummy = new ListNode(0);
+        temp = dummy;
+        while (firstHead != null && secondHead != null) {
+            temp.next = firstHead;
+            firstHead = firstHead.next;
+            temp = temp.next;
+            temp.next = secondHead;
+            secondHead = secondHead.next;
+            temp = temp.next;
+        }
+        temp.next = firstHead != null ? firstHead : secondHead;
+        return dummy.next;
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 11; i++) {
@@ -170,6 +234,12 @@ public class LinkedList {
         list.head = insertNode(list.head, 10);
         list.print();
         deleteDuplicates(list.head);
+        list.print();
+        list.head = reverseInKGroups(list.head, 4);
+        list.print();
+        oddEvenList(list.head);
+        list.print();
+        list.head = reorderList(list.head);
         list.print();
     }
 }
