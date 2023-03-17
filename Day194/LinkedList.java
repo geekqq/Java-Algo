@@ -215,6 +215,48 @@ public class LinkedList {
         return dummy.next;
     }
 
+    public static ListNode partitionList(ListNode head, int x) {
+        if (head == null || head.next == null) return head;
+        ListNode small = new ListNode(0);
+        ListNode large = new ListNode(0);
+        ListNode curSmall = small;
+        ListNode curLarge = large;
+        while (head != null) {
+            if (head.val < x) {
+                curSmall.next = head;
+                curSmall = curSmall.next;
+            } else {
+                curLarge.next = head;
+                curLarge = curLarge.next;
+            }
+            head = head.next;
+        }
+        curSmall.next = large.next;
+        return small.next;
+    }
+
+    public static ListNode deleteNode(ListNode head, int val) {
+        if (head == null) return null;
+        if (head.val == val) {
+            if (head.next == null) {
+                System.out.println("head is the only node, can not be deleted!");
+            } else {
+                head.val = head.next.val;
+                head.next = head.next.next;
+            }
+        } else {
+            ListNode cur = head;
+            while (cur.next != null && cur.next.val != val) {
+                cur = cur.next;
+            }
+            if (cur.next == null) {
+                System.out.println("the node is not presented!");
+            } else {
+                cur.next = cur.next.next;
+            }
+        }
+        return head;
+    }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 11; i++) {
@@ -240,6 +282,13 @@ public class LinkedList {
         oddEvenList(list.head);
         list.print();
         list.head = reorderList(list.head);
+        list.print();
+        list.head = partitionList(list.head, 5);
+        list.print();
+        System.out.println("----delete node----");
+        list.head = deleteNode(list.head, 3);
+        list.head = deleteNode(list.head, 0);
+        list.head = deleteNode(list.head, 10);
         list.print();
     }
 }
