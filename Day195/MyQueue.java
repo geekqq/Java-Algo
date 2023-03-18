@@ -1,14 +1,17 @@
 package Day195;
 
+import java.util.Queue;
 import java.util.Stack;
 
 public class MyQueue<E> {
     private Stack<E> stackIn;
     private Stack<E> stackOut;
+    int size;
 
     public MyQueue() {
         stackIn = new Stack<E>();
         stackOut = new Stack<E>();
+        size = 0;
     }
 
     public void offer(E val) {
@@ -16,6 +19,7 @@ public class MyQueue<E> {
             stackOut.push(stackIn.pop());
         }
         stackIn.push(val);
+        size++;
         while (!stackOut.isEmpty()) {
             stackIn.push(stackOut.pop());
         }
@@ -26,7 +30,9 @@ public class MyQueue<E> {
             System.out.println("UnderFlow!");
             System.exit(0);
         }
-        return stackIn.pop();
+        var res = stackIn.pop();
+        size--;
+        return res;
     }
 
     public E peek() {
@@ -36,6 +42,7 @@ public class MyQueue<E> {
         }
         return stackIn.peek();
     }
+
 
     public static void main(String[] args) {
         MyQueue q = new MyQueue();
