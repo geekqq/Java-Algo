@@ -2,6 +2,8 @@ package Day195;
 
 import Day174.ListNode;
 
+import java.util.Stack;
+
 public class LinkedList {
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
@@ -36,6 +38,14 @@ public class LinkedList {
         list.print();
         list.head = reorderList(list.head);
         list.print();
+        //list.head = partitionList(list.head, 5);
+        System.out.println("----plus one----");
+        LinkedList num = new LinkedList();
+        num.add(1);
+        num.add(2);
+        num.add(9);
+        plusOne(num.head);
+        num.print();
     }
 
     private ListNode head;
@@ -272,4 +282,77 @@ public class LinkedList {
         return dummy.next;
     }
 
+    public static ListNode partitionList(ListNode head, int x) {
+        if (head == null || head.next == null) return head;
+        ListNode small = new ListNode(0);
+        ListNode large = new ListNode(0);
+        ListNode curSmall = small;
+        ListNode curLarge = large;
+        while (head != null) {
+            if (head.val < x) {
+                curSmall.next = head;
+                curSmall = curSmall.next;
+            } else {
+                curLarge.next = head;
+                curLarge = curLarge.next;
+            }
+            head = head.next;
+        }
+        curSmall.next = large.next;
+        return small.next;
+    }
+
+    public static void plusOne(ListNode head) {
+        if (head == null) return;
+        Stack<ListNode> stack = new Stack<>();
+        ListNode cur = head;
+        while (cur != null) {
+            stack.push(cur);
+            cur = cur.next;
+        }
+        while (!stack.isEmpty()) {
+            ListNode node = stack.pop();
+            if (node.val < 9) {
+                node.val++;
+                return;
+            } else {
+                node.val = 0;
+            }
+        }
+        ListNode newNode = new ListNode(1);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    public static boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) return false;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static ListNode hasCycleII(ListNode head) {
+        if (head == null || head.next == null) return null;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) break;
+        }
+        if (slow != fast) return null;
+        ListNode temp = head;
+        while (temp != slow) {
+            temp = temp.next;
+            slow = slow.next;
+        }
+        return temp;
+    }
 }
