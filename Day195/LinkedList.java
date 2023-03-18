@@ -17,6 +17,25 @@ public class LinkedList {
         list.print();
         list.head = reverseInKGroups(list.head,4);
         list.print();
+        list.head = mergeSortList(list.head);
+        list.print();
+        list.head = insertNode(list.head, 0);
+        list.head = insertNode(list.head, 3);
+        list.head = insertNode(list.head, 5);
+        list.head = insertNode(list.head, 13);
+        list.print();
+        deleteDuplicates(list.head);
+        list.print();
+        list.head = deleteNode(list.head, 0);
+        list.head = deleteNode(list.head, 3);
+        list.head = deleteNode(list.head, 13);
+        list.print();
+        list.head = deleteNode(list.head, 15);
+        list.print();
+        oddEvenList(list.head);
+        list.print();
+        list.head = reorderList(list.head);
+        list.print();
     }
 
     private ListNode head;
@@ -158,6 +177,99 @@ public class LinkedList {
         }
         head.next = reverseInKGroups(cur, k);
         return prev;
+    }
+
+    public static ListNode insertNode(ListNode head, int val) {
+        ListNode newNode = new ListNode(val);
+        if (head == null || head.val >= val) {
+            newNode.next = head;
+            head = newNode;
+        } else {
+            ListNode cur = head;
+            while (cur.next != null && cur.next.val < val) {
+                cur = cur.next;
+            }
+            newNode.next = cur.next;
+            cur.next = newNode;
+        }
+        return head;
+    }
+
+    public static void deleteDuplicates(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode slow = head;
+        while (slow != null) {
+            ListNode fast = slow.next;
+            while (fast != null && slow.val == fast.val) {
+                fast = fast.next;
+            }
+            slow.next = fast;
+            slow = slow.next;
+        }
+    }
+
+    public static ListNode deleteNode(ListNode head, int val) {
+        if (head == null) return null;
+        if (head.val == val) {
+            if (head.next == null) {
+                System.out.println("head is the only node, can not be deleted!");
+            } else {
+                head.val = head.next.val;
+                head.next = head.next.next;
+            }
+        } else {
+            ListNode cur = head;
+            while (cur.next != null && cur.next.val != val) {
+                cur = cur.next;
+            }
+            if (cur.next == null) {
+                System.out.println("the node is not presented!");
+            } else {
+                cur.next = cur.next.next;
+                System.gc();
+            }
+        }
+        return head;
+    }
+
+    public static void oddEvenList(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode evenHead = head.next;
+        while (even != null && even.next != null) {
+            odd.next = odd.next.next;
+            even.next = even.next.next;
+            odd = odd.next;
+            even = even.next;
+        }
+        odd.next = evenHead;
+    }
+
+    public static ListNode reorderList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode temp = slow.next;
+        slow.next = null;
+        ListNode firstHead = head;
+        ListNode secondHead = reverse(temp);
+        ListNode dummy = new ListNode(0);
+        temp = dummy;
+        while (firstHead != null && secondHead != null) {
+            temp.next = firstHead;
+            firstHead = firstHead.next;
+            temp = temp.next;
+            temp.next = secondHead;
+            secondHead = secondHead.next;
+            temp = temp.next;
+        }
+        temp.next = firstHead != null ? firstHead : secondHead;
+        return dummy.next;
     }
 
 }
