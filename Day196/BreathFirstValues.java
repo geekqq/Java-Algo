@@ -19,6 +19,25 @@ public class BreathFirstValues {
         return res;
     }
 
+    public static boolean breathFirstFindTarget(TreeNode root, char x) {
+        if (root == null) return false;
+        Queue<TreeNode> que = new LinkedList();
+        que.offer(root);
+        while (!que.isEmpty()) {
+            TreeNode node = que.poll();
+            if (node.val == x) return true;
+            if (node.left != null) que.offer(node.left);
+            if (node.right != null) que.offer(node.right);
+        }
+        return false;
+    }
+
+    public static boolean breathFirstFindTargetII(TreeNode root, char x) {
+        if (root == null) return false;
+        if (root.val == x) return true;
+        return breathFirstFindTargetII(root.left, x) || breathFirstFindTargetII(root.right, x);
+    }
+
     public static void main(String[] args) {
         TreeNode a = new TreeNode('a');
         TreeNode b = new TreeNode('b');
@@ -32,6 +51,8 @@ public class BreathFirstValues {
         b.right = e;
         c.right = f;
         System.out.println(breathFirst(a));
+        char target = a.val;
+        System.out.println(breathFirstFindTargetII(a, target));
     }
 }
 
