@@ -240,6 +240,20 @@ public class LinkedList {
         }
     }
 
+    public static void oddEvenList(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode evenHead = head.next;
+        while (even != null && even.next != null) {
+            odd.next = odd.next.next;
+            even.next = even.next.next;
+            odd = odd.next;
+            even = even.next;
+        }
+        odd.next = evenHead;
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 10; i++) {
@@ -278,6 +292,9 @@ public class LinkedList {
         deleteNode(list.head, 0);
         deleteNode(list.head, 6);
         deleteNode(list.head, 4);
+        list.print();
+        System.out.println("----odd even list----");
+        oddEvenList(list.head);
         list.print();
 
     }
