@@ -1,5 +1,7 @@
 package Day198;
 
+import com.sun.source.tree.Tree;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -112,6 +114,24 @@ public class BinaryTree {
         res.addAll(right);
         return res;
     }
+
+    public static List<Integer> inorderTraversalII(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        while (cur != null || !stack.isEmpty()) {
+            if (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            } else {
+                cur =stack.pop();
+                res.add((Integer) cur.val);
+                cur = cur.right;
+            }
+        }
+        return res;
+    }
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -136,6 +156,7 @@ public class BinaryTree {
         System.out.println("----in order traversal----");
         System.out.println(inorderTraversal(a));
         System.out.println(inorderTraversalI(a));
+        System.out.println(inorderTraversalII(a));
     }
 }
 
