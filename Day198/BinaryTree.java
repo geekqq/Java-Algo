@@ -88,6 +88,30 @@ public class BinaryTree {
         return res;
     }
 
+    public static List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        inorderTraversal(root, res);
+        return res;
+    }
+
+    private static void inorderTraversal(TreeNode root, List<Integer> res) {
+        if (root == null) return;
+        inorderTraversal(root.left, res);
+        res.add((Integer) root.val);
+        inorderTraversal(root.right, res);
+    }
+
+    public static List<Integer> inorderTraversalI(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        List left = inorderTraversalI(root.left);
+        List right = inorderTraversalI(root.right);
+        res.addAll(left);
+        res.add((Integer) root.val);
+        res.addAll(right);
+        return res;
+    }
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -109,6 +133,9 @@ public class BinaryTree {
         System.out.println("----post order traversal----");
         System.out.println(postorderTraversal(a));
         System.out.println(postorderTraversalI(a));
+        System.out.println("----in order traversal----");
+        System.out.println(inorderTraversal(a));
+        System.out.println(inorderTraversalI(a));
     }
 }
 
