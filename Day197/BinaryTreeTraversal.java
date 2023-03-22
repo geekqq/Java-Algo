@@ -1,5 +1,7 @@
 package Day197;
 
+import com.sun.source.tree.Tree;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,6 +36,54 @@ public class BinaryTreeTraversal {
         return res;
     }
 
+    public static List<Integer> preorderTraversalII(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Stack<TreeNode> stack = new Stack<>();
+        while (root != null && !stack.isEmpty()) {
+            if (root == null) {
+                root = stack.pop();
+                root = root.right;
+            } else {
+                res.add(root.val);
+                stack.push(root);
+                root = root.left;
+            }
+        }
+        return res;
+    }
+
+    public static List<Integer> postorderTraversal(TreeNode root) {
+        LinkedList<Integer> res = new LinkedList<>();
+        if (root == null) return res;
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode cur = stack.pop();
+            res.addFirst(cur.val);
+            if (cur.left != null) stack.push(cur.left);
+            if (cur.right != null) stack.push(cur.right);
+        }
+        return res;
+    }
+
+    public static List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        while (cur != null && !stack.isEmpty()) {
+            if (cur == null) {
+                stack.push(cur);
+                cur = cur.left;
+            } else {
+                cur = stack.pop();
+                res.add(cur.val);
+                cur = cur.right;
+            }
+        }
+        return res;
+    }
     public static void main(String[] args) {
         TreeNode a = new TreeNode(1);
         TreeNode b = new TreeNode(2);
@@ -48,6 +98,9 @@ public class BinaryTreeTraversal {
         c.right = f;
         System.out.println(preorderTraversal(a));
         System.out.println(binaryTraversal(a));
+        System.out.println(preorderTraversalII(a));
+        System.out.println(postorderTraversal(a));
+        System.out.println(inorderTraversal(a));
     }
 }
 
