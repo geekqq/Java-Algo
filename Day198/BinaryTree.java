@@ -45,7 +45,48 @@ public class BinaryTree {
         preorderTraversalII(root.right, res);
     }
 
+    public static List<Integer> preorderTraversalIII(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Stack<TreeNode> stack = new Stack<>();
+        //入栈的时候添加元素到结果中，然后一直让root往左走，到null的时候pop一下往右走。
+        while (root != null || !stack.isEmpty()) {
+            if (root == null) {
+                root = stack.pop();
+                root = root.right;
+            } else {
+                res.add((Integer) root.val);
+                stack.push(root);
+                root = root.left;
+            }
+        }
+        return res;
+    }
 
+    public static List<Integer> postorderTraversal(TreeNode root) {
+        LinkedList<Integer> res = new LinkedList<>();
+        if (root == null) return res;
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode cur = stack.pop();
+            res.addFirst((Integer) cur.val);
+            if (cur.left != null) stack.push(cur.left);
+            if (cur.right != null) stack.push(cur.right);
+        }
+        return res;
+    }
+
+    public static List<Integer> postorderTraversalI(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        List left = postorderTraversalI(root.left);
+        List right = postorderTraversalI(root.right);
+        res.addAll(left);
+        res.addAll(right);
+        res.add((Integer) root.val);
+        return res;
+    }
 
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
@@ -64,6 +105,10 @@ public class BinaryTree {
         System.out.println(preorderTraversal(a));
         System.out.println(preorderTraversalI(a));
         System.out.println(preorderTraversalII(a));
+        System.out.println(preorderTraversalIII(a));
+        System.out.println("----post order traversal----");
+        System.out.println(postorderTraversal(a));
+        System.out.println(postorderTraversalI(a));
     }
 }
 
