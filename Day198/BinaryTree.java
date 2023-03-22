@@ -132,6 +132,11 @@ public class BinaryTree {
         }
         return res;
     }
+
+    public static int maxDepth(TreeNode root) {
+        if (root == null) return 0;
+        return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
+    }
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -157,6 +162,8 @@ public class BinaryTree {
         System.out.println(inorderTraversal(a));
         System.out.println(inorderTraversalI(a));
         System.out.println(inorderTraversalII(a));
+        System.out.println("---max depth----");
+        System.out.println(maxDepth(a));
     }
 }
 
