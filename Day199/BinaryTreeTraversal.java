@@ -242,6 +242,17 @@ public class BinaryTreeTraversal {
             printLevel(node.right, level - 1, res);
         }
     }
+
+    public static int minHeight(TreeNode root) {
+        if (root == null) return 0;
+        final int minLeft = minHeight(root.left);
+        final int minRight = minHeight(root.right);
+        if (root.left != null && root.right != null) {
+            return Math.min(minLeft, minRight) + 1;
+        } else {
+            return root.left != null ? minLeft + 1 : minRight + 1;
+        }
+    }
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -277,6 +288,8 @@ public class BinaryTreeTraversal {
         System.out.println(levelOrderTraversalI(a));
         System.out.println(levelOrderTraversalII(a));
         System.out.println(levelOrderTraversalIII(a));
+        System.out.println("----get min height----");
+        System.out.println(minHeight(a));
 
     }
 }
