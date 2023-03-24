@@ -156,6 +156,59 @@ public class LinkedList {
         cur.next = leftHead != null ? leftHead : rightHead;
         return dummy.next;
     }
+
+    public static ListNode insertNode(ListNode head, int x) {
+        ListNode newNode = new ListNode(x);
+        if (head == null || head.val >= x) {
+            newNode.next = head;
+            head = newNode;
+        } else {
+            ListNode cur = head;
+            while (cur.next != null && cur.next.val < x) {
+                cur = cur.next;
+            }
+            newNode.next = cur.next;
+            cur.next = newNode;
+        }
+        return head;
+    }
+
+    public static void deleteDuplicates(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode slow = head;
+        while (slow != null) {
+            ListNode fast = slow.next;
+            while (fast != null && slow.val == fast.val) {
+                fast = fast.next;
+            }
+            slow.next = fast;
+            slow = slow.next;
+        }
+    }
+
+    public static ListNode reverseInKGroups(ListNode head, int k) {
+        if (head == null || head.next == null) return head;
+        ListNode cur = head;
+        int count = 0;
+        while (cur != null) {
+            cur = cur.next;
+            count++;
+        }
+        if (count < k) {
+            return head;
+        }
+        cur = head;
+        ListNode prev = null;
+        ListNode next = null;
+        for (int i = 0; i < k; i++) {
+            next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        head.next = reverseInKGroups(cur, k);
+        return prev;
+    }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 10; i++) {
@@ -179,6 +232,18 @@ public class LinkedList {
         list.print();
         System.out.println("----merge sort list----");
         list.head = mergeSortList(list.head);
+        list.print();
+        System.out.println("----insert node----");
+        list.head = insertNode(list.head, 0);
+        list.head = insertNode(list.head, 0);
+        list.head = insertNode(list.head, 2);
+        list.head = insertNode(list.head, 9);
+        list.print();
+        System.out.println("----delete duplicates----");
+        deleteDuplicates(list.head);
+        list.print();
+        System.out.println("----reverse in k groups----");
+        list.head = reverseInKGroups(list.head,4);
         list.print();
     }
 
