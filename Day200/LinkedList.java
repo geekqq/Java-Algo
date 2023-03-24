@@ -237,6 +237,27 @@ public class LinkedList {
         temp.next = firstHead != null ? firstHead : secondHead;
         return dummy.next;
     }
+
+    public static void deleteNode(ListNode head, int x) {
+        if (head == null) return;
+        if (head.val == x) {
+            if (head.next == null) {
+                System.out.println("the head is the only node in the list, can not be deleted");
+            } else {
+                head.val = head.next.val;
+                head.next = head.next.next;
+            }
+        } else {
+            ListNode cur = head;
+            while (cur.next != null && cur.next.val != x) {
+                cur = cur.next;
+            }
+            if (cur.next == null) {
+                System.out.println("the node is not presented");
+            }
+            cur.next = cur.next.next;
+        }
+    }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 10; i++) {
@@ -275,6 +296,11 @@ public class LinkedList {
         list.print();
         System.out.println("----reorder list----");
         list.head = reorderList(list.head);
+        list.print();
+        System.out.println("----delete node----");
+        deleteNode(list.head, 3);
+        deleteNode(list.head, 8);
+        deleteNode(list.head, 6);
         list.print();
     }
 
