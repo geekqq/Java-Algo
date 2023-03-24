@@ -234,9 +234,9 @@ public class BinaryTreeTraversal {
         return Math.max(getHeight(root.left), getHeight(root.right)) + 1;
     }
 
-    private static void printLevel(TreeNode node, int level, List<Integer> res) {
+    private static void printLevel(TreeNode<Integer> node, int level, List<Integer> res) {
         if (node == null) return;
-        if (level == 1) res.add((Integer) node.val);
+        if (level == 1) res.add(node.val);
         else if (level > 1) {
             printLevel(node.left, level - 1, res);
             printLevel(node.right, level - 1, res);
