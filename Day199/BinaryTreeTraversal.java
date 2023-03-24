@@ -282,6 +282,14 @@ public class BinaryTreeTraversal {
         if (rightHeight == 0) return leftHeight + 1;
         return Math.min(leftHeight, rightHeight) + 1;
     }
+
+    public static boolean isBalanced(TreeNode root) {
+        if (root == null) return true;
+        int leftHeight = getHeight(root.left);
+        int rightHeight = getHeight(root.right);
+        if (Math.abs(leftHeight - rightHeight) > 1) return false;
+        return isBalanced(root.left) && isBalanced(root.right);
+    }
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -321,7 +329,8 @@ public class BinaryTreeTraversal {
         System.out.println(minHeight(a));
         System.out.println(minHeightI(a));
         System.out.println(minHeightII(a));
-
+        System.out.println("----is balanced tree----");
+        System.out.println(isBalanced(a));
     }
 }
 
