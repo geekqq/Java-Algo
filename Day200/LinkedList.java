@@ -209,6 +209,34 @@ public class LinkedList {
         head.next = reverseInKGroups(cur, k);
         return prev;
     }
+
+    public static ListNode reorderList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode temp = slow.next;
+        slow.next = null;
+        ListNode firstHead = head;
+        ListNode secondHead = reverse(temp);
+        ListNode dummy = new ListNode(0);
+        temp = dummy;
+        while (firstHead != null && secondHead != null) {
+            temp.next = firstHead;
+            firstHead = firstHead.next;
+            temp =  temp.next;
+            temp.next = secondHead;
+            secondHead = secondHead.next;
+            temp = temp.next;
+        }
+        temp.next = firstHead != null ? firstHead : secondHead;
+        return dummy.next;
+    }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 10; i++) {
@@ -244,6 +272,9 @@ public class LinkedList {
         list.print();
         System.out.println("----reverse in k groups----");
         list.head = reverseInKGroups(list.head,4);
+        list.print();
+        System.out.println("----reorder list----");
+        list.head = reorderList(list.head);
         list.print();
     }
 
