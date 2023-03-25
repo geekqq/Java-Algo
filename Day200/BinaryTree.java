@@ -1,9 +1,7 @@
 package Day200;
 
-import java.util.ArrayList;
+import java.util.*;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
 
 public class BinaryTree {
     public static List<Integer> preorderTraversal(TreeNode root) {
@@ -144,6 +142,27 @@ public class BinaryTree {
         res.add((Integer) root.val);
     }
 
+    public static int maxHeight(TreeNode root) {
+        if (root == null) return 0;
+        return Math.max(maxHeight(root.left), maxHeight(root.right)) + 1;
+    }
+
+    private static int maxHeightI(TreeNode root) {
+        if (root == null) return 0;
+        Queue<TreeNode> que = new LinkedList<>();
+        que.offer(root);
+        int height = 0;
+        while (!que.isEmpty()) {
+            int size = que.size();
+            while (size-- > 0) {
+                TreeNode node = que.poll();
+                if (node.left != null) que.offer(node.left);
+                if (node.right != null) que.offer(node.right);
+            }
+            height++;
+        }
+        return height;
+    }
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -173,6 +192,9 @@ public class BinaryTree {
         System.out.println(postorderTraversal(a));
         System.out.println(postorderTraversalI(a));
         System.out.println(postorderTraversalII(a));
+        System.out.println("---max height----");
+        System.out.println(maxHeight(a));
+        System.out.println(maxHeightI(a));
     }
 }
 
