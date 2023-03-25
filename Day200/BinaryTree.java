@@ -1,5 +1,7 @@
 package Day200;
 
+import com.sun.source.tree.Tree;
+
 import java.util.*;
 import java.util.LinkedList;
 
@@ -163,6 +165,37 @@ public class BinaryTree {
         }
         return height;
     }
+
+    public static List<Integer> levelOrderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Queue<TreeNode> que = new LinkedList<>();
+        que.offer(root);
+        while (!que.isEmpty()) {
+            int size = que.size();
+            while (size-- > 0) {
+                TreeNode node = que.poll();
+                res.add((Integer) node.val);
+                if (node.left != null) que.offer(node.left);
+                if (node.right != null) que.offer(node.right);
+            }
+        }
+        return res;
+    }
+
+    public static List<Integer> levelOrderTraversalI(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Queue<TreeNode> que = new LinkedList<>();
+        que.offer(root);
+        while (!que.isEmpty()) {
+            TreeNode node = que.poll();
+            res.add((Integer) node.val);
+            if (node.left != null) que.offer(node.left);
+            if (node.right != null) que.offer(node.right);
+        }
+        return res;
+    }
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -195,6 +228,9 @@ public class BinaryTree {
         System.out.println("---max height----");
         System.out.println(maxHeight(a));
         System.out.println(maxHeightI(a));
+        System.out.println("----level order traversal----");
+        System.out.println(levelOrderTraversal(a));
+        System.out.println(levelOrderTraversalI(a));
     }
 }
 
