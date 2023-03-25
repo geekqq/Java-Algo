@@ -1,6 +1,7 @@
 package Day200;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -60,6 +61,89 @@ public class BinaryTree {
         }
         return res;
     }
+
+    public static List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        List left = inorderTraversal(root.left);
+        List right = inorderTraversal(root.right);
+        res.addAll(left);
+        res.add((Integer) root.val);
+        res.addAll(right);
+        return res;
+    }
+
+    public static List<Integer> inorderTraversalI(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        inorderTraversalI(root, res);
+        return res;
+    }
+
+    private static void inorderTraversalI(TreeNode root, List<Integer> res) {
+        if (root == null) return;
+        inorderTraversalI(root.left, res);
+        res.add((Integer) root.val);
+        inorderTraversalI(root.right, res);
+    }
+
+    public static List<Integer> inorderTraversalII(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        while (cur != null || !stack.isEmpty()) {
+            if (cur == null) {
+                cur = stack.pop();
+                res.add((Integer) cur.val);
+                cur = cur.right;
+            } else {
+                stack.push(cur);
+                cur = cur.left;
+            }
+        }
+        return res;
+    }
+
+    public static List<Integer> postorderTraversal(TreeNode root) {
+        LinkedList<Integer> res = new LinkedList<>();
+        if (root == null) return res;
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            res.addFirst((Integer) node.val);
+            if (node.left != null) stack.push(node.left);
+            if (node.right != null) stack.push(node.right);
+        }
+        return res;
+    }
+
+    public static List<Integer> postorderTraversalI(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        List left = postorderTraversalI(root.left);
+        List right = postorderTraversalI(root.right);
+        res.addAll(left);
+        res.addAll(right);
+        res.add((Integer) root.val);
+        return res;
+    }
+
+    public static List<Integer> postorderTraversalII(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        postorderTraversalII(root, res);
+        return res;
+    }
+
+    private static void postorderTraversalII(TreeNode root, List<Integer> res) {
+        if (root == null) return;
+        postorderTraversalII(root.left, res);
+        postorderTraversalII(root.right, res);
+        res.add((Integer) root.val);
+    }
+
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -81,6 +165,14 @@ public class BinaryTree {
         System.out.println(preorderTraversalI(a));
         System.out.println(preorderTraversalII(a));
         System.out.println(preorderTraversalIII(a));
+        System.out.println("----inorder traversal----");
+        System.out.println(inorderTraversal(a));
+        System.out.println(inorderTraversalI(a));
+        System.out.println(inorderTraversalII(a));
+        System.out.println("post order traversal----");
+        System.out.println(postorderTraversal(a));
+        System.out.println(postorderTraversalI(a));
+        System.out.println(postorderTraversalII(a));
     }
 }
 
