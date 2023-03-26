@@ -2,6 +2,8 @@ package Day202;
 
 import Day174.ListNode;
 
+import java.util.Stack;
+
 public class LinkedList {
     private ListNode head;
 
@@ -254,6 +256,27 @@ public class LinkedList {
         return head;
     }
 
+    public static void plusOne(ListNode head) {
+        if (head == null) return;
+        Stack<ListNode> stack = new Stack<>();
+        ListNode cur = head;
+        while (cur != null) {
+            stack.push(cur);
+            cur = cur.next;
+        }
+        while (!stack.isEmpty()) {
+            ListNode node = stack.pop();
+            if (node.val < 9) {
+                node.val++;
+                return;
+            } else {
+                node.val = 1;
+            }
+        }
+        ListNode newNode = new ListNode(1);
+        newNode.next = head;
+        head = newNode;
+    }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 10; i++) {
@@ -277,11 +300,9 @@ public class LinkedList {
         System.out.println("----partition list----");
         list.head = partitionList(list.head, 5);
         list.print();
-
         System.out.println("----reorder list----");
         list.head = reorderList(list.head);
         list.print();
-
         System.out.println("----merge sort list----");
         list.head = mergeSortList(list.head);
         list.print();
@@ -299,5 +320,13 @@ public class LinkedList {
         list.head = deleteNode(list.head, 3);
         list.head = deleteNode(list.head, 10);
         list.print();
+        System.out.println("----plus one----");
+        LinkedList num = new LinkedList();
+        num.add(1);
+        num.add(2);
+        num.add(3);
+        num.add(1);
+        plusOne(num.head);
+        num.print();
     }
 }
