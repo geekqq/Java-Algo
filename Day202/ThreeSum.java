@@ -1,14 +1,10 @@
-package Day195;
+package Day202;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ThreeSum {
-    public static void main(String[] args) {
-        int[] nums = {3,0,-1,4,1,2,0,-4};
-        System.out.println(threeSum(nums));
-    }
 
     public static List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
@@ -30,12 +26,16 @@ public class ThreeSum {
                     }
                 } else if (nums[i] + temp < 0) {
                     left++;
-                }
-                else {
+                } else {
                     right--;
                 }
             }
         }
         return res;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {3,0,-1,4,1,2,0,-4};
+        System.out.println(threeSum(nums));
     }
 }
