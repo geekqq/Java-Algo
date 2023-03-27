@@ -1,8 +1,9 @@
-package Day188;
+package Day202;
 
 import java.util.*;
 
-public class TopKFrequentWords {
+public class TopFrequentWords {
+
     public static List<String> frequentWords(String[] words, int k) {
         if (words == null || words.length == 0) return null;
         Map<String, Integer> map = new HashMap<>();
@@ -10,7 +11,7 @@ public class TopKFrequentWords {
             map.put(word, map.getOrDefault(word, 0) + 1);
         }
         List<String> list = new ArrayList<>(map.keySet());
-        Collections.sort(list, (w1, w2) -> map.get(w1) == map.get(w2) ? w1.compareTo(w2) : map.get(w2) - map.get(w1));
+        Collections.sort(list, (w1, w2) -> map.get(w2) == map.get(w1) ? w1.compareTo(w2) : map.get(w2) - map.get(w1));
         return list.subList(0, k);
     }
 
