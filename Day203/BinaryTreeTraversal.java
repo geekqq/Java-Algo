@@ -226,6 +226,15 @@ public class BinaryTreeTraversal {
         }
         return 0;
     }
+
+    public static int minDepthII(TreeNode root) {
+        if (root == null) return 0;
+        int leftDepth = minDepthII(root.left);
+        int rightDepth = minDepthII(root.right);
+        if (leftDepth == 0) return rightDepth + 1;
+        if (rightDepth == 0) return leftDepth + 1;
+        return Math.min(leftDepth, rightDepth) + 1;
+    }
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -262,6 +271,7 @@ public class BinaryTreeTraversal {
         System.out.println("---min depth----");
         System.out.println(minDepth(a));
         System.out.println(minDepthI(a));
+        System.out.println(minDepthII(a));
     }
 }
 
