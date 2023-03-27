@@ -16,6 +16,20 @@ public class BinaryTreeTraversal {
         return res;
     }
 
+    public static List<Integer> preorderTraversalI(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        preorderTraversalI(root, res);
+        return res;
+    }
+
+    private static void preorderTraversalI(TreeNode root, List<Integer> res) {
+        if (root == null) return;
+        res.add((Integer) root.val);
+        preorderTraversalI(root.left, res);
+        preorderTraversalI(root.right, res);
+    }
+
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -32,6 +46,7 @@ public class BinaryTreeTraversal {
         c.right = g;
         System.out.println("----preorder----");
         System.out.println(preorderTraversal(a));
+        System.out.println(preorderTraversalI(a));
     }
 }
 
