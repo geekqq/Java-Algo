@@ -1,6 +1,9 @@
 package Day203;
 
+import OODAdv.A;
+
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -104,6 +107,46 @@ public class BinaryTreeTraversal {
         }
         return res;
     }
+
+    public static List<Integer> postorder(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        List left = postorder(root.left);
+        List right = postorder(root.right);
+
+        res.addAll(left);
+        res.addAll(right);
+        res.add((Integer) root.val);
+        return res;
+    }
+
+    public static List<Integer> postorderI(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        postorderI(root, res);
+        return res;
+    }
+
+    private static void postorderI(TreeNode root, List<Integer> res) {
+        if (root == null) return;
+        postorderI(root.left, res);
+        postorderI(root.right, res);
+        res.add((Integer) root.val);
+    }
+
+    private static List<Integer> postorderII(TreeNode root) {
+        LinkedList<Integer> res = new LinkedList<>();
+        if (root == null) return res;
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            res.addFirst((Integer) node.val);
+            if (node.left != null) stack.push(node.left);
+            if (node.right != null) stack.push(node.right);
+        }
+        return res;
+    }
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -127,6 +170,11 @@ public class BinaryTreeTraversal {
         System.out.println(inorder(a));
         System.out.println(inorderI(a));
         System.out.println(inorderII(a));
+        System.out.println("----post order----");
+        System.out.println(postorder(a));
+        System.out.println(postorderI(a));
+        System.out.println(postorderII(a));
+
     }
 }
 
