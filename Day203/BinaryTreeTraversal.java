@@ -61,6 +61,20 @@ public class BinaryTreeTraversal {
         }
         return res;
     }
+
+    public static List<Integer> inorder(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        List left = inorder(root.left);
+        List right = inorder(root.right);
+
+        res.addAll(left);
+        res.add((Integer) root.val);
+        res.addAll(right);
+
+        return res;
+    }
+
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -80,6 +94,8 @@ public class BinaryTreeTraversal {
         System.out.println(preorderI(a));
         System.out.println(preorderII(a));
         System.out.println(preorderIII(a));
+        System.out.println("----in order----");
+        System.out.println(inorder(a));
     }
 }
 
