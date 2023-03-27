@@ -176,6 +176,56 @@ public class BinaryTreeTraversal {
         return res;
     }
 
+    public static int maxHeight(TreeNode root) {
+        if (root == null) return 0;
+        return Math.max(maxHeight(root.left), maxHeight(root.right)) + 1;
+    }
+
+    public static int maxHeightI(TreeNode root) {
+        if (root == null) return 0;
+        Queue<TreeNode> q = new LinkedList<>();
+        int height = 0;
+        q.offer(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                TreeNode node = q.poll();
+                if (node.left != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+            height++;
+        }
+        return height;
+    }
+
+    public static int minDepth(TreeNode root) {
+        if (root == null) return 0;
+        if (root.left != null && root.right != null) {
+            return Math.min(minDepth(root.left), minDepth(root.right)) + 1;
+        } else {
+            return root.left != null ? minDepth(root.left) + 1 : minDepth(root.right) + 1;
+        }
+    }
+
+    public static int minDepthI(TreeNode root) {
+        if (root == null) return 0;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        int depth = 1;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                TreeNode node = q.poll();
+                if (node.left == null && node.right == null) {
+                    return depth;
+                }
+                if (node.left != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+            depth++;
+        }
+        return 0;
+    }
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -206,6 +256,12 @@ public class BinaryTreeTraversal {
         System.out.println("----level order----");
         System.out.println(levelOrder(a));
         System.out.println(levelOrderI(a));
+        System.out.println("---max height of tree");
+        System.out.println(maxHeight(a));
+        System.out.println(maxHeightI(a));
+        System.out.println("---min depth----");
+        System.out.println(minDepth(a));
+        System.out.println(minDepthI(a));
     }
 }
 
