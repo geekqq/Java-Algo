@@ -3,6 +3,7 @@ package Day202;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.util.LinkedList;
 
 public class BinaryTreeTraversal {
 
@@ -106,6 +107,45 @@ public class BinaryTreeTraversal {
         return res;
     }
 
+    public static List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        List left = postorderTraversal(root.left);
+        List right = postorderTraversal(root.right);
+        res.addAll(left);
+        res.addAll(right);
+        res.add((Integer) root.val);
+        return res;
+    }
+
+    public static List<Integer> postorderTraversalI(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        postorderTraversalI(root, res);
+        return res;
+    }
+
+    private static void postorderTraversalI(TreeNode root, List<Integer> res) {
+        if (root == null) return;
+        postorderTraversalI(root.left, res);
+        postorderTraversalI(root.right, res);
+        res.add((Integer) root.val);
+    }
+
+    public static List<Integer> postorderTraversalII(TreeNode root) {
+        LinkedList<Integer> res = new LinkedList();
+        if (root == null) return res;
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            res.addFirst((Integer) node.val);
+            if (node.left != null) stack.push(node.left);
+            if (node.right != null) stack.push(node.right);
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -129,6 +169,10 @@ public class BinaryTreeTraversal {
         System.out.println(inorderTraversal(a));
         System.out.println(inorderTraversalI(a));
         System.out.println(inorderTraversalII(a));
+        System.out.println("----post order----");
+        System.out.println(postorderTraversal(a));
+        System.out.println(postorderTraversalI(a));
+        System.out.println(postorderTraversalII(a));
 
     }
 }
