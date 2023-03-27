@@ -30,7 +30,37 @@ public class BinaryTreeTraversal {
         return res;
     }
 
+    public static List<Integer> preorderII(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        preorderII(root, res);
+        return res;
+    }
 
+    private static void preorderII(TreeNode root, List<Integer> res) {
+        if (root == null) return;
+        res.add((Integer) root.val);
+        preorderII(root.left, res);
+        preorderII(root.right, res);
+    }
+
+    public static List<Integer> preorderIII(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        while (cur != null || !stack.isEmpty()) {
+            if (cur != null) {
+                res.add((Integer) cur.val);
+                stack.push(cur);
+                cur = cur.left;
+            } else {
+                cur = stack.pop();
+                cur = cur.right;
+            }
+        }
+        return res;
+    }
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -48,6 +78,8 @@ public class BinaryTreeTraversal {
         System.out.println("----pre order----");
         System.out.println(preorder(a));
         System.out.println(preorderI(a));
+        System.out.println(preorderII(a));
+        System.out.println(preorderIII(a));
     }
 }
 
