@@ -2,10 +2,7 @@ package Day203;
 
 import OODAdv.A;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class BinaryTreeTraversal {
 
@@ -147,6 +144,38 @@ public class BinaryTreeTraversal {
         }
         return res;
     }
+
+    public static List<Integer> levelOrder(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            res.add((Integer) node.val);
+            if (node.left != null) q.offer(node.left);
+            if (node.right != null) q.offer(node.right);
+        }
+        return res;
+    }
+
+    public static List<Integer> levelOrderI(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                TreeNode node = q.poll();
+                res.add((Integer) node.val);
+                if (node.left != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -174,7 +203,9 @@ public class BinaryTreeTraversal {
         System.out.println(postorder(a));
         System.out.println(postorderI(a));
         System.out.println(postorderII(a));
-
+        System.out.println("----level order----");
+        System.out.println(levelOrder(a));
+        System.out.println(levelOrderI(a));
     }
 }
 
