@@ -179,6 +179,30 @@ public class BinaryTreeTraversal {
         return left + right + (Integer) root.val;
     }
 
+    public static int getHeight(TreeNode root) {
+        if (root == null) return 0;
+        int left = getHeight(root.left);
+        int right = getHeight(root.right);
+        return Math.max(left, right) + 1;
+    }
+
+    public static int getHeightI(TreeNode root) {
+        if (root == null) return 0;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        int height = 0;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                TreeNode node = q.poll();
+                if (node.left != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+            height++;
+        }
+        return height;
+    }
+
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -211,6 +235,9 @@ public class BinaryTreeTraversal {
         System.out.println("----get sum----");
         System.out.println(getSum(a));
         System.out.println(getSumI(a));
+        System.out.println("----get height of tree");
+        System.out.println(getHeight(a));
+        System.out.println(getHeightI(a));
 
     }
 }
