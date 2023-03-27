@@ -1,8 +1,6 @@
 package Day202;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 import java.util.LinkedList;
 
 public class BinaryTreeTraversal {
@@ -146,6 +144,41 @@ public class BinaryTreeTraversal {
         return res;
     }
 
+    public static List<Integer> levelOrderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            res.add((Integer) node.val);
+            if (node.left != null) queue.offer(node.left);
+            if (node.right != null) queue.offer(node.right);
+        }
+        return res;
+    }
+
+    public static int getSum(TreeNode root) {
+        if (root == null) return 0;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        int sum = 0;
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            sum += (Integer) node.val;
+            if (node.left != null) q.offer(node.left);
+            if (node.right != null) q.offer(node.right);
+        }
+        return sum;
+    }
+
+    public static int getSumI(TreeNode root) {
+        if (root == null) return 0;
+        int left = getSumI(root.left);
+        int right = getSumI(root.right);
+        return left + right + (Integer) root.val;
+    }
+
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -173,6 +206,11 @@ public class BinaryTreeTraversal {
         System.out.println(postorderTraversal(a));
         System.out.println(postorderTraversalI(a));
         System.out.println(postorderTraversalII(a));
+        System.out.println("----level order----");
+        System.out.println(levelOrderTraversal(a));
+        System.out.println("----get sum----");
+        System.out.println(getSum(a));
+        System.out.println(getSumI(a));
 
     }
 }
