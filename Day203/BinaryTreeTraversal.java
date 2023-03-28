@@ -235,6 +235,24 @@ public class BinaryTreeTraversal {
         if (rightDepth == 0) return leftDepth + 1;
         return Math.min(leftDepth, rightDepth) + 1;
     }
+
+    public static boolean isBalanced(TreeNode root) {
+        if (root == null) return true;
+        int leftHeight = getHeight(root.left);
+        int rightHeight = getHeight(root.right);
+        if (Math.abs(leftHeight - rightHeight) > 1) {
+            return false;
+        }
+        return isBalanced(root.left) && isBalanced(root.right);
+    }
+
+    private static int getHeight(TreeNode root) {
+        if (root == null) return 0;
+        int leftHeight = getHeight(root.left);
+        int rightHeight = getHeight(root.right);
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -272,6 +290,8 @@ public class BinaryTreeTraversal {
         System.out.println(minDepth(a));
         System.out.println(minDepthI(a));
         System.out.println(minDepthII(a));
+        System.out.println("----is balanced----");
+        System.out.println(isBalanced(a));
     }
 }
 
