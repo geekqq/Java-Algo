@@ -1,7 +1,5 @@
 package Day203;
 
-import OODAdv.A;
-
 import java.util.*;
 
 public class BinaryTreeTraversal {
@@ -305,6 +303,68 @@ public class BinaryTreeTraversal {
         if (p.val != q.val) return false;
         return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
+
+    public static boolean isValidBST(TreeNode root) {
+        if (root == null || (root.left == null && root.right == null)) return true;
+
+        TreeNode[] pre = new TreeNode[1];
+        boolean[] res = new boolean[]{true};
+
+        inOrder(pre, root, res);
+
+        return res[0];
+    }
+
+    private static void inOrder(TreeNode[] pre, TreeNode root, boolean[] res) {
+        if (root == null) return;
+        inOrder(pre, root.left, res);
+
+        if (pre[0] == null) {
+            pre[0] = root;
+        } else {
+            if (pre[0].val >= root.val) {
+                res[0] = false;
+            } else {
+                pre[0] = root;
+            }
+        }
+
+        inOrder(pre, root.right, res);
+    }
+
+    public static boolean isValidBSTI(TreeNode root) {
+        if (root == null || (root.left == null && root.right == null)) {
+            return true;
+        }
+        return isValid(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    private static boolean isValid(TreeNode root, long lower, long upper) {
+        if (root == null) return true;
+        if (root.val <= lower || root.val >= upper) return false;
+        return isValid(root.left, lower, root.val) && isValid(root.right, root.val, upper);
+    }
+
+    public boolean isValidBSTII(TreeNode root) {
+        return dfs(root);
+    }
+
+
+    private TreeNode prev = null;
+    private boolean dfs(TreeNode cur) {
+        if (cur == null) {
+            return true;
+        }
+        if (!dfs(cur)) {
+            return false;
+        }
+        if (prev != null && prev.val >= cur.val) {
+            return false;
+        }
+        prev = cur;
+        return dfs(cur.right);
+    }
+
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -352,15 +412,25 @@ public class BinaryTreeTraversal {
         System.out.println(invertTreeI(a).right.val);
         System.out.println("----is same tree----");
         System.out.println(isSameTree(a, a));
-        System.out.println("---");
+        System.out.println("----valid BST----");
+        TreeNode x = new TreeNode(4);
+        x.left = new TreeNode(3);
+        x.left.left = new TreeNode(1);
+        x.right = new TreeNode(5);
+        x.right.right = new TreeNode(6);
+        System.out.println(isValidBST(x));
+        System.out.println(isValidBSTI(x));
+        System.out.println(isValidBSTI(x));
+        System.out.println(inorder(x));
+        System.out.println("----");
     }
 }
 
-class TreeNode<E> {
-    E val;
+class TreeNode {
+    int val;
     TreeNode left;
     TreeNode right;
-    public TreeNode(E val) {
+    public TreeNode(int val) {
         this.val = val;
         left = null;
         right = null;
