@@ -265,6 +265,46 @@ public class BinaryTreeTraversal {
         return isSymmetric(leftNode.left, rightNode.right) && isSymmetric(leftNode.right, rightNode.left);
     }
 
+    public static TreeNode invertTree(TreeNode root) {
+        if (root == null || (root.left == null && root.right == null)) return root;
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+
+        invertTree(root.left);
+        invertTree(root.right);
+
+        return root;
+    }
+
+
+    public static TreeNode invertTreeI(TreeNode root) {
+        if (root == null || (root.left == null && root.right == null)) return root;
+        invertTreeI(root.left);
+        invertTreeI(root.right);
+
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+
+        return root;
+    }
+
+    public static TreeNode invertTreeII(TreeNode root) {
+        if (root == null || (root.left == null && root.right == null)) return root;
+        TreeNode leftNode = invertTreeII(root.left);
+        TreeNode rightNode = invertTreeII(root.right);
+        root.left = rightNode;
+        root.right = leftNode;
+        return root;
+    }
+
+    public static boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null && q == null) return true;
+        if (p == null || q == null) return false;
+        if (p.val != q.val) return false;
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -306,6 +346,13 @@ public class BinaryTreeTraversal {
         System.out.println(isBalanced(a));
         System.out.println("----is symmetric tree");
         System.out.println(isSymmetric(a));
+        System.out.println("----invert tree----");
+        System.out.println(invertTree(a).left.val);
+        System.out.println(invertTreeII(a).right.val);
+        System.out.println(invertTreeI(a).right.val);
+        System.out.println("----is same tree----");
+        System.out.println(isSameTree(a, a));
+        System.out.println("---");
     }
 }
 
