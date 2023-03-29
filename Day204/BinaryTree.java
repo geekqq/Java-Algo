@@ -1,6 +1,9 @@
 package Day204;
 
+import com.sun.source.tree.Tree;
+
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -64,6 +67,88 @@ public class BinaryTree {
         return res;
     }
 
+    public static List<Integer> inOrderI(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        List left = inOrderI(root.left);
+        List right = inOrderI(root.right);
+        res.addAll(left);
+        res.add(root.val);
+        res.addAll(right);
+        return res;
+    }
+
+    public static List<Integer> inOrderII(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        inOrderII(root, res);
+        return res;
+    }
+
+    private static void inOrderII(TreeNode root, List<Integer> res) {
+        if (root == null) return;
+        inOrderII(root.left, res);
+        res.add(root.val);
+        inOrderII(root.right, res);
+    }
+
+    public static List<Integer> inOrder(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        while (cur != null || !stack.isEmpty()) {
+            if (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            } else {
+                cur = stack.pop();
+                res.add(cur.val);
+                cur = cur.right;
+            }
+        }
+        return res;
+    }
+
+    public static List<Integer> postOrder(TreeNode root) {
+        LinkedList<Integer> res = new LinkedList<>();
+        if (root == null) return res;
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            res.addFirst(node.val);
+            if (node.left != null) stack.push(node.left);
+            if (node.right != null) stack.push(node.right);
+        }
+        return res;
+    }
+
+    public static List<Integer> postOrderI(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        List left = postOrderI(root.left);
+        List right = postOrderI(root.right);
+        res.addAll(left);
+        res.addAll(right);
+        res.add(root.val);
+        return res;
+    }
+
+    public static List<Integer> postOrderII(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        postOrderII(root, res);
+        return res;
+    }
+
+    private static void postOrderII(TreeNode root, List<Integer> res) {
+        if (root == null) return;
+        postOrderII(root.left, res);
+        postOrderII(root.right, res);
+        res.add(root.val);
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -77,6 +162,14 @@ public class BinaryTree {
         System.out.println(preOrderI(root));
         System.out.println(preOrderII(root));
         System.out.println(preOrderIII(root));
+        System.out.println("----in order traversal----");
+        System.out.println(inOrder(root));
+        System.out.println(inOrderI(root));
+        System.out.println(inOrderII(root));
+        System.out.println("----post order----");
+        System.out.println(postOrder(root));
+        System.out.println(postOrderI(root));
+        System.out.println(postOrderII(root));
     }
 
 }
