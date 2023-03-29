@@ -365,6 +365,22 @@ public class BinaryTreeTraversal {
         return dfs(cur.right);
     }
 
+    public static boolean isValidBSTIII(TreeNode root) {
+        return dfs(root, new Integer[1]);
+    }
+
+    private static boolean dfs(TreeNode root, Integer[] prev) {
+        if (root == null) return true;
+        if (!dfs(root.left, prev)) {
+            return false;
+        }
+        if (prev[0] != null && prev[0] >= root.val) {
+            return false;
+        }
+        prev[0] = root.val;
+        return dfs(root.right, prev);
+    }
+
     public static void main(String[] args) {
         TreeNode a = new TreeNode(4);
         TreeNode b = new TreeNode(2);
@@ -422,6 +438,7 @@ public class BinaryTreeTraversal {
         System.out.println(isValidBSTI(x));
         System.out.println(isValidBSTI(x));
         System.out.println(inorder(x));
+        System.out.println(isValidBSTIII(x));
         System.out.println("----");
     }
 }
