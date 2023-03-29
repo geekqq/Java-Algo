@@ -2,10 +2,7 @@ package Day204;
 
 import com.sun.source.tree.Tree;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class BinaryTree {
 
@@ -124,6 +121,36 @@ public class BinaryTree {
         return res;
     }
 
+    public static List<Integer> levelOrder(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            res.add(node.val);
+            if (node.left != null) q.offer(node.left);
+            if (node.right != null) q.offer(node.right);
+        }
+        return res;
+    }
+
+    public static List<Integer> levelOrderI(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                TreeNode node = q.poll();
+                res.add(node.val);
+                if (node.left != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+        }
+        return res;
+    }
     public static List<Integer> postOrderI(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         if (root == null) return res;
@@ -135,6 +162,27 @@ public class BinaryTree {
         return res;
     }
 
+    public static int maxHeight(TreeNode root) {
+        if (root == null) return 0;
+        return Math.max(maxHeight(root.left), maxHeight(root.right)) + 1;
+    }
+
+    public static int maxHeightI(TreeNode root) {
+        if (root == null) return 0;
+        Queue<TreeNode> que = new LinkedList<>();
+        int height = 0;
+        que.offer(root);
+        while (!que.isEmpty()) {
+            int size = que.size();
+            while (size-- > 0) {
+                TreeNode node = que.poll();
+                if (node.left != null) que.offer(node.left);
+                if (node.right != null) que.offer(node.right);
+            }
+            height++;
+        }
+        return height;
+    }
     public static List<Integer> postOrderII(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         if (root == null) return res;
@@ -170,6 +218,12 @@ public class BinaryTree {
         System.out.println(postOrder(root));
         System.out.println(postOrderI(root));
         System.out.println(postOrderII(root));
+        System.out.println("----level order----");
+        System.out.println(levelOrder(root));
+        System.out.println(levelOrderI(root));
+        System.out.println("---max height----");
+        System.out.println(maxHeight(root));
+        System.out.println(maxHeightI(root));
     }
 
 }
