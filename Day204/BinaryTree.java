@@ -197,6 +197,66 @@ public class BinaryTree {
         res.add(root.val);
     }
 
+    public static int minDepth(TreeNode root) {
+        if (root == null) return 0;
+        final int leftDepth = minDepth(root.left);
+        final int rightDepth = minDepth(root.right);
+        if (root.left != null && root.right != null) {
+            return Math.min(leftDepth, rightDepth) + 1;
+        } else {
+            return root.left == null ? minDepth(root.right) + 1 : minDepth(root.left) + 1;
+        }
+    }
+
+    public static int minDepthI(TreeNode root) {
+        if (root == null) return 0;
+        int leftDepth = minDepthI(root.left);
+        int rightDepth = minDepthI(root.right);
+        if (leftDepth == 0) return minDepthI(root.right) + 1;
+        if (rightDepth == 0) return minDepthI(root.left) + 1;
+
+        return Math.min(leftDepth, rightDepth) + 1;
+    }
+
+    public static int minDepthII(TreeNode root) {
+        if (root == null) return 0;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        int depth = 1;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                TreeNode node = q.poll();
+                if (node.left == null && node.right == null) {
+                    return depth;
+                }
+                if (node.left != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+            depth++;
+        }
+        return depth;
+    }
+
+    public static boolean isBalanced(TreeNode root) {
+        if (root == null || (root.left == null && root.right == null)) return true;
+        int leftHeight = maxHeight(root.left);
+        int rightHeight = maxHeight(root.right);
+        if (Math.abs(leftHeight - rightHeight) > 1) return false;
+        return isBalanced(root.left) && isBalanced(root.right);
+    }
+
+    public static boolean isSymmetric(TreeNode root) {
+        if (root == null || (root.left == null && root.right == null)) return true;
+        return isSymmetric(root.left, root.right);
+    }
+
+    private static boolean isSymmetric(TreeNode leftNode, TreeNode rightNode) {
+        if (leftNode == null && rightNode == null) return true;
+        if (leftNode == null || rightNode == null) return false;
+        if (leftNode.val != rightNode.val) return false;
+        return isSymmetric(leftNode.left, rightNode.right) && isSymmetric(leftNode.right, rightNode.left);
+    }
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -224,6 +284,22 @@ public class BinaryTree {
         System.out.println("---max height----");
         System.out.println(maxHeight(root));
         System.out.println(maxHeightI(root));
+        System.out.println("----min depth----");
+        TreeNode root1 = new TreeNode(1);
+        root1.right = new TreeNode(2);
+        root1.right.right = new TreeNode(3);
+        root1.right.right.right = new TreeNode(4);
+        root1.right.right.right.right = new TreeNode(5);
+        System.out.println(minDepth(root1));
+        System.out.println(minDepthI(root1));
+        System.out.println(minDepthII(root1));
+        System.out.println("----check balanced----");
+        System.out.println(isBalanced(root));
+        System.out.println(isBalanced(root1));
+        System.out.println("----check symmetric----");
+        System.out.println(isSymmetric(root));
+        System.out.println(isSymmetric(root1));
+
     }
 
 }
