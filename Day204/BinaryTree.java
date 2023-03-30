@@ -280,6 +280,13 @@ public class BinaryTree {
         root.right = leftNode;
         return root;
     }
+
+    public static boolean isSameTree(TreeNode root1, TreeNode root2) {
+        if (root1 == null && root2 == null) return true;
+        if (root1 == null || root2 == null) return false;
+        if (root1.val != root2.val) return false;
+        return isSameTree(root1.left, root2.left) && isSameTree(root1.right, root2.right);
+    }
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -324,6 +331,8 @@ public class BinaryTree {
         System.out.println(isSymmetric(root1));
         System.out.println("----invert tree----");
         System.out.println(invertTreeI(root).left.val);
+        System.out.println("----is same tree----");
+        System.out.println(isSameTree(root, root1));
 
     }
 
