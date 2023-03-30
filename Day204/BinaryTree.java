@@ -287,6 +287,73 @@ public class BinaryTree {
         if (root1.val != root2.val) return false;
         return isSameTree(root1.left, root2.left) && isSameTree(root1.right, root2.right);
     }
+
+    public static boolean isValidBST(TreeNode root) {
+        if (root == null || (root.left == null && root.right == null)) return true;
+        return isValid(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    private static boolean isValid(TreeNode root, long lower, long upper) {
+        if (root == null) return true;
+        if (root.val <= lower || root.val >= upper) return false;
+        return isValid(root.left, lower, root.val) && isValid(root.right, root.val, upper);
+    }
+
+    public static boolean isValidBSTI(TreeNode root) {
+        return dfs(root, new Integer[1]);
+    }
+
+    private static boolean dfs(TreeNode root, Integer[] prev) {
+        if (root == null) return true;
+        if (!dfs(root.left, prev)) {
+            return false;
+        }
+        if (prev[0] != null && prev[0] >= root.val) {
+            return false;
+        }
+        prev[0] = root.val;
+        return dfs(root.right, prev);
+    }
+
+    public static boolean isValidBSTII(TreeNode root) {
+        return dfs(root);
+    }
+
+    private static boolean dfs(TreeNode cur) {
+        TreeNode prev = null;
+        if (cur == null) {
+            return true;
+        }
+        if (!dfs(cur.left)) {
+            return false;
+        }
+
+        if (prev != null && prev.val >= cur.val) {
+            return false;
+        }
+        prev = cur;
+        return dfs(cur.right);
+    }
+
+    public static int closestValue(TreeNode root, double target) {
+        if (root == null) {
+            throw new IllegalArgumentException();
+        }
+        int closest  = root.val;
+
+        if (target < closest && root.left != null) {
+            int leftClosest = closestValue(root.left, target);
+            if (Math.abs(target - leftClosest) < Math.abs(target - closest)) {
+                closest = leftClosest;
+            }
+        } else if (target > closest && root.right != null) {
+            int rightClosest = closestValue(root.right, target);
+            if (Math.abs(target - rightClosest) < Math.abs(target - closest)) {
+                closest = rightClosest;
+            }
+        }
+        return closest;
+    }
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -333,6 +400,15 @@ public class BinaryTree {
         System.out.println(invertTreeI(root).left.val);
         System.out.println("----is same tree----");
         System.out.println(isSameTree(root, root1));
+        System.out.println("----valid BST----");
+        System.out.println(isValidBST(root));
+        System.out.println(isValidBST(root1));
+        System.out.println(isValidBSTI(root));
+        System.out.println(isValidBSTI(root1));
+        System.out.println(isValidBSTII(root));
+        System.out.println(isValidBSTII(root1));
+        System.out.println("----find the closest node value----");
+        System.out.println(closestValue(root, 2));
 
     }
 
