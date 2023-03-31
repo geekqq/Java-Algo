@@ -48,4 +48,24 @@ public class FindClosestValue {
         List res = inOrderTraversal(root);
         return findClosestValue(res, target);
     }
+
+    public static int closestValueI(TreeNode root, double target) {
+        if (root == null) {
+            throw new IllegalArgumentException();
+        }
+
+        int closest = root.val;
+        TreeNode cur = root;
+        while (cur != null) {
+            if (Math.abs(cur.val - target) <= Math.abs(closest - target)) {
+                closest = cur.val;
+            }
+            if (cur.val > target) {
+                cur = cur.left;
+            } else {
+                cur = cur.right;
+            }
+        }
+        return closest;
+    }
 }
