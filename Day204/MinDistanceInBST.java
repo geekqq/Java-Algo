@@ -21,14 +21,14 @@ public class MinDistanceInBST {
         inOrderTraversal(root.right, res);
     }
 
-    int res = Integer.MAX_VALUE;
-    TreeNode prev = null;
-    public int minDiffInBSTI(TreeNode root) {
+    static int res = Integer.MAX_VALUE;
+    static TreeNode prev = null;
+    public static int minDiffInBSTI(TreeNode root) {
         inOrderTraverse(root);
         return res;
     }
 
-    private void inOrderTraverse(TreeNode root) {
+    private static void inOrderTraverse(TreeNode root) {
         if (root == null) return;
         inOrderTraverse(root.left);
         if (prev != null) {
@@ -47,6 +47,6 @@ public class MinDistanceInBST {
         root.left.right = new TreeNode(5);
         root.right = new TreeNode(12);
         System.out.println(minDiffInBST(root));
-        System.out.println(minDiffInBST(root));
+        System.out.println(minDiffInBSTI(root));
     }
 }
