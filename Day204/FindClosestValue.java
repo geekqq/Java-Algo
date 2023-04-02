@@ -82,7 +82,6 @@ public class FindClosestValue {
         return closest;
     }
 
-    //closestValueII 有问题，LC提交错误，不能输出正确答案，暂时搁置
     static int res = Integer.MAX_VALUE;
     public static int closestValueII(TreeNode root, double target) {
         if (root == null) return -1;
