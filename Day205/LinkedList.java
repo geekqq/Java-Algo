@@ -174,6 +174,48 @@ public class LinkedList {
         }
     }
 
+    public static ListNode reOrderList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode temp = slow.next;
+        slow.next = null;
+        ListNode firstHead = head;
+        ListNode secondHead = reverse(temp);
+        ListNode dummy = new ListNode(0);
+        temp = dummy;
+        while (firstHead != null && secondHead != null) {
+            temp.next = firstHead;
+            firstHead = firstHead.next;
+            temp = temp.next;
+            temp.next = secondHead;
+            secondHead = secondHead.next;
+            temp = temp.next;
+        }
+        return dummy.next;
+    }
+
+    public static ListNode insertSortList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode dummy = new ListNode(0);
+        ListNode cur = head;
+        while (cur != null) {
+            ListNode prev = dummy;
+            while (prev.next != null && cur.val > prev.next.val) {
+                prev = prev.next;
+            }
+            ListNode insertNode = cur;
+            cur = cur.next;
+            insertNode.next = prev.next;
+            prev.next = insertNode;
+        }
+        return dummy.next;
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 12; i++) {
@@ -203,6 +245,12 @@ public class LinkedList {
         list.print();
         System.out.println("---delete duplicates----");
         deleteDuplicates(list.head);
+        list.print();
+        System.out.println("---re order list----");
+        list.head = reOrderList(list.head);
+        list.print();
+        System.out.println("----insert sort list----");
+        list.head = insertSortList(list.head);
         list.print();
     }
 }
