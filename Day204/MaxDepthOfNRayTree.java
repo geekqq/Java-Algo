@@ -1,5 +1,5 @@
 package Day204;
-
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -35,6 +35,37 @@ public class MaxDepthOfNRayTree {
         return maxDepth;
     }
 
+    public static List<List<Integer>> levelOrder(NTreeNode root) {
+        List<List<Integer>> res = new LinkedList<>();
+        if (root == null) return res;
+        Queue<NTreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            List<Integer> level = new LinkedList<>();
+            int size = q.size();
+            while (size-- > 0) {
+                NTreeNode node = q.poll();
+                level.add(node.val);
+                for (NTreeNode child : node.children) {
+                    q.offer(child);
+                }
+            }
+            res.add(level);
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        NTreeNode root = new NTreeNode(1);
+        root.children.add(new NTreeNode(3));
+        root.children.add(new NTreeNode(2));
+        root.children.add(new NTreeNode(4));
+        root.children.get(0).children.add(new NTreeNode(5));
+        root.children.get(0).children.add(new NTreeNode(6));
+        System.out.println(maxDepth(root));
+        System.out.println(levelOrder(root));
+    }
+
 }
 
 class NTreeNode {
@@ -43,10 +74,7 @@ class NTreeNode {
 
     public NTreeNode(int val) {
         this.val = val;
+        this.children = new LinkedList<NTreeNode>();
     }
 
-    public NTreeNode(int val, List<NTreeNode> children) {
-        this.val = val;
-        this.children = children;
-    }
 }
