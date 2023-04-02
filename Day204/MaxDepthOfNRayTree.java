@@ -1,8 +1,5 @@
 package Day204;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 //LC559
 public class MaxDepthOfNRayTree {
@@ -55,6 +52,36 @@ public class MaxDepthOfNRayTree {
         return res;
     }
 
+    public static List<Integer> preOrder(NTreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Stack<NTreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            NTreeNode node = stack.pop();
+            res.add(node.val);
+            int size = node.children.size();
+            for (int i = size - 1; i >= 0; i--) {
+                stack.push(node.children.get(i));
+            }
+        }
+        return res;
+    }
+
+    public static List<Integer> postOrder(NTreeNode root) {
+        LinkedList<Integer> res = new LinkedList<>();
+        if (root == null) return res;
+        Stack<NTreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            NTreeNode node = stack.pop();
+            res.addFirst(node.val);
+            for (NTreeNode child : node.children) {
+                stack.push(child);
+            }
+        }
+        return res;
+    }
     public static void main(String[] args) {
         NTreeNode root = new NTreeNode(1);
         root.children.add(new NTreeNode(3));
@@ -64,6 +91,8 @@ public class MaxDepthOfNRayTree {
         root.children.get(0).children.add(new NTreeNode(6));
         System.out.println(maxDepth(root));
         System.out.println(levelOrder(root));
+        System.out.println(preOrder(root));
+        System.out.println(postOrder(root));
     }
 
 }
