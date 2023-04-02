@@ -145,6 +145,35 @@ public class LinkedList {
         return dummy.next;
     }
 
+    public static ListNode insertNode(ListNode head, int val) {
+        ListNode newNode = new ListNode(val);
+        if (head == null || head.val >= val) {
+            newNode.next = head;
+            head = newNode;
+        } else {
+            ListNode cur = head;
+            while (cur.next != null && cur.next.val < val) {
+                cur = cur.next;
+            }
+            newNode.next = cur.next;
+            cur.next = newNode;
+        }
+        return head;
+    }
+
+    public static void deleteDuplicates(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode slow = head;
+        while (slow != null) {
+            ListNode fast = slow.next;
+            while (fast != null && slow.val == fast.val) {
+                fast = fast.next;
+            }
+            slow.next = fast;
+            slow = slow.next;
+        }
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 12; i++) {
@@ -165,6 +194,15 @@ public class LinkedList {
         list.print();
         System.out.println("----merge sort list----");
         list.head = mergeSortList(list.head);
+        list.print();
+        System.out.println("---insert node----");
+        list.head = insertNode(list.head, 0);
+        list.head = insertNode(list.head, 4);
+        list.head = insertNode(list.head, 11);
+        list.head = insertNode(list.head, 12);
+        list.print();
+        System.out.println("---delete duplicates----");
+        deleteDuplicates(list.head);
         list.print();
     }
 }
