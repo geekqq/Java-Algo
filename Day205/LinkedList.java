@@ -2,6 +2,8 @@ package Day205;
 
 import Day174.ListNode;
 
+import java.util.Stack;
+
 public class LinkedList {
     private ListNode head;
 
@@ -216,6 +218,95 @@ public class LinkedList {
         return dummy.next;
     }
 
+    public static void oddEvenList(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode evenHead = head.next;
+        while (even != null && even.next != null) {
+            odd.next = odd.next.next;
+            even.next = even.next.next;
+            odd = odd.next;
+            even = even.next;
+        }
+        odd.next = evenHead;
+    }
+
+    public static ListNode deleteNode(ListNode head, int val) {
+        if (head == null) return null;
+        if (head.val == val) {
+            if (head.next == null) {
+                System.out.println("The head is the only node, can not be deleted!");
+            } else {
+                head.val = head.next.val;
+                head.next = head.next.next;
+            }
+        } else {
+            ListNode cur = head;
+            while (cur.next != null && cur.next.val != val) {
+                cur = cur.next;
+            }
+            if (cur == null) {
+                System.out.println("the node is not presented!");
+            }
+            cur.next = cur.next.next;
+        }
+        return head;
+    }
+
+    public static void plusOne(ListNode head) {
+        if (head == null) return;
+        Stack<ListNode> stack = new Stack<>();
+        ListNode cur = head;
+        while (cur != null) {
+            stack.push(cur);
+            cur = cur.next;
+        }
+        while (!stack.isEmpty()) {
+            ListNode n = stack.pop();
+            if (n.val < 9) {
+                n.val++;
+                return;
+            } else {
+                n.val = 0;
+            }
+        }
+        ListNode newNode = new ListNode(1);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    public static boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) return false;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static ListNode hasCycleII(ListNode head) {
+        if (head == null || head.next == null) return null;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) break;
+        }
+        if (slow != fast) return null;
+        ListNode temp = head;
+        while (temp != slow) {
+            temp = temp.next;
+            slow = slow.next;
+        }
+        return temp;
+    }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 12; i++) {
@@ -252,6 +343,21 @@ public class LinkedList {
         System.out.println("----insert sort list----");
         list.head = insertSortList(list.head);
         list.print();
+        System.out.println("----odd even list----");
+        oddEvenList(list.head);
+        list.print();
+        System.out.println("----delete node----");
+        list.head = deleteNode(list.head, 0);
+        list.head = deleteNode(list.head, 3);
+        list.head = deleteNode(list.head, 12);
+        list.print();
+        System.out.println("----plus one----");
+        LinkedList num = new LinkedList();
+        num.add(1);
+        num.add(2);
+        num.add(3);
+        plusOne(num.head);
+        num.print();
     }
 }
 
