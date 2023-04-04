@@ -5,7 +5,7 @@ import Day174.ListNode;
 import java.util.Stack;
 
 public class LinkedList {
-    private ListNode head;
+    public ListNode head;
 
     public void add(int val) {
         ListNode newNode = new ListNode(val);
