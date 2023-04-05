@@ -170,6 +170,37 @@ public class BinaryTreeTraversal {
         }
         return total;
     }
+
+    public static List<Integer> levelOrder(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            res.add(node.val);
+            if (node.left != null) q.offer(node.left);
+            if (node.right != null) q.offer(node.right);
+        }
+        return res;
+    }
+
+    public static List<Integer> levelOrderI(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                TreeNode node = q.poll();
+                res.add(node.val);
+                if (node.left != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+        }
+        return res;
+    }
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -194,6 +225,9 @@ public class BinaryTreeTraversal {
         System.out.println("----total nodes----");
         System.out.println(getTotalNodes(root));
         System.out.println(getTotalNodesI(root));
+        System.out.println("----level order----");
+        System.out.println(levelOrder(root));
+        System.out.println(levelOrderI(root));
     }
 }
 
