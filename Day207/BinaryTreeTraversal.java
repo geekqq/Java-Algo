@@ -2,10 +2,7 @@ package Day207;
 
 import com.sun.source.tree.Tree;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class BinaryTreeTraversal {
 
@@ -145,6 +142,34 @@ public class BinaryTreeTraversal {
         }
         return res;
     }
+
+    public static int getTotalNodes(TreeNode root) {
+        if (root == null) return 0;
+        int left = getTotalNodes(root.left);
+        int right = getTotalNodes(root.right);
+        return left + right + 1;
+    }
+
+    public static int getTotalNodesI(TreeNode root) {
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        int total = 1;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                TreeNode node = q.poll();
+                if (node.left != null) {
+                    q.offer(node.left);
+                    total++;
+                }
+                if (node.right != null) {
+                    q.offer(node.right);
+                    total++;
+                }
+            }
+        }
+        return total;
+    }
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -166,6 +191,9 @@ public class BinaryTreeTraversal {
         System.out.println(postOrder(root));
         System.out.println(postOrderI(root));
         System.out.println(postOrderII(root));
+        System.out.println("----total nodes----");
+        System.out.println(getTotalNodes(root));
+        System.out.println(getTotalNodesI(root));
     }
 }
 
