@@ -201,6 +201,48 @@ public class BinaryTreeTraversal {
         }
         return res;
     }
+
+    public static int maxDepth(TreeNode root) {
+        if (root == null) return 0;
+        return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
+    }
+
+    public static int maxDepthI(TreeNode root) {
+        if (root == null) return 0;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        int depth = 0;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                TreeNode node = q.poll();
+                if (node.left != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+            depth++;
+        }
+        return depth;
+    }
+
+    public static int minDepth(TreeNode root) {
+        if (root == null) return 0;
+        if (root.left == null && root.right == null) {
+            return Math.min(minDepth(root.left), minDepth(root.right)) + 1;
+        } else {
+            return root.left != null ? (minDepth(root.left) + 1) : (minDepth(root.right) + 1);
+        }
+    }
+
+    public static int minDepthI(TreeNode root) {
+        if (root == null) return 0;
+        int leftMinDepth = minDepthI(root.left);
+        int rightMinDepth = minDepthI(root.right);
+        if (root.left != null && root.right != null) {
+            return Math.min(leftMinDepth, rightMinDepth) + 1;
+        } else {
+            return root.left != null ? minDepthI(root.left) + 1 : minDepthI(root.right) + 1;
+        }
+    }
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -228,6 +270,11 @@ public class BinaryTreeTraversal {
         System.out.println("----level order----");
         System.out.println(levelOrder(root));
         System.out.println(levelOrderI(root));
+        System.out.println("----maxDepth----");
+        System.out.println(maxDepth(root));
+        System.out.println(maxDepthI(root));
+        System.out.println("----minDepth");
+        System.out.println(minDepth(root));
     }
 }
 
