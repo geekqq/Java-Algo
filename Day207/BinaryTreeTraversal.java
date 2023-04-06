@@ -256,6 +256,62 @@ public class BinaryTreeTraversal {
         if (root == null) return 0;
         return Math.max(getDepth(root.left), getDepth(root.right)) + 1;
     }
+
+    public static boolean isSymmetric(TreeNode root) {
+        if (root == null || (root.left == null && root.right == null)) return true;
+        return isSymmetric(root.left, root.right);
+    }
+    private static boolean isSymmetric(TreeNode root1, TreeNode root2) {
+        if (root1 == null && root2 == null) return true;
+        if (root1 == null || root2 == null) return false;
+        if (root1.val != root2.val) return false;
+        return isSymmetric(root1.left, root2.right) && isSymmetric(root1.right, root2.left);
+    }
+
+    public static TreeNode invertTree(TreeNode root) {
+        if (root == null || (root.left == null && root.right == null)) return root;
+        invertTree(root.left);
+        invertTree(root.right);
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+
+        return root;
+    }
+
+    public static TreeNode invertTreeI(TreeNode root) {
+        if (root == null) return null;
+        dfs(root);
+        return root;
+    }
+
+    private static void dfs(TreeNode root) {
+        if (root == null) return;
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+        dfs(root.left);
+        dfs(root.right);
+
+    }
+
+    public static boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null && q == null) return true;
+        if (p == null || q == null) return false;
+        if (p.val != q.val) return false;
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
+
+    public static boolean isValidBST(TreeNode root) {
+        if (root == null || (root.left == null && root.right == null)) return true;
+        return isValid(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    private static boolean isValid(TreeNode root, long lower, long upper) {
+        if (root == null) return true;
+        if (root.val <= lower || root.val >= upper) return false;
+        return isValid(root.left, lower, root.val) && isValid(root.right, root.val, upper);
+    }
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -290,6 +346,10 @@ public class BinaryTreeTraversal {
         System.out.println(minDepth(root));
         System.out.println("----is balanced BT----");
         System.out.println(isBalanced(root));
+        System.out.println("----is symmetric----");
+        System.out.println(isSymmetric(root));
+        System.out.println("----is valid BST----");
+        System.out.println(isValidBST(root));
     }
 }
 
