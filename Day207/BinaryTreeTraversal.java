@@ -243,6 +243,19 @@ public class BinaryTreeTraversal {
             return root.left != null ? minDepthI(root.left) + 1 : minDepthI(root.right) + 1;
         }
     }
+
+    public static boolean isBalanced(TreeNode root) {
+        if (root == null || (root.left == null && root.right == null)) return true;
+        int leftDepth = getDepth(root.left);
+        int rightDepth = getDepth(root.right);
+        if (Math.abs(leftDepth - rightDepth) > 1) return false;
+        return isBalanced(root.left) && isBalanced(root.right);
+    }
+
+    private static int getDepth(TreeNode root) {
+        if (root == null) return 0;
+        return Math.max(getDepth(root.left), getDepth(root.right)) + 1;
+    }
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -275,6 +288,8 @@ public class BinaryTreeTraversal {
         System.out.println(maxDepthI(root));
         System.out.println("----minDepth");
         System.out.println(minDepth(root));
+        System.out.println("----is balanced BT----");
+        System.out.println(isBalanced(root));
     }
 }
 
