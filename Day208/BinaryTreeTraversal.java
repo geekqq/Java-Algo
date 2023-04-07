@@ -270,6 +270,82 @@ public class BinaryTreeTraversal {
         invertTree(root.right);
         return root;
     }
+
+    public static boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null && q == null) return true;
+        if (p == null || q == null) return false;
+        if (p.val != q.val) return false;
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
+
+    public static boolean isValidBST(TreeNode root) {
+        if (root == null || (root.left == null && root.right == null)) return true;
+        return isValid(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    private static boolean isValid(TreeNode root, long lower, long upper) {
+        if (root == null) return true;
+        if (root.val <= lower || root.val >= upper) {
+            return false;
+        }
+        return isValid(root.left, lower, root.val) && isValid(root.right, root.val, upper);
+     }
+
+     public static boolean isValidBSTI(TreeNode root) {
+        return dfs(root, new Integer[1]);
+     }
+     private static boolean dfs(TreeNode root, Integer[] prev) {
+        if (root == null) return true;
+        if (!dfs(root.left, prev)) {
+            return false;
+        }
+        if (prev[0] != null && prev[0] >= root.val) {
+            return false;
+        }
+        prev[0] = root.val;
+        return dfs(root.right, prev);
+    }
+
+    public static int closestValue(TreeNode root, double target) {
+        if (root == null) throw new IllegalArgumentException();
+        int closest = root.val;
+        if (target < closest && root.left != null) {
+            int leftClosest = closestValue(root.left, target);
+            if (Math.abs(target - leftClosest) < Math.abs(target - closest)) {
+                closest = leftClosest;
+            }
+        } else if (target > closest && root.right != null) {
+            int rightClosest = closestValue(root.right, target);
+            if (Math.abs(target - rightClosest) < Math.abs(target - closest)) {
+                closest = rightClosest;
+            }
+        }
+        return closest;
+    }
+
+    static int res = Integer.MAX_VALUE;
+    public static int closestValueI(TreeNode root, double target) {
+        if (root == null) throw new IllegalArgumentException();
+        dfs(root, target);
+        return res;
+    }
+
+    private static void dfs(TreeNode root, double target) {
+        if (root == null) return;
+        if (Math.abs(root.val - target) <= Math.abs(target - res)) {
+            if (Math.abs(target - root.val) == Math.abs(target - res)) {
+                res = Math.min(res, root.val);
+            } else {
+                res = root.val;
+            }
+        }
+        if (root.val == target) return;
+        if (root.val > target) {
+            dfs(root.left, target);
+        } else {
+            dfs(root.right, target);
+        }
+    }
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -308,6 +384,9 @@ public class BinaryTreeTraversal {
         System.out.println("----is balanced tree----");
         System.out.println(isBalanced(root));
         System.out.println(isBalanced(root1));
+        System.out.println("----is valid BST");
+        System.out.println(isValidBST(root));
+        System.out.println(isValidBSTI(root));
         System.out.println("----is symmetric----");
         System.out.println(isSymmetric(root));
         System.out.println(isSymmetric(root1));
@@ -317,6 +396,9 @@ public class BinaryTreeTraversal {
         System.out.println(invertRoot.left.left.val);
         System.out.println(invertRoot.right.val);
         System.out.println(invertRoot.right.right.val);
+        System.out.println("----closest value----");
+        System.out.println(closestValue(root, 2.3453));
+        System.out.println(closestValueI(root, 2.3453));
     }
 }
 
