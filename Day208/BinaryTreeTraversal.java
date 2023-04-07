@@ -1,11 +1,8 @@
 package Day208;
 
-import OODAdv.A;
+import com.sun.source.tree.Tree;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class BinaryTreeTraversal {
 
@@ -151,6 +148,62 @@ public class BinaryTreeTraversal {
         return res;
     }
 
+    public static List<Integer> levelOrder(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            res.add(node.val);
+            if (node.left != null) q.offer(node.left);
+            if (node.right != null) q.offer(node.right);
+        }
+
+        return res;
+    }
+
+    public static List<Integer> levelOrderI(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (res == null) return res;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                TreeNode node = q.poll();
+                res.add(node.val);
+                if (node.left != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+        }
+        return res;
+    }
+
+    public static int maxDepth(TreeNode root) {
+        if (root == null) return 0;
+        int leftDepth = maxDepth(root.left);
+        int rightDepth = maxDepth(root.right);
+        return Math.max(leftDepth, rightDepth) + 1;
+    }
+
+    public static int maxDepthI(TreeNode root) {
+        if (root == null) return 0;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        int depth = 0;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                TreeNode node = q.poll();
+                if (node.left != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+            depth++;
+        }
+        return depth;
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -172,6 +225,12 @@ public class BinaryTreeTraversal {
         System.out.println(postOrder(root));
         System.out.println(postOrderI(root));
         System.out.println(postOrderII(root));
+        System.out.println("----level order----");
+        System.out.println(levelOrder(root));
+        System.out.println(levelOrderI(root));
+        System.out.println("----max depth----");
+        System.out.println(maxDepth(root));
+        System.out.println(maxDepthI(root));
     }
 }
 
