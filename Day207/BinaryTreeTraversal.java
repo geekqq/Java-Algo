@@ -371,6 +371,8 @@ public class BinaryTreeTraversal {
         System.out.println(isValidBST(root));
         System.out.println(isValidBSTI(root));
     }
+
+
 }
 
 class TreeNode {
