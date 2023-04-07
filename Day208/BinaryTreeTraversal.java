@@ -248,6 +248,19 @@ public class BinaryTreeTraversal {
         return Math.max(getDepth(root.left), getDepth(root.right)) + 1;
     }
 
+    public static boolean isSymmetric(TreeNode root) {
+        if (root == null || (root.left == null && root.right == null)) return true;
+        return isSymmetric(root.left, root.right);
+    }
+    private static boolean isSymmetric(TreeNode leftNode, TreeNode rightNode) {
+        if (leftNode == null && rightNode == null) return true;
+        if (leftNode == null || rightNode == null) return false;
+        if (leftNode.val != rightNode.val) {
+            return false;
+        }
+        return isSymmetric(leftNode.left, rightNode.right) && isSymmetric(leftNode.right, rightNode.left);
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -286,6 +299,9 @@ public class BinaryTreeTraversal {
         System.out.println("----is balanced tree----");
         System.out.println(isBalanced(root));
         System.out.println(isBalanced(root1));
+        System.out.println("----is symmetric----");
+        System.out.println(isSymmetric(root));
+        System.out.println(isSymmetric(root1));
     }
 }
 
