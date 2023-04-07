@@ -204,6 +204,50 @@ public class BinaryTreeTraversal {
         return depth;
     }
 
+    public static int minDepth(TreeNode root) {
+        if (root == null) return 0;
+        int leftMinDepth = minDepth(root.left);
+        int rightMinDepth = minDepth(root.right);
+        if (root.left != null && root.right != null) {
+            return Math.min(leftMinDepth, rightMinDepth) + 1;
+        } else {
+            return root.left != null ? leftMinDepth + 1 : rightMinDepth + 1;
+        }
+    }
+
+    public static int minDepthI(TreeNode root) {
+        if (root == null) return 0;
+        return dfs(root);
+    }
+
+    private static int dfs(TreeNode root) {
+        if (root == null) return 0;
+        int leftDepth = dfs(root.left);
+        int rightDepth = dfs(root.right);
+        if (leftDepth == 0 && rightDepth == 0) {
+            return 1;
+        } else if (leftDepth == 0) {
+            return rightDepth + 1;
+        } else if (rightDepth == 0) {
+            return leftDepth + 1;
+        } else {
+            return Math.min(leftDepth, rightDepth) + 1;
+        }
+    }
+
+    public static boolean isBalanced(TreeNode root) {
+        if (root == null || (root.left == null && root.right == null)) return true;
+        int leftDepth = getDepth(root.left);
+        int rightDepth = getDepth(root.right);
+        if (Math.abs(leftDepth - rightDepth) > 1) return false;
+        return isBalanced(root.left) && isBalanced(root.right);
+    }
+
+    private static int getDepth(TreeNode root) {
+        if (root == null) return 0;
+        return Math.max(getDepth(root.left), getDepth(root.right)) + 1;
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -231,6 +275,17 @@ public class BinaryTreeTraversal {
         System.out.println("----max depth----");
         System.out.println(maxDepth(root));
         System.out.println(maxDepthI(root));
+        System.out.println("----min depth----");
+        TreeNode root1 = new TreeNode(1);
+        //root1.left = new TreeNode(5);
+        root1.right = new TreeNode(2);
+        root1.right.right = new TreeNode(3);
+        root1.right.right.right = new TreeNode(4);
+        System.out.println(minDepth(root1));
+        System.out.println(minDepthI(root1));
+        System.out.println("----is balanced tree----");
+        System.out.println(isBalanced(root));
+        System.out.println(isBalanced(root1));
     }
 }
 
