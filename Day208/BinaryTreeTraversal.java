@@ -1,5 +1,7 @@
 package Day208;
 
+import OODAdv.A;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -63,6 +65,50 @@ public class BinaryTreeTraversal {
         return res;
     }
 
+    public static List<Integer> inOrder(TreeNode root) {
+        List<Integer> res =  new ArrayList<>();
+        if (root == null) return res;
+        inOrder(root, res);
+        return res;
+    }
+
+    private static void inOrder(TreeNode root, List<Integer> res) {
+        if (root == null) return;
+        inOrder(root.left, res);
+        res.add(root.val);
+        inOrder(root.right, res);
+    }
+
+    public static List<Integer> inOrderI(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        List left = inOrderI(root.left);
+        List right = inOrderI(root.right);
+        res.addAll(left);
+        res.add(root.val);
+        res.addAll(right);
+
+        return res;
+    }
+
+    public static List<Integer> inOrderII(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        while (cur != null || !stack.isEmpty()) {
+            if (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            } else {
+                cur = stack.pop();
+                res.add(cur.val);
+                cur = cur.right;
+            }
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -76,6 +122,10 @@ public class BinaryTreeTraversal {
         System.out.println(preOrderI(root));
         System.out.println(preOrderII(root));
         System.out.println(preOrderIII(root));
+        System.out.println("----in order----");
+        System.out.println(inOrder(root));
+        System.out.println(inOrderI(root));
+        System.out.println(inOrderII(root));
     }
 }
 
