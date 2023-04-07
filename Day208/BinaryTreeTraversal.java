@@ -261,6 +261,15 @@ public class BinaryTreeTraversal {
         return isSymmetric(leftNode.left, rightNode.right) && isSymmetric(leftNode.right, rightNode.left);
     }
 
+    public static TreeNode invertTree(TreeNode root) {
+        if (root == null || (root.left == null && root.right == null)) return root;
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+        invertTree(root.left);
+        invertTree(root.right);
+        return root;
+    }
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -302,6 +311,12 @@ public class BinaryTreeTraversal {
         System.out.println("----is symmetric----");
         System.out.println(isSymmetric(root));
         System.out.println(isSymmetric(root1));
+        System.out.println("----invert binary tree----");
+        TreeNode invertRoot = invertTree(root);
+        System.out.println(invertRoot.left.val);
+        System.out.println(invertRoot.left.left.val);
+        System.out.println(invertRoot.right.val);
+        System.out.println(invertRoot.right.right.val);
     }
 }
 
