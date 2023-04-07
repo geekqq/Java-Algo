@@ -346,6 +346,59 @@ public class BinaryTreeTraversal {
             dfs(root.right, target);
         }
     }
+
+    public static TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
+        if (root == null || p == null) return null;
+        TreeNode pre = null;
+        TreeNode cur = root;
+        while (cur != null) {
+            if (cur.val > p.val) {
+                pre = cur;
+                cur = cur.left;
+            } else {
+                cur = cur.right;
+            }
+        }
+        return pre;
+    }
+
+    public static int minDiffINBST(TreeNode root) {
+        Integer[] res = new Integer[2];
+        res[1] = Integer.MAX_VALUE;
+        inOrderTraversal(root, res);
+        return res[1];
+    }
+
+    private static void inOrderTraversal(TreeNode root, Integer[] res) {
+        if (root == null) return;
+        inOrderTraversal(root.left, res);
+
+        if (res[0] != null) {
+            res[1] = Math.min(res[1], root.val - res[0]);
+        }
+        res[0] = root.val;
+        inOrderTraversal(root.right, res);
+    }
+
+    static Integer minValue = Integer.MAX_VALUE;
+    static TreeNode prev = null;
+    public static int minDiffInBSTI(TreeNode root) {
+        if (root == null) throw new IllegalArgumentException();
+        inOrderTraversalI(root);
+        return minValue;
+    }
+
+    private static void inOrderTraversalI(TreeNode root) {
+        if (root == null) return;
+        inOrderTraversalI(root.left);
+        if (prev != null) {
+            if (root.val - prev.val < minValue) {
+                minValue = root.val - prev.val;
+            }
+        }
+        prev = root;
+        inOrderTraversalI(root.right);
+    }
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -399,6 +452,9 @@ public class BinaryTreeTraversal {
         System.out.println("----closest value----");
         System.out.println(closestValue(root, 2.3453));
         System.out.println(closestValueI(root, 2.3453));
+        System.out.println("----min distance btw BST nodes----");
+        System.out.println(minDiffINBST(root1));
+        System.out.println(minDiffInBSTI(root1));
     }
 }
 
