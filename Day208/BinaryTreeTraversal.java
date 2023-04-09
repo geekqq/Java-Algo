@@ -458,7 +458,6 @@ public class BinaryTreeTraversal {
     }
 }
 
-
 class TreeNode {
     int val;
     TreeNode left;
