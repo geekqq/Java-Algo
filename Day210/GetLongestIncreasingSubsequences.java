@@ -1,10 +1,10 @@
-package Day206;
+package Day210;
 
 import java.util.Arrays;
 
 import static Day138.RandomArray.randomArray;
 
-public class GetLongestIncreasingSubsequence {
+public class GetLongestIncreasingSubsequences {
 
     public static int getLIS(int[] nums) {
         if (nums == null || nums.length == 0) return 0;
@@ -15,14 +15,14 @@ public class GetLongestIncreasingSubsequence {
             if (nums[i] > increasingSeq[index - 1]) {
                 increasingSeq[index++] = nums[i];
             } else {
-                int pos = findInsertIndex(increasingSeq, 0, index - 1, nums[i]);
+                int pos = findIndexInsert(increasingSeq, 0, index - 1, nums[i]);
                 increasingSeq[pos] = nums[i];
             }
         }
         return index;
     }
 
-    private static int findInsertIndex(int[] nums, int left, int right, int x) {
+    private static int findIndexInsert(int[] nums, int left, int right, int x) {
         while (left <= right) {
             int mid = left + (right - left) / 2;
             if (nums[mid] == x) return mid;
@@ -33,7 +33,7 @@ public class GetLongestIncreasingSubsequence {
     }
 
     public static void main(String[] args) {
-        int[] nums = randomArray(20, 10);
+        int[] nums = randomArray(10, 10);
         System.out.println(Arrays.toString(nums));
         System.out.println(getLIS(nums));
     }
