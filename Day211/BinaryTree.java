@@ -1,6 +1,8 @@
 package Day211;
 
 
+import com.sun.source.tree.Tree;
+
 import java.util.*;
 import java.util.LinkedList;
 
@@ -250,6 +252,31 @@ public class BinaryTree {
         return isSameTree(r1.left, r2.left) && isSameTree(r1.right, r2.right);
     }
 
+    public static boolean isValidBST(TreeNode root) {
+        if (root == null || root.left == null && root.right == null) return true;
+        return isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    private static boolean isValidBST(TreeNode root, long lower, long upper) {
+        if (root == null) return true;
+        if (root.val <= lower || root.val >= upper) return false;
+
+        return isValidBST(root.left, lower, root.val) && isValidBST(root.right, root.val, upper);
+    }
+
+    public static boolean isValidBSTI(TreeNode root) {
+        return dfs(root, new Integer[1]);
+    }
+    private static boolean dfs(TreeNode root, Integer[] prev) {
+        if (root == null) return true;
+        if (!dfs(root.left, prev)) return false;
+        if (prev[0] != null && prev[0] >= root.val) {
+            return false;
+        }
+        prev[0] = root.val;
+        return dfs(root.right, prev);
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -274,6 +301,9 @@ public class BinaryTree {
         System.out.println("----level order----");
         System.out.println(levelOrder(root));
         System.out.println(levelOrderI(root));
+        System.out.println("----is valid BST----");
+        System.out.println(isValidBST(root));
+        System.out.println(isValidBSTI(root));
         System.out.println("----revert tree----");
         System.out.println(revertTree(root).left.val);
         System.out.println("----maxDepth----");
@@ -285,6 +315,7 @@ public class BinaryTree {
         System.out.println(isBalanced(root));
         System.out.println("----is symmetric tree----");
         System.out.println(isSymmetric(root));
+
     }
 }
 
