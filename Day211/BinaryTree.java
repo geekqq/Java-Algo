@@ -175,6 +175,18 @@ public class BinaryTree {
         }
         return res;
     }
+
+    public static TreeNode revertTree(TreeNode root) {
+        if (root == null || root.left == null && root.right == null) return root;
+        revertTree(root.left);
+        revertTree(root.right);
+
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+
+        return root;
+    }
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -199,6 +211,8 @@ public class BinaryTree {
         System.out.println("----level order----");
         System.out.println(levelOrder(root));
         System.out.println(levelOrderI(root));
+        System.out.println("----revert tree----");
+        System.out.println(revertTree(root).left.val);
     }
 }
 
