@@ -1,10 +1,8 @@
 package Day211;
 
 
-import java.util.ArrayList;
+import java.util.*;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
 
 public class BinaryTree {
 
@@ -146,6 +144,37 @@ public class BinaryTree {
         }
         return res;
     }
+
+    public static List<Integer> levelOrder(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            res.add(node.val);
+            if (node.left != null) q.offer(node.left);
+            if (node.right != null) q.offer(node.right);
+        }
+        return res;
+    }
+
+    public static List<Integer> levelOrderI(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                TreeNode node = q.poll();
+                res.add(node.val);
+                if (node.left != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+        }
+        return res;
+    }
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -167,6 +196,9 @@ public class BinaryTree {
         System.out.println(postOrder(root));
         System.out.println(postOrderI(root));
         System.out.println(postOrderII(root));
+        System.out.println("----level order----");
+        System.out.println(levelOrder(root));
+        System.out.println(levelOrderI(root));
     }
 }
 
