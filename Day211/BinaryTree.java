@@ -277,6 +277,44 @@ public class BinaryTree {
         return dfs(root.right, prev);
     }
 
+    public static int closestValue(TreeNode root, double target) {
+        if (root == null) {
+            throw new IllegalArgumentException();
+        }
+        int closest = root.val;
+        if (target < closest && root.left != null) {
+            int leftClosest = closestValue(root.left, target);
+            if (Math.abs(target - leftClosest) < Math.abs(target - closest)) {
+                closest = leftClosest;
+            }
+        } else if (target > closest && root.right != null) {
+            int rightClosest = closestValue(root.right, target);
+            if (Math.abs(target - rightClosest) < Math.abs(target - closest)) {
+                closest = rightClosest;
+            }
+        }
+        return closest;
+    }
+
+    public static int closestValueI(TreeNode root, double target) {
+        List<Integer> list = inOrder(root);
+        return findClosestValue(list, target);
+    }
+    private static int findClosestValue(List<Integer> list, double target) {
+        if (list == null) {
+            throw new IllegalArgumentException();
+        }
+        int left = 0;
+        int right = list.size() - 1;
+        while (left + 1 < right) {
+            int mid = left + (right - left) / 2;
+            if (list.get(mid) == target) return mid;
+            else if (list.get(mid) < target) left = mid;
+            else right = mid;
+        }
+        return Math.abs(list.get(left) - target) <= Math.abs(list.get(right) - target) ? list.get(left) : list.get(right);
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -315,6 +353,9 @@ public class BinaryTree {
         System.out.println(isBalanced(root));
         System.out.println("----is symmetric tree----");
         System.out.println(isSymmetric(root));
+        System.out.println("----closest value----");
+        System.out.println(closestValue(root, 3.5));
+        System.out.println(closestValueI(root, 3.5));
 
     }
 }
