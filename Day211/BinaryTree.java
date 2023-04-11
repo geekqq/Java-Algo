@@ -277,7 +277,9 @@ public class BinaryTree {
         return dfs(root.right, prev);
     }
 
+
     public static int closestValue(TreeNode root, double target) {
+        // this one is not correct!!!
         if (root == null) {
             throw new IllegalArgumentException();
         }
@@ -308,13 +310,87 @@ public class BinaryTree {
         int right = list.size() - 1;
         while (left + 1 < right) {
             int mid = left + (right - left) / 2;
-            if (list.get(mid) == target) return mid;
+            if (list.get(mid) == target) return list.get(mid);
             else if (list.get(mid) < target) left = mid;
             else right = mid;
         }
         return Math.abs(list.get(left) - target) <= Math.abs(list.get(right) - target) ? list.get(left) : list.get(right);
     }
 
+    public static int closestValueII(TreeNode root, double target) {
+        if (root == null) {
+            throw new IllegalArgumentException();
+        }
+        int min = root.val;
+        TreeNode cur = root;
+        while (cur != null) {
+            if (Math.abs(cur.val - target) <= Math.abs(min - target)) {
+                min = cur.val;
+            }
+            if (cur.val < target) {
+                cur = cur.right;
+            } else {
+                cur = cur.left;
+            }
+        }
+        return min;
+    }
+
+    private static int res = Integer.MAX_VALUE;
+    public static int closestValueIII(TreeNode root, double target) {
+        if (root == null) throw new IllegalArgumentException();
+        dfs(root, target);
+        return res;
+    }
+
+    private static void dfs(TreeNode root, double target) {
+        if (root == null) return;
+        if (Math.abs(target - root.val) <= Math.abs(target - res)) {
+            if (Math.abs(target - root.val) == Math.abs(target - res)) {
+                res = Math.min(res, root.val);
+            } else {
+                res = root.val;
+            }
+        }
+        if (root.val == target) return;
+        if (root.val > target) {
+            dfs(root.left, target);
+        } else {
+            dfs(root.right, target);
+        }
+    }
+
+    public static TreeNode inOrderSuccessor(TreeNode root, TreeNode p) {
+        if (root == null || root.left == null && root.right == null) return null;
+        TreeNode prev = null;
+        TreeNode cur = root;
+        while (cur != null) {
+            if (cur.val > p.val) {
+                prev = cur;
+                cur = cur.left;
+            } else {
+                cur = cur.right;
+            }
+        }
+        return prev;
+    }
+
+    public static int minDiffInBST(TreeNode root) {
+        Integer[] res = new Integer[2];
+        res[1] = Integer.MAX_VALUE;
+        inOrderTraversal(root, res);
+        return res[1];
+    }
+
+    private static void inOrderTraversal(TreeNode root, Integer[] res) {
+        if (root == null) return;
+        inOrderTraversal(root.left, res);
+        if (res[0] != null) {
+            res[1] = Math.min(res[1], root.val - res[0]);
+        }
+        res[0] = root.val;
+        inOrderTraversal(root.right, res);
+    }
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -354,8 +430,17 @@ public class BinaryTree {
         System.out.println("----is symmetric tree----");
         System.out.println(isSymmetric(root));
         System.out.println("----closest value----");
-        System.out.println(closestValue(root, 3.5));
+        root = revertTree(root);
+        System.out.println(closestValue(root, 3.5)); // this one is not correct!
         System.out.println(closestValueI(root, 3.5));
+        System.out.println(closestValueII(root, 3.5));
+        System.out.println(closestValueIII(root, 3.5));
+        System.out.println("----print a tree in order----");
+        System.out.println(inOrder(root));
+        System.out.println("----in order successor----");
+        System.out.println(inOrderSuccessor(root, root.left).val);
+        System.out.println("----min distance in BST----");
+        System.out.println(minDiffInBST(root));
 
     }
 }
