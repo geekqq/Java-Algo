@@ -243,6 +243,13 @@ public class BinaryTree {
         return isSymmetric(leftNode.left, rightNode.right) && isSymmetric(leftNode.right, rightNode.left);
     }
 
+    public static boolean isSameTree(TreeNode r1, TreeNode r2) {
+        if (r1 == null && r2 == null) return true;
+        if (r1 == null || r2 == null) return false;
+        if (r1.val != r2.val) return false;
+        return isSameTree(r1.left, r2.left) && isSameTree(r1.right, r2.right);
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
