@@ -1,8 +1,5 @@
 package TechbowAlgoPractice;
 
-import java.util.Arrays;
-
-import static Day138.RandomArray.randomArray;
 
 public class BinarySearch {
     public static int binarySearch(int[] nums, int target) {
@@ -32,12 +29,14 @@ public class BinarySearch {
             else if (nums[mid] < target) left = mid;
             else right = mid;
         }
-        return nums[left] == target ? left : right;
+        if (nums[left] == target) return left;
+        if (nums[right] == target) return right;
+        return -1;
     }
 
     public static void main(String[] args) {
         int[] nums = {1,2,3,4,5,6,7,8,9,10};
-        System.out.println(binarySearch(nums, 10));
-        System.out.println(binarySearchI(nums, 10));
+        System.out.println(binarySearch(nums, 1));
+        System.out.println(binarySearchI(nums, 2));
     }
 }
