@@ -1,8 +1,5 @@
 package Day211;
 
-
-import com.sun.source.tree.Tree;
-
 import java.util.*;
 import java.util.LinkedList;
 
@@ -391,6 +388,175 @@ public class BinaryTree {
         res[0] = root.val;
         inOrderTraversal(root.right, res);
     }
+
+    public static int maxDepthOfNRayTree(NTreeNode root) {
+        if (root == null) return 0;
+        int depth = 0;
+        Queue<NTreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                NTreeNode node = q.poll();
+                for (NTreeNode n : node.children) {
+                    if (n != null) {
+                        q.offer(n);
+                    }
+                }
+            }
+            depth++;
+        }
+        return depth;
+    }
+
+    public static int maxDepthOfNRayTreeI(NTreeNode root) {
+        if (root == null) return 0;
+        int max = 0;
+        for (NTreeNode node : root.children) {
+            max = Math.max(max, maxDepthOfNRayTreeI(node));
+        }
+        return max;
+    }
+
+    public static int maxWidthOfBT(TreeNode root) {
+        if (root == null) return 0;
+        final Queue<TreeNode> nodeQueue = new LinkedList<>();
+        final Queue<Integer> indexQueue = new LinkedList<>();
+        int max = 0;
+        nodeQueue.offer(root);
+        indexQueue.offer(0);
+
+        while (!nodeQueue.isEmpty()) {
+            int size = nodeQueue.size();
+            int left = 0;
+            int right = 0;
+            for (int i = 0; i < size; i++) {
+                TreeNode node = nodeQueue.poll();
+                int index = indexQueue.poll();
+
+                if (i == 0) left = index;
+                if (i == size - 1) right = index;
+                if (node.left != null) {
+                    nodeQueue.offer(node.left);
+                    indexQueue.offer(index * 2);
+                }
+                if (node.right != null) {
+                    nodeQueue.offer(node.right);
+                    indexQueue.offer(index * 2 + 1);
+                }
+            }
+            max = Math.max(max, right - left + 1);
+        }
+        return max;
+    }
+
+    public static int countNodes(TreeNode root) {
+        if (root == null) return 0;
+        int left = countNodes(root.left);
+        int right = countNodes(root.right);
+        return left + right + 1;
+    }
+
+    public static int countNodesI(TreeNode root) {
+        if (root == null) return 0;
+        Queue<TreeNode> q = new LinkedList<>();
+        int count = 0;
+        q.offer(root);
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            count++;
+            if (node.left != null) q.offer(node.left);
+            if (node.right != null) q.offer(node.right);
+        }
+        return count;
+    }
+
+    public static int countNodesII(TreeNode root) {
+        if (root == null) return 0;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        int count = 1;
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            if (node.left != null) {
+                q.offer(node.left);
+                count++;
+            }
+            if (node.right != null) {
+                q.offer(node.right);
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static List<List<Integer>> levelOrder(NTreeNode root) {
+        final List<List<Integer>> res = new ArrayList<>();
+        if (root == null) return res;
+
+        Queue<NTreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            List<Integer> list = new ArrayList<>();
+            while (size-- > 0) {
+                NTreeNode node = q.poll();
+                list.add(node.val);
+                for (NTreeNode n : node.children) {
+                    if (n != null) {
+                        q.offer(n);
+                    }
+                }
+            }
+            res.add(list);
+        }
+        return res;
+    }
+
+    public static List<Integer> preOrderTraversalNRayTree(NTreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if(root == null) return res;
+        preOrderTraversalNRayTree(root, res);
+        return res;
+    }
+
+    private static void preOrderTraversalNRayTree(NTreeNode root, List<Integer> res) {
+        if (root == null) return;
+        Stack<NTreeNode> stack = new Stack<>();
+        NTreeNode cur = root;
+        stack.push(cur);
+        while (!stack.isEmpty()) {
+            cur = stack.pop();
+            res.add(cur.val);
+            int size = cur.children.size();
+            for (int i = size - 1; i >= 0; i--) {
+                stack.push(cur.children.get(i));
+            }
+        }
+    }
+
+    public static List<Integer> postOrderNRayTree(NTreeNode root) {
+        LinkedList<Integer> res = new LinkedList<>();
+        if (root == null) return res;
+        postOrderNRayTree(root, res);
+        return res;
+    }
+    private static void postOrderNRayTree(NTreeNode root, LinkedList<Integer> res) {
+        if (root == null) return;
+        Stack<NTreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            NTreeNode node = stack.pop();
+            res.addFirst(node.val);
+            for (NTreeNode child : node.children) {
+                if (child != null) {
+                    stack.push(child);
+                }
+            }
+        }
+    }
+
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -441,6 +607,12 @@ public class BinaryTree {
         System.out.println(inOrderSuccessor(root, root.left).val);
         System.out.println("----min distance in BST----");
         System.out.println(minDiffInBST(root));
+        System.out.println("----max width of BT");
+        System.out.println(maxWidthOfBT(root));
+        System.out.println("----count of nodes----");
+        System.out.println(countNodes(root));
+        System.out.println(countNodesI(root));
+        System.out.println(countNodesII(root));
 
     }
 }
@@ -454,5 +626,15 @@ class TreeNode {
         this.val = val;
         left = null;
         right = null;
+    }
+}
+
+class NTreeNode {
+    public int val;
+    public List<NTreeNode> children;
+
+    public NTreeNode(int val, List<NTreeNode> children) {
+        this.val = val;
+        this.children = children;
     }
 }
