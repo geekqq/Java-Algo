@@ -344,6 +344,38 @@ public class BinaryTree {
         }
     }
 
+    public static TreeNode inOrderSuccessor(TreeNode root, TreeNode p) {
+        if (root == null || p == null) return null;
+        TreeNode prev = null;
+        TreeNode cur = root;
+        while (cur != null) {
+            if (cur.val > p.val) {
+                prev = cur;
+                cur = cur.left;
+            } else {
+                cur = cur.right;
+            }
+        }
+        return prev;
+    }
+
+    public static int minDiffInBST(TreeNode root) {
+        if (root == null || root.left == null && root.right == null) return 0;
+        Integer[] res = new Integer[2];
+        res[1] = Integer.MAX_VALUE;
+        inOrderII(root, res);
+        return res[1];
+    }
+    private static void inOrderII(TreeNode root, Integer[] res) {
+        if (root == null) return;
+        inOrderII(root.left, res);
+        if (res[0] != null) {
+            res[1] = Math.min(res[1], root.val - res[0]);
+        }
+        res[0] = root.val;
+        inOrderII(root.right, res);
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -375,13 +407,17 @@ public class BinaryTree {
         System.out.println(isBalanced(root));
         System.out.println("----symmetric tree----");
         System.out.println(isSymmetric(root));
-        System.out.println("----is valid BST");
+        System.out.println("----is valid BST----");
         System.out.println(validBST(root));
         System.out.println(validBSTI(root));
         System.out.println(validBSTII(root));
         System.out.println("----closest value----");
         System.out.println(closestValue(root, 3.523));
         System.out.println(closestValueI(root, 3.523));
+        System.out.println("----in order successor----");
+        System.out.println(inOrderSuccessor(root, root.right.right));
+        System.out.println("----min distance in BST----");
+        System.out.println(minDiffInBST(root));
     }
 }
 
