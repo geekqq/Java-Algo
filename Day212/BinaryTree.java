@@ -376,6 +376,37 @@ public class BinaryTree {
         inOrderII(root.right, res);
     }
 
+    public static int countNodes(TreeNode root) {
+        if (root == null) return 0;
+        int count = 1;
+        count += countNodes(root.left);
+        count += countNodes(root.right);
+        return count;
+    }
+    static int count = 0;
+
+    public static int countNodesI(TreeNode root) {
+        if (root == null) return 0;
+        int count = 0;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            count++;
+            if (node.left != null) q.offer(node.left);
+            if (node.right != null) q.offer(node.right);
+        }
+        return count;
+    }
+
+    public static int countNodesII(TreeNode root) {
+        if (root == null) return 0;
+        count++;
+        countNodesII(root.left);
+        countNodesII(root.right);
+
+        return count;
+    }
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -418,6 +449,10 @@ public class BinaryTree {
         System.out.println(inOrderSuccessor(root, root.right.right));
         System.out.println("----min distance in BST----");
         System.out.println(minDiffInBST(root));
+        System.out.println("----count nodes----");
+        System.out.println(countNodes(root));
+        System.out.println(countNodesI(root));
+        System.out.println(countNodesII(root));
     }
 }
 
