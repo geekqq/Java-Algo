@@ -214,6 +214,14 @@ public class BinaryTree {
         }
     }
 
+    public static boolean isBalanced(TreeNode root) {
+        if (root == null || (root.left == null && root.right == null)) return true;
+        int leftDepth = maxDepth(root.left);
+        int rightDepth = maxDepth(root.right);
+        if (Math.abs(leftDepth - rightDepth) > 1) return false;
+        return isBalanced(root.left) && isBalanced(root.right);
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -241,6 +249,8 @@ public class BinaryTree {
         System.out.println("----max depth----");
         System.out.println(maxDepth(root));
         System.out.println(maxDepthI(root));
+        System.out.println("----is balanced BT----");
+        System.out.println(isBalanced(root));
     }
 }
 
