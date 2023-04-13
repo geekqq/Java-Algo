@@ -408,6 +408,30 @@ public class BinaryTree {
         return count;
     }
 
+    public static int countNodesIII(TreeNode root) {
+        if (root == null) return 0;
+        if (root.left == null && root.right == null) return 1;
+
+        int leftHeight = getLeftMostHeight(root.left);
+        int rightHeight = getLeftMostHeight(root.right);
+        if (leftHeight > rightHeight) {
+            return countNodesIII(root.left) + (1 << rightHeight);
+        } else if (leftHeight == rightHeight) {
+            return countNodesIII(root.right) + (1 << leftHeight);
+        } else {
+            return 0;
+        }
+    }
+
+    private static int getLeftMostHeight(TreeNode root) {
+        int res = 0;
+        while (root != null) {
+            root = root.left;
+            res++;
+        }
+        return res;
+    }
+
     public static int findMin(TreeNode root) {
         if (root == null) return Integer.MAX_VALUE;
         int minLeft = findMin(root.left);
@@ -429,6 +453,37 @@ public class BinaryTree {
             if (node.right != null) q.offer(node.right);
         }
         return min;
+    }
+
+    public static int maxWidth(TreeNode root) {
+        if (root == null) return 0;
+        Queue<TreeNode> nodeQueue = new LinkedList<>();
+        Queue<Integer> indexQueue = new LinkedList<>();
+        int max = 0;
+        nodeQueue.offer(root);
+        indexQueue.offer(0);
+        while (!nodeQueue.isEmpty()) {
+            int size = nodeQueue.size();
+            int left = 0;
+            int right = 0;
+            for (int i = 0; i < size; i++) {
+                TreeNode node = nodeQueue.poll();
+                int index = indexQueue.poll();
+                if (i == 0) left = index;
+                if (i == size - 1) right = index;
+
+                if (node.left != null) {
+                    nodeQueue.offer(node.left);
+                    indexQueue.offer(index * 2);
+                }
+                if (node.right != null) {
+                    nodeQueue.offer(node.right);
+                    indexQueue.offer(index * 2 + 1);
+                }
+            }
+            max = Math.max(max, right - left + 1);
+        }
+        return max;
     }
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
@@ -476,6 +531,7 @@ public class BinaryTree {
         System.out.println(countNodes(root));
         System.out.println(countNodesI(root));
         System.out.println(countNodesII(root));
+        System.out.println(countNodesIII(root));
         System.out.println("----find min in BT----");
         System.out.println(findMin(root));
         System.out.println(findMinI(root));
