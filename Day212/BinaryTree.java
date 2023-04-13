@@ -300,6 +300,50 @@ public class BinaryTree {
         return dfs(root.right, prev);
     }
 
+    public static int closestValue(TreeNode root, double target) {
+        if (root == null) {
+            throw new IllegalArgumentException();
+        }
+        List<Integer> list = inOrder(root);
+        return findClosest(list, target);
+    }
+    private static int findClosest(List<Integer> list, double target) {
+        int left = 0;
+        int right = list.size() - 1;
+        while (left + 1 < right) {
+            int mid = left + (right - left) / 2;
+            if (list.get(mid) == target) return list.get(mid);
+            else if (list.get(mid) < target) left = mid;
+            else right = mid;
+        }
+        return Math.abs(list.get(left) - target) <= Math.abs(list.get(right) - target) ? list.get(left) : list.get(right);
+    }
+
+    private static int closest = Integer.MAX_VALUE;
+    public static int closestValueI(TreeNode root, double target) {
+        if (root == null) {
+            throw new IllegalArgumentException();
+        }
+        dfsI(root, target);
+        return closest;
+    }
+    private static void dfsI(TreeNode root, double target) {
+        if (root == null) return;
+        if (Math.abs(root.val - target) <= Math.abs(closest - target)) {
+            if (Math.abs(root.val - target) == Math.abs(closest - target)) {
+                closest = Math.min(closest, root.val);
+            } else {
+                closest = root.val;
+            }
+        }
+        if (root.val == target) return;
+        if (root.val > target) {
+            dfsI(root.left, target);
+        } else {
+            dfsI(root.right, target);
+        }
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -335,6 +379,9 @@ public class BinaryTree {
         System.out.println(validBST(root));
         System.out.println(validBSTI(root));
         System.out.println(validBSTII(root));
+        System.out.println("----closest value----");
+        System.out.println(closestValue(root, 3.523));
+        System.out.println(closestValueI(root, 3.523));
     }
 }
 
