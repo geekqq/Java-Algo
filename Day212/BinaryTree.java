@@ -407,6 +407,29 @@ public class BinaryTree {
 
         return count;
     }
+
+    public static int findMin(TreeNode root) {
+        if (root == null) return Integer.MAX_VALUE;
+        int minLeft = findMin(root.left);
+        int minRight = findMin(root.right);
+        return Math.min(Math.min(minLeft, minRight), root.val);
+    }
+
+    public static int findMinI(TreeNode root) {
+        if (root == null) return Integer.MAX_VALUE;
+        int min = Integer.MAX_VALUE;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            if (node.val < min) {
+                min = node.val;
+            }
+            if (node.left != null) q.offer(node.left);
+            if (node.right != null) q.offer(node.right);
+        }
+        return min;
+    }
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -453,6 +476,9 @@ public class BinaryTree {
         System.out.println(countNodes(root));
         System.out.println(countNodesI(root));
         System.out.println(countNodesII(root));
+        System.out.println("----find min in BT----");
+        System.out.println(findMin(root));
+        System.out.println(findMinI(root));
     }
 }
 
