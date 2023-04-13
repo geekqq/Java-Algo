@@ -222,6 +222,47 @@ public class BinaryTree {
         return isBalanced(root.left) && isBalanced(root.right);
     }
 
+    public static boolean isSymmetric(TreeNode root) {
+        if (root == null || (root.left == null && root.right == null)) return true;
+        return isSymmetric(root.left, root.right);
+    }
+    private static boolean isSymmetric(TreeNode leftNode, TreeNode rightNode) {
+        if (leftNode == null && rightNode == null) return true;
+        if (leftNode == null || rightNode == null) return false;
+        if (leftNode.val != rightNode.val) return false;
+        return isSymmetric(leftNode.left, rightNode.right) && isSymmetric(leftNode.right, rightNode.left);
+    }
+
+    public static TreeNode invertTree(TreeNode root) {
+        if (root == null || root.left == null && root.right == null) return root;
+        invertTree(root.left);
+        invertTree(root.right);
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+
+        return root;
+    }
+
+    public static boolean isSameTree(TreeNode root1, TreeNode root2) {
+        if (root1 == null && root2 == null) return true;
+        if (root1 == null || root2 == null) return false;
+        if (root1.val != root1.val) return false;
+        return isSameTree(root1.left, root2.left) && isSameTree(root1.right, root2.right);
+    }
+
+    public static boolean validBST(TreeNode root) {
+        if (root == null || root.left == null && root.right == null) return true;
+        return isValid(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+    private static boolean isValid(TreeNode root, long lower, long upper) {
+        if (root == null) return true;
+        if (root.val <= lower || root.val >= upper) {
+            return false;
+        }
+        return isValid(root.left, lower, root.val) && isValid(root.right, root.val, upper);
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -251,6 +292,10 @@ public class BinaryTree {
         System.out.println(maxDepthI(root));
         System.out.println("----is balanced BT----");
         System.out.println(isBalanced(root));
+        System.out.println("----symmetric tree----");
+        System.out.println(isSymmetric(root));
+        System.out.println("----is valid BST");
+        System.out.println(validBST(root));
     }
 }
 
