@@ -1,7 +1,5 @@
 package Day212;
 
-import com.sun.source.tree.Tree;
-
 import java.util.*;
 
 public class BinaryTree {
@@ -506,6 +504,25 @@ public class BinaryTree {
         return res;
     }
 
+    public static List<List<Integer>> levelPrintBottomUp(TreeNode root) {
+        LinkedList<List<Integer>> res = new LinkedList<>();
+        if (root == null) return res;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            List<Integer> levelList = new LinkedList<>();
+            while (size-- > 0) {
+                TreeNode node = q.poll();
+                levelList.add(node.val);
+                if (node.left != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+            res.addFirst(levelList);
+        }
+        return res;
+    }
+
     public static List<Integer> printLeaf(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         if (root == null) return res;
@@ -530,6 +547,7 @@ public class BinaryTree {
         }
         return res;
     }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -582,6 +600,7 @@ public class BinaryTree {
         System.out.println(findMinI(root));
         System.out.println("----level print----");
         System.out.println(levelPrint(root));
+        System.out.println(levelPrintBottomUp(root));
         System.out.println("----print leaves");
         System.out.println(printLeaf(root));
         System.out.println(printLeafI(root));
