@@ -485,6 +485,51 @@ public class BinaryTree {
         }
         return max;
     }
+
+    public static List<List<Integer>> levelPrint(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) return res;
+
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            List<Integer> levelList = new ArrayList<>();
+            while (size-- > 0) {
+                TreeNode node = q.poll();
+                levelList.add(node.val);
+                if (node.left != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+            res.add(levelList);
+        }
+        return res;
+    }
+
+    public static List<Integer> printLeaf(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        if (root.left == null && root.right == null) res.add(root.val);
+        List left = printLeaf(root.left);
+        List right = printLeaf(root.right);
+        res.addAll(left);
+        res.addAll(right);
+        return res;
+    }
+
+    public static List<Integer> printLeafI(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            if (node.left == null && node.right == null) res.add(node.val);
+            if (node.left != null) q.offer(node.left);
+            if (node.right != null) q.offer(node.right);
+        }
+        return res;
+    }
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -535,6 +580,12 @@ public class BinaryTree {
         System.out.println("----find min in BT----");
         System.out.println(findMin(root));
         System.out.println(findMinI(root));
+        System.out.println("----level print----");
+        System.out.println(levelPrint(root));
+        System.out.println("----print leaves");
+        System.out.println(printLeaf(root));
+        System.out.println(printLeafI(root));
+
     }
 }
 
