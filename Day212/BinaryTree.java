@@ -179,6 +179,41 @@ public class BinaryTree {
         return res;
     }
 
+    public static int maxDepth(TreeNode root) {
+        if (root == null) return 0;
+        int leftDepth = maxDepth(root.left);
+        int rightDepth = maxDepth(root.right);
+        return Math.max(leftDepth, rightDepth) + 1;
+    }
+
+    public static int maxDepthI(TreeNode root) {
+        if (root == null) return 0;
+        Queue<TreeNode> q = new LinkedList<>();
+        int depth = 0;
+        q.offer(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                TreeNode node = q.poll();
+                if (node.left != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+            depth++;
+        }
+        return depth;
+    }
+
+    public static int minDepth(TreeNode root) {
+        if (root == null) return 0;
+        int lefDepth = minDepth(root.left);
+        int rightDepth = minDepth(root.right);
+        if (root.left != null && root.right != null) {
+            return Math.min(lefDepth, rightDepth) + 1;
+        } else {
+            return root.left != null ? lefDepth + 1 : rightDepth + 1;
+        }
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -203,6 +238,9 @@ public class BinaryTree {
         System.out.println("----level order----");
         System.out.println(levelOrder(root));
         System.out.println(levelOrderI(root));
+        System.out.println("----max depth----");
+        System.out.println(maxDepth(root));
+        System.out.println(maxDepthI(root));
     }
 }
 
