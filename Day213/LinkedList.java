@@ -2,6 +2,8 @@ package Day213;
 
 import Day174.ListNode;
 
+import java.util.Stack;
+
 public class LinkedList {
 
     private ListNode head;
@@ -204,6 +206,104 @@ public class LinkedList {
         }
     }
 
+    public static ListNode deleteNode(ListNode head, int x) {
+        if (head == null) return null;
+        if (head.val == x) {
+            if (head.next == null) {
+                System.out.println("head is the only node in the list, can not be deleted!");
+            } else {
+                head.val = head.next.val;
+                head.next = head.next.next;
+            }
+        } else {
+            ListNode cur = head;
+            while (cur.next != null && cur.next.val != x) {
+                cur = cur.next;
+            }
+            if (cur.next == null) {
+                System.out.println("The node is not present!");
+            }
+            cur.next = cur.next.next;
+        }
+        return head;
+    }
+
+    public static ListNode reverseInKGroups(ListNode head, int k) {
+        if (head == null || head.next == null) return head;
+        ListNode cur = head;
+        int count = 0;
+        while (cur != null) {
+            cur = cur.next;
+            count++;
+        }
+        if (count < k) return head;
+        ListNode prev = null;
+        cur = head;
+        ListNode next = null;
+        for (int i = 0; i < k; i++) {
+            next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        head.next = reverseInKGroups(cur, k);
+        return prev;
+    }
+
+    public static boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) return false;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next;
+            if (slow == fast) return true;
+        }
+        return false;
+    }
+
+
+    public static ListNode hasCycleII(ListNode head) {
+        if (head == null || head.next == null) return null;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) break;
+        }
+        if (slow != fast) return null;
+
+        ListNode temp = head;
+        while (temp != slow) {
+            temp = temp.next;
+            slow = slow.next;
+        }
+        return temp;
+    }
+
+    public static void plusOne(ListNode head) {
+        if (head == null) return;
+        Stack<ListNode> stack = new Stack<>();
+        ListNode cur = head;
+        while (cur != null) {
+            stack.push(cur);
+            cur = cur.next;
+        }
+        while (!stack.isEmpty()) {
+            ListNode node = stack.pop();
+            if (node.val < 9) {
+                node.val++;
+                return;
+            } else {
+                node.val = 0;
+            }
+        }
+        ListNode newNode = new ListNode(1);
+        newNode.next = head;
+        head = newNode;
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 13; i++) {
@@ -240,6 +340,16 @@ public class LinkedList {
         list.print();
         System.out.println("----remove duplicates----");
         removeDuplicates(list.head);
+        list.print();
+        System.out.println("----delete node----");
+        list.head = deleteNode(list.head, 0);
+        list.head = deleteNode(list.head, 1);
+        list.head = deleteNode(list.head, 5);
+        list.head = deleteNode(list.head, 7);
+        list.head = deleteNode(list.head, 13);
+        list.print();
+        System.out.println("----reverse in k groups----");
+        list.head = reverseInKGroups(list.head, 5);
         list.print();
     }
 }
