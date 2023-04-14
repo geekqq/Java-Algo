@@ -29,6 +29,19 @@ public class BinaryTree {
         return depth;
     }
 
+    public static int minDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int leftMinDepth = minDepth(root.left);
+        int rightMinDepth = minDepth(root.right);
+        if (root.left != null && root.right != null) {
+            return Math.min(leftMinDepth, rightMinDepth) + 1;
+        } else {
+            return root.left != null ? leftMinDepth + 1 : rightMinDepth + 1;
+        }
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);
         root.left = new TreeNode(2);
@@ -37,6 +50,8 @@ public class BinaryTree {
         root.right.right.left = new TreeNode(5);
         System.out.println(maxDepth(root));
         System.out.println(maxDepthI(root));
+        System.out.println("----min depth----");
+        System.out.println(minDepth(root));
     }
 }
 
