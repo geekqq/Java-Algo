@@ -174,6 +174,36 @@ public class LinkedList {
         }
         odd.next = evenHead;
     }
+
+    public static ListNode insertNode(ListNode head, int x) {
+        ListNode newNode = new ListNode(x);
+        if (head == null || head.val >= x) {
+            newNode.next = head;
+            head = newNode;
+        } else {
+            ListNode cur = head;
+            while (cur.next != null && cur.next.val < x) {
+                cur = cur.next;
+            }
+            newNode.next = cur.next;
+            cur.next = newNode;
+        }
+        return head;
+    }
+
+    public static void removeDuplicates(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode slow = head;
+        while (slow != null) {
+            ListNode fast = slow.next;
+            while (fast != null && slow.val == fast.val) {
+                fast = fast.next;
+            }
+            slow.next = fast;
+            slow = slow.next;
+        }
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 13; i++) {
@@ -200,6 +230,16 @@ public class LinkedList {
         list.print();
         System.out.println("----insert sort list----");
         list.head = insertSortList(list.head);
+        list.print();
+        System.out.println("----insert node----");
+        list.head = insertNode(list.head, 0);
+        list.head = insertNode(list.head, 1);
+        list.head = insertNode(list.head, 5);
+        list.head = insertNode(list.head, 12);
+        list.head = insertNode(list.head, 13);
+        list.print();
+        System.out.println("----remove duplicates----");
+        removeDuplicates(list.head);
         list.print();
     }
 }
