@@ -6,7 +6,7 @@ import java.util.Stack;
 
 public class ClosestValue {
 
-    public static int ClosestValue(TreeNode root, double target) {
+    public static int closestValue(TreeNode root, double target) {
         List<Integer> list = inOrder(root);
         return findClosestValue(list, target);
     }
@@ -38,7 +38,51 @@ public class ClosestValue {
             else if (list.get(mid) < target) left = mid;
             else right = mid;
         }
-        return Math.abs((double)(list.get(left) - target)) <= Math.abs((double)(list.get(right) - target)) ? list.get(left) : list.get(right);
+        return Math.abs(list.get(left) - target) <= Math.abs(list.get(right) - target) ? list.get(left) : list.get(right);
+    }
+
+    //this one is not correct, it is not returning the correct answer.
+    public static int closestValueI(TreeNode root, double target) {
+        if (root == null) throw new IllegalArgumentException();
+
+        int min = root.val;
+        TreeNode cur = root;
+        while (cur != null) {
+            if (Math.abs(cur.val - target) <= Math.abs(min - target)) {
+                min = cur.val;
+            }
+            if (cur.val < target) {
+                cur = cur.right;
+            } else {
+                cur = cur.left;
+            }
+        }
+        return min;
+    }
+
+    private static int res = Integer.MAX_VALUE;
+    public static int closestValueII(TreeNode root, double target) {
+        if (root == null) throw new IllegalArgumentException();
+        dfs(root, target);
+        return res;
+    }
+    private static void dfs(TreeNode root, double target) {
+        if (root == null) return;
+        if (Math.abs(root.val - target) <= Math.abs(res - target)) {
+            if (Math.abs(root.val - target) == Math.abs(res - target)) {
+                res = Math.min(res, root.val);
+            } else {
+                res = root.val;
+            }
+        }
+        if (root.val == target) {
+            return;
+        }
+        if (root.val > target) {
+            dfs(root.left, target);
+        } else {
+            dfs(root.right, target);
+        }
     }
 
     public static void main(String[] args) {
@@ -47,7 +91,9 @@ public class ClosestValue {
         root.right = new TreeNode(3);
         root.right.right = new TreeNode(4);
         root.right.right.right = new TreeNode(5);
-        System.out.println(ClosestValue(root, 3.5));
+        System.out.println(closestValue(root, 4.5));
+        System.out.println(closestValueI(root, 4.5));
+        System.out.println(closestValueII(root, 4.5));
     }
 }
 
