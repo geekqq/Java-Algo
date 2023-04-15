@@ -26,6 +26,7 @@ public class ValidBST {
         return dfs(root.right, prev);
     }
 
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(2);
         root.left = new TreeNode(1);
