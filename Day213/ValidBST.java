@@ -13,6 +13,19 @@ public class ValidBST {
         return isValidBST(root.left, lower, root.val) && isValidBST(root.right, upper, root.val);
     }
 
+    public static boolean validBSTI(TreeNode root) {
+        return dfs(root, new Integer[1]);
+    }
+    private static boolean dfs(TreeNode root, Integer[] prev) {
+        if (root == null) return true;
+        if (!dfs(root.left, prev)) return false;
+        if (prev[0] != null && prev[0] >= root.val) {
+            return false;
+        }
+        prev[0] = root.val;
+        return dfs(root.right, prev);
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(2);
         root.left = new TreeNode(1);
@@ -20,5 +33,6 @@ public class ValidBST {
         root.right.right = new TreeNode(4);
         root.right.right.right = new TreeNode(5);
         System.out.println(validBST(root));
+        System.out.println(validBSTI(root));
     }
 }
