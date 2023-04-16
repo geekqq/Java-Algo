@@ -1,9 +1,5 @@
 package Day213;
 
-import com.sun.jdi.Value;
-import com.sun.source.tree.Tree;
-
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -225,6 +221,26 @@ public class BinaryTree {
         }
         return res;
      }
+
+     public static LinkedList<List<Integer>> levelOrderByLevelBottomUp(TreeNode root) {
+        LinkedList<List<Integer>> res = new LinkedList<>();
+        if (root == null) return null;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            List<Integer> level = new LinkedList<>();
+
+            while (size-- > 0) {
+                TreeNode node = q.poll();
+                level.add(node.val);
+                if (node.left != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+            res.addFirst(level);
+        }
+        return res;
+     }
      public static void main(String[] args) {
         TreeNode root = new TreeNode(1);
         root.left = new TreeNode(2);
@@ -255,6 +271,9 @@ public class BinaryTree {
         System.out.println("----level order by level");
         System.out.println(levelOrderByLevel(root));
         System.out.println(levelOrderByLevel(root1));
+        System.out.println("----level order button up----");
+        System.out.println(levelOrderByLevelBottomUp(root));
+        System.out.println(levelOrderByLevelBottomUp(root1));
     }
 }
 
