@@ -1,9 +1,7 @@
 package Day213;
 
-import java.util.ArrayList;
+import java.util.*;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 
 public class BinaryTree {
 
@@ -241,39 +239,105 @@ public class BinaryTree {
         }
         return res;
      }
-     public static void main(String[] args) {
-        TreeNode root = new TreeNode(1);
-        root.left = new TreeNode(2);
-        root.right = new TreeNode(3);
-        root.right.right = new TreeNode(4);
-        root.right.right.left = new TreeNode(5);
-        System.out.println(maxDepth(root));
-        System.out.println(maxDepthI(root));
-        System.out.println("----min depth----");
-        System.out.println(minDepth(root));
-        System.out.println("----max width----");
-        System.out.println(maxWidth(root));
-        System.out.println(maxWidthI(root));
 
-        TreeNode root1 = new TreeNode(1);
-        root1.left = new TreeNode(3);
-        root1.left.left = new TreeNode(5);
-        root1.left.left.left = new TreeNode(6);
-        root1.right = new TreeNode(2);
-        root1.right.right = new TreeNode(9);
-        root1.right.right.left = new TreeNode(7);
-        System.out.println(maxWidth(root1));
-        System.out.println(maxWidthI(root1));
-        System.out.println("----count nodes----");
-        System.out.println(countNodes(root));
-        System.out.println(countNodesI(root));
-        System.out.println(countNodesII(root));
-        System.out.println("----level order by level");
-        System.out.println(levelOrderByLevel(root));
-        System.out.println(levelOrderByLevel(root1));
-        System.out.println("----level order button up----");
-        System.out.println(levelOrderByLevelBottomUp(root));
-        System.out.println(levelOrderByLevelBottomUp(root1));
+     public static List<List<Integer>> verticalOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) return res;
+
+        Queue<TreeNode> nodeQueue = new LinkedList<>();
+        Queue<Integer> cols = new LinkedList<>();
+
+         Map<Integer, List<Integer>> map = new HashMap<>();
+
+         int min = 0;
+         int max = 0;
+         nodeQueue.offer(root);
+         cols.offer(0);
+         while (!nodeQueue.isEmpty()) {
+             TreeNode node = nodeQueue.poll();
+             int col = cols.poll();
+
+             if (!map.containsKey(col)) {
+                 map.put(col, new ArrayList<>());
+             }
+             map.get(col).add(node.val);
+             if (node.left != null) {
+                 nodeQueue.offer(node.left);
+                 cols.offer(col - 1);
+                 min = Math.min(min, col - 1);
+             }
+             if (node.right != null) {
+                 nodeQueue.offer(node.right);
+                 cols.offer(col + 1);
+                 max = Math.max(max, col + 1);
+             }
+         }
+         for (int i = min; i <= max; i++) {
+             res.add(map.get(i));
+         }
+         return res;
+     }
+
+     public static List<List<Integer>> levelOrderZigzag(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) return res;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        boolean even = false;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            LinkedList<Integer> level = new LinkedList<>();
+            while (size-- > 0) {
+                TreeNode node = queue.poll();
+                if (even) {
+                    level.addFirst(node.val);
+                } else {
+                    level.add(node.val);
+                }
+                level.add(node.val);
+                if (node.left != null) queue.offer(node.left);
+                if (node.right != null) queue.offer(node.right);
+            }
+            even = !even;
+            res.add(level);
+        }
+        return res;
+     }
+     public static void main(String[] args) {
+         TreeNode root = new TreeNode(1);
+         root.left = new TreeNode(2);
+         root.right = new TreeNode(3);
+         root.right.right = new TreeNode(4);
+         root.right.right.left = new TreeNode(5);
+         System.out.println(maxDepth(root));
+         System.out.println(maxDepthI(root));
+         System.out.println("----min depth----");
+         System.out.println(minDepth(root));
+         System.out.println("----max width----");
+         System.out.println(maxWidth(root));
+         System.out.println(maxWidthI(root));
+         TreeNode root1 = new TreeNode(1);
+         root1.left = new TreeNode(3);
+         root1.left.left = new TreeNode(5);
+         root1.left.left.left = new TreeNode(6);
+         root1.right = new TreeNode(2);
+         root1.right.right = new TreeNode(9);
+         root1.right.right.left = new TreeNode(7);
+         System.out.println(maxWidth(root1));
+         System.out.println(maxWidthI(root1));
+         System.out.println("----count nodes----");
+         System.out.println(countNodes(root));
+         System.out.println(countNodesI(root));
+         System.out.println(countNodesII(root));
+         System.out.println("----level order by level");
+         System.out.println(levelOrderByLevel(root));
+         System.out.println(levelOrderByLevel(root1));
+         System.out.println("----level order button up----");
+         System.out.println(levelOrderByLevelBottomUp(root));
+         System.out.println(levelOrderByLevelBottomUp(root1));
+         System.out.println("----vertical order traversal----");
+         System.out.println(verticalOrder(root));
+         System.out.println(verticalOrder(root1));
     }
 }
 
