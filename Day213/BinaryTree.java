@@ -162,6 +162,49 @@ public class BinaryTree {
         }
         return max;
      }
+
+     public static int countNodes(TreeNode root) {
+        if (root == null) return 0;
+        int leftNodes = countNodes(root.left);
+        int rightNodes = countNodes(root.right);
+        return leftNodes + rightNodes + 1;
+     }
+
+     public static int countNodesI(TreeNode root) {
+        if (root == null) return 0;
+        Queue<TreeNode> q = new LinkedList<>();
+        int count = 0;
+        q.offer(root);
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            count++;
+            if (node.left != null) q.offer(node.left);
+            if (node.right != null) q.offer(node.right);
+        }
+        return count;
+     }
+
+     public static int countNodesII(TreeNode root) {
+        if (root == null) return 0;
+        if (root.left == null && root.right == null) return 1;
+        int leftHeight = getLeftMostHeight(root.left);
+        int rightHeight = getLeftMostHeight(root.right);
+        if (leftHeight > rightHeight) {
+            return countNodesII(root.left) + (int)Math.pow(2, rightHeight);
+        } else if (leftHeight == rightHeight) {
+            return countNodesII(root.left) + (int)Math.pow(2,leftHeight);
+        } else {
+            return 0;
+        }
+     }
+     private static int getLeftMostHeight(TreeNode root) {
+        int height = 0;
+        while (root != null) {
+            root = root.left;
+            height++;
+        }
+        return height;
+     }
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);
         root.left = new TreeNode(2);
@@ -185,6 +228,10 @@ public class BinaryTree {
         root1.right.right.left = new TreeNode(7);
         System.out.println(maxWidth(root1));
         System.out.println(maxWidthI(root1));
+        System.out.println("----count nodes----");
+        System.out.println(countNodes(root));
+        System.out.println(countNodesI(root));
+        System.out.println(countNodesII(root));
     }
 }
 
