@@ -1,7 +1,9 @@
 package Day213;
 
+import com.sun.jdi.Value;
 import com.sun.source.tree.Tree;
 
+import java.security.Key;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -108,6 +110,58 @@ public class BinaryTree {
         prev[0] = root.val;
         return dfs(root.right, prev);
      }
+
+     public static int maxWidth(TreeNode root) {
+        if (root == null) return 0;
+        Queue<TreeNode> nodeQueue = new LinkedList<>();
+        Queue<Integer> indexQueue = new LinkedList<>();
+
+        nodeQueue.offer(root);
+        indexQueue.offer(0);
+
+        int max = 0;
+
+        while (!nodeQueue.isEmpty()) {
+            int size = nodeQueue.size();
+            int left = 0;
+            int right = 0;
+            for (int i = 0; i < size; i++) {
+                TreeNode node = nodeQueue.poll();
+                int index = indexQueue.poll();
+
+                if (i == 0) left = index;
+                if (i == size - 1) right = index;
+
+                if (node.left != null) {
+                    nodeQueue.offer(node.left);
+                    indexQueue.offer(index * 2);
+                }
+                if (node.right != null) {
+                    nodeQueue.offer(node.right);
+                    indexQueue.offer(index * 2 + 1);
+                }
+            }
+            max = Math.max(max, right - left + 1);
+        }
+        return max;
+     }
+
+     public static int maxWidthI(TreeNode root) {
+        if (root == null) return 0;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        int max = 0;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            max = Math.max(max, size);
+            while (size-- > 0) {
+                TreeNode node = q.poll();
+                if (node.left != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+        }
+        return max;
+     }
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);
         root.left = new TreeNode(2);
@@ -118,6 +172,19 @@ public class BinaryTree {
         System.out.println(maxDepthI(root));
         System.out.println("----min depth----");
         System.out.println(minDepth(root));
+        System.out.println("----max width----");
+        System.out.println(maxWidth(root));
+        System.out.println(maxWidthI(root));
+
+        TreeNode root1 = new TreeNode(1);
+        root1.left = new TreeNode(3);
+        root1.left.left = new TreeNode(5);
+        root1.left.left.left = new TreeNode(6);
+        root1.right = new TreeNode(2);
+        root1.right.right = new TreeNode(9);
+        root1.right.right.left = new TreeNode(7);
+        System.out.println(maxWidth(root1));
+        System.out.println(maxWidthI(root1));
     }
 }
 
