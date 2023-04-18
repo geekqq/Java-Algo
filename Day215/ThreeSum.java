@@ -1,4 +1,4 @@
-package Day207;
+package Day215;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,9 +11,7 @@ public class ThreeSum {
         if (nums == null || nums.length == 0) return res;
         Arrays.sort(nums);
         for (int i = 0; i < nums.length - 2; i++) {
-            if (i > 0 && nums[i] == nums[i - 1]) {
-                continue;
-            }
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
             int left = i + 1;
             int right = nums.length - 1;
             while (left < right) {
@@ -23,7 +21,7 @@ public class ThreeSum {
                     left++;
                     while (left < right && nums[left] == nums[left - 1]) {
                         left++;
-                    };
+                    }
                 } else if (nums[i] + temp < 0) {
                     left++;
                 } else {
@@ -33,7 +31,6 @@ public class ThreeSum {
         }
         return res;
     }
-
 
     public static void main(String[] args) {
         int[] nums = {3,0,-1,4,1,2,0,-4};
