@@ -89,7 +89,7 @@ public class BianryTree {
         root.right.right = new TreeNode(7);
         System.out.println("----level order by level----");
         System.out.println(levelOrderByLevel(root));
-        System.out.println("----level order from buttom----");
+        System.out.println("----level order from bottom----");
         System.out.println(levelOrderButtom(root));
     }
 
