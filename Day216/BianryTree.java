@@ -91,6 +91,8 @@ public class BianryTree {
         System.out.println(levelOrderByLevel(root));
         System.out.println("----level order from bottom----");
         System.out.println(levelOrderButtom(root));
+        System.out.println("----vertical traversal----");
+        System.out.println(verticalOrder(root));
     }
 
 }
