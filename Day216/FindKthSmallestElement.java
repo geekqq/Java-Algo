@@ -42,6 +42,40 @@ public class FindKthSmallestElement {
         return res;
     }
 
+    public static int kthSmallestI(int[][] matrix, int k) {
+        int row = matrix.length;
+        int col = matrix[0].length;
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((o1, o2) -> o2 - o1);
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                maxHeap.offer(matrix[i][j]);
+                if (maxHeap.size() > k) {
+                    maxHeap.poll();
+                }
+            }
+        }
+        return maxHeap.peek();
+    }
+
+    public static int kthSmallestII(int[][] matrix, int k) {
+        int row = matrix.length;
+        int col = matrix[0].length;
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((o1, o2) -> o2 - o1);
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                int num = matrix[i][j];
+                if (maxHeap.size() < k) {
+                    maxHeap.offer(num);
+                } else if (num < maxHeap.peek()) {
+                    maxHeap.poll();
+                    maxHeap.offer(num);
+                }
+            }
+        }
+        return maxHeap.peek();
+    }
+
+
     private static boolean isValid(int i, int j, int row, int col, boolean[][] visited) {
         return (i >= 0 && i < row && j >= 0 && j < col && !visited[i][j]);
     }
@@ -53,5 +87,7 @@ public class FindKthSmallestElement {
                 {12,13,15}
         };
         System.out.println(kthSmallest(matrix, 8));
+        System.out.println(kthSmallestI(matrix, 8));
+        System.out.println(kthSmallestII(matrix, 8));
     }
 }
