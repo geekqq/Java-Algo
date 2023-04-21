@@ -1,9 +1,6 @@
 package Day216;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class BianryTree {
 
@@ -41,6 +38,43 @@ public class BianryTree {
                 if (node.right != null) q.offer(node.right);
             }
             res.addFirst(level);
+        }
+        return res;
+    }
+
+
+    public static List<List<Integer>> verticalOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) return res;
+        Queue<TreeNode> nodeQueue = new LinkedList<>();
+        Queue<Integer> indexQueue = new LinkedList<>();
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        int min = 0;
+        int max = 0;
+
+        nodeQueue.offer(root);
+        indexQueue.offer(0);
+        while (!nodeQueue.isEmpty()) {
+            TreeNode node = nodeQueue.poll();
+            int col = indexQueue.poll();
+
+            if (!map.containsKey(col)) {
+                map.put(col, new ArrayList<>());
+            }
+            map.get(col).add(node.val);
+            if (node.left != null) {
+                nodeQueue.offer(node.left);
+                indexQueue.offer(col - 1);
+                min = Math.min(min, col - 1);
+            }
+            if (node.right != null) {
+                nodeQueue.offer(node.right);
+                indexQueue.offer(col + 1);
+                max = Math.max(max, col + 1);
+            }
+        }
+        for (int i = min; i < max; i++) {
+            res.add(map.get(i));
         }
         return res;
     }
