@@ -75,6 +75,32 @@ public class BinaryTree {
         return res;
     }
 
+    public static List<List<Integer>> zigZagOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) return res;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        boolean isEven = false;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            LinkedList<Integer> level = new LinkedList<>();
+            while (size-- > 0) {
+                TreeNode node = q.poll();
+                if (isEven) {
+                    level.addFirst(node.val);
+                } else {
+                    level.add(node.val);
+                }
+                if (node.left != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+            isEven = !isEven;
+            res.add(level);
+        }
+        return res;
+    }
+
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         root.left = new TreeNode(2);
@@ -89,6 +115,8 @@ public class BinaryTree {
         System.out.println(levelOrderBottom(root));
         System.out.println("----vertical order----");
         System.out.println(verticalOrder(root));
+        System.out.println("----zig zag order----");
+        System.out.println(zigZagOrder(root));
 
     }
 }
