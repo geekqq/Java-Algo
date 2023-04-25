@@ -1,9 +1,6 @@
 package Day218;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class BinaryTree {
     public static List<List<Integer>> levelOrder(TreeNode root) {
@@ -44,6 +41,39 @@ public class BinaryTree {
         return res;
     }
 
+    public static List<List<Integer>> verticalOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) return res;
+        Queue<TreeNode> nodeQueue = new LinkedList<>();
+        Queue<Integer> colQueue = new LinkedList<>();
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        int min = 0;
+        int max = 0;
+        nodeQueue.offer(root);
+        colQueue.offer(0);
+        while (!nodeQueue.isEmpty()) {
+            TreeNode node = nodeQueue.poll();
+            int col = colQueue.poll();
+            if (!map.containsKey(col)) {
+                map.put(col, new ArrayList<>());
+            }
+            map.get(col).add(node.val);
+            if (node.left != null) {
+                nodeQueue.offer(node.left);
+                colQueue.offer(col - 1);
+                min = Math.min(min, col - 1);
+            }
+            if (node.right != null) {
+                nodeQueue.offer(node.right);
+                colQueue.offer(col + 1);
+                max = Math.max(max, col + 1);
+            }
+        }
+        for (int i = min; i <= max; i++) {
+            res.add(map.get(i));
+        }
+        return res;
+    }
 
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
@@ -57,6 +87,8 @@ public class BinaryTree {
         System.out.println(levelOrder(root));
         System.out.println("----level order bottom----");
         System.out.println(levelOrderBottom(root));
+        System.out.println("----vertical order----");
+        System.out.println(verticalOrder(root));
 
     }
 }
