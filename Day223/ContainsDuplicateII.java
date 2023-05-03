@@ -21,7 +21,10 @@ public class ContainsDuplicateII {
 
     public static void main(String[] args) {
         int[] nums = {1,2,3,1};
+        int[] nums1 = {1, 0, 1, 1};
         int k = 3;
+        int k1 = 1;
         System.out.println(containsNearByDuplicate(nums, k));
+        System.out.println(containsNearByDuplicate(nums1, k1));
     }
 }
