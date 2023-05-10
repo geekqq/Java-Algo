@@ -67,10 +67,10 @@ public class ReverseWordInString {
 
     public static void main(String[] args) {
         String s = "  hello  world   !   ";
-//        System.out.println(clearExtraSpaces(s));
-//        System.out.println(reverse(s));
-//        System.out.println(reverseEachWord(reverse(s)));
-        //System.out.println(cleanSpace(s.toCharArray()));
+        System.out.println(clearExtraSpaces(s));
+        System.out.println(reverse(s));
+        System.out.println(reverseEachWord(reverse(s)));
+        System.out.println(cleanSpace(s.toCharArray()));
         System.out.println(reverseWords(s));
     }
 }
