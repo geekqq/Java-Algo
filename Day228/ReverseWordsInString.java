@@ -1,31 +1,21 @@
-package Day227;
+package Day228;
 
 import static Day173.ReverseString.swap;
 
-public class ReverseWordInString {
+public class ReverseWordsInString {
 
-    public static String reverseWords(String s) {
+    public static String reverseWordsInString(String s) {
         if (s == null || s.length() == 0) return s;
-        //String str = clearExtraSpaces(s);
-        String reversedStr = reverse(s);
-        String words = reverseEachWord(reversedStr);
-        return cleanSpace(words.toCharArray());
+        String reverseStr = reverseStr(s);
+        String words = reverseEachWord(reverseStr);
+        return clearSpaces(words.toCharArray());
     }
 
-    private static String clearExtraSpaces(String s) {
-        int left = 0;
-        int right = s.length() - 1;
-        while (left < s.length() && s.charAt(left) == ' ') left++;
-        while (right >= 0 && s.charAt(right) == ' ') right--;
-        if (left > right) return "";
-        return s.substring(left, right + 1);
-    }
-
-    private static String reverse(String s) {
-        if (s.length() == 0) return "";
+    private static String reverseStr(String s) {
+        if (s == null || s.length() == 0) return null;
         char[] chars = s.toCharArray();
-        int left = 0;
-        int right = s.length() - 1;
+        int left =0;
+        int right = chars.length - 1;
         while (left < right) {
             swap(chars, left++, right--);
         }
@@ -33,7 +23,9 @@ public class ReverseWordInString {
     }
 
     private static String reverseEachWord(String s) {
-        if (s.length() == 0) return "";
+        if (s == null || s.length() == 0) {
+            return null;
+        }
         char[] chars = s.toCharArray();
         for (int i = 0; i < chars.length; i++) {
             if (chars[i] == ' ') continue;
@@ -52,7 +44,8 @@ public class ReverseWordInString {
         }
         return new String(chars);
     }
-    private static String cleanSpace(char[] chars) {
+    private static String clearSpaces(char[] chars) {
+        if (chars == null || chars.length == 0) return null;
         int i = 0;
         int j = 0;
         int n = chars.length;
@@ -66,11 +59,7 @@ public class ReverseWordInString {
     }
 
     public static void main(String[] args) {
-        String s = "  hello  world   !   ";
-//        System.out.println(clearExtraSpaces(s));
-//        System.out.println(reverse(s));
-//        System.out.println(reverseEachWord(reverse(s)));
-//        System.out.println(cleanSpace(s.toCharArray()));
-        System.out.println(reverseWords(s));
+        String s = "  hello world !  ";
+        System.out.println(reverseWordsInString(s));
     }
 }
