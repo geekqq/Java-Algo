@@ -22,4 +22,10 @@ public class RegExMatch {
             }
         }
     }
+
+    public static void main(String[] args) {
+        System.out.println(isMatch("aa", "a"));
+        System.out.println(isMatch("aa", "a*"));
+        System.out.println(isMatch("aa", ".*"));
+    }
 }
