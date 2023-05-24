@@ -2,6 +2,8 @@ package Day232;
 
 import Day174.ListNode;
 
+import java.util.Stack;
+
 public class LinkedList {
 
     private ListNode head;
@@ -139,6 +141,191 @@ public class LinkedList {
         head.next = reverseInKGroup(cur, k);
         return prev;
     }
+
+
+    public static ListNode insertSortList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode dummy = new ListNode(0);
+        ListNode cur = head;
+        while (cur != null) {
+            ListNode prev = dummy;
+            while (prev.next != null && cur.val > prev.next.val) {
+                prev = prev.next;
+            }
+            ListNode insertNode = cur;
+            cur = cur.next;
+            insertNode.next = prev.next;
+            prev.next = insertNode;
+        }
+        return dummy.next;
+    }
+
+    public static ListNode insertNode(ListNode head, int val) {
+        ListNode newNode = new ListNode(val);
+        if (head == null || head.val >= val) {
+            newNode.next = head;
+            head = newNode;
+        } else {
+            ListNode cur  = head;
+            while (cur.next != null && cur.next.val < val) {
+                cur = cur.next;
+            }
+            newNode.next = cur.next;
+            cur.next = newNode;
+        }
+        return head;
+    }
+
+    public static void deleteDuplicates(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode slow = head;
+        while (slow != null) {
+            ListNode fast = slow.next;
+            while (fast != null && slow.val == fast.val) {
+                fast = fast.next;
+            }
+            slow.next = fast;
+            slow = slow.next;
+        }
+    }
+
+    public static ListNode deleteNode(ListNode head, int val) {
+        if (head == null) return null;
+        if (head.val == val) {
+            if (head.next == null) {
+                System.out.println("Head can not be deleted!");
+            }
+            head.val = head.next.val;
+            head.next = head.next.next;
+        } else {
+            ListNode cur  = head;
+            while (cur.next != null && cur.next.val != val) {
+                cur = cur.next;
+            }
+            if (cur.next == null) {
+                System.out.println("The node is not presented!");
+            }
+            cur.next = cur.next.next;
+            System.gc();
+        }
+        return head;
+    }
+
+    public static void oddEvenList(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode evenHead = head.next;
+        while (even != null && even.next != null) {
+            odd.next = odd.next.next;
+            even.next = even.next.next;
+            odd = odd.next;
+            even = even.next;
+        }
+        odd.next = evenHead;
+    }
+
+    public static ListNode reorderList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode slow  = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode temp = slow.next;
+        slow.next = null;
+        ListNode firstHead = head;
+        ListNode secondHead = reverse(temp);
+        ListNode dummy = new ListNode(0);
+        temp = dummy;
+        while (firstHead != null && secondHead != null) {
+            temp.next = firstHead;
+            firstHead = firstHead.next;
+            temp = temp.next;
+            temp.next = secondHead;
+            secondHead = secondHead.next;
+            temp = temp.next;
+        }
+        temp.next = firstHead != null ? firstHead : secondHead;
+        return dummy.next;
+    }
+
+    public static ListNode partitionList(ListNode head, int x) {
+        if (head == null || head.next == null) return head;
+        ListNode small = new ListNode(0);
+        ListNode large = new ListNode(0);
+        ListNode curSmall = small;
+        ListNode curLarge = large;
+        while (head != null) {
+            if (head.val < x) {
+                curSmall.next = head;
+                curSmall = curSmall.next;
+            } else {
+                curLarge.next = head;
+                curLarge = curLarge.next;
+            }
+            head = head.next;
+        }
+        curSmall.next = large.next;
+        return small.next;
+    }
+
+    public static void plusOne(ListNode head) {
+        if (head == null) return;
+        Stack<ListNode> stack = new Stack<>();
+        ListNode cur = head;
+        while (cur != null) {
+            stack.push(cur);
+            cur = cur.next;
+        }
+        while (!stack.isEmpty()) {
+            ListNode node = stack.pop();
+            if (node.val < 9) {
+                node.val++;
+                return;
+            } else {
+                node.val = 0;
+            }
+        }
+        ListNode newNode = new ListNode(1);
+        newNode.next = head;
+        head = newNode;
+    }
+
+
+    public static boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) return false;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = head.next;
+            fast = head.next.next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static ListNode hasCycleI(ListNode head) {
+        if (head == null || head.next == null) return null;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = head.next;
+            fast = fast.next.next;
+            if (slow == fast) break;
+        }
+        if (slow != fast) return null;
+        ListNode temp = head;
+        while (temp != slow) {
+            temp = temp.next;
+            slow = slow.next;
+        }
+        return temp;
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 10; i++) {
@@ -165,8 +352,32 @@ public class LinkedList {
         list.head = reverseInKGroup(list.head, 4);
         list.print();
         System.out.println("---------------");
+        list.head = insertSortList(list.head);
+        list.print();
         System.out.println("---------------");
+        list.head = insertNode(list.head, 0);
+        list.head = insertNode(list.head, 1);
+        list.head = insertNode(list.head, 3);
+        list.head = insertNode(list.head, 10);
+        list.print();
         System.out.println("---------------");
+        deleteDuplicates(list.head);
+        list.print();
+        System.out.println("---------------");
+        deleteNode(list.head, 0);
+        deleteNode(list.head, 4);
+        deleteNode(list.head, 10);
+        deleteNode(list.head, 9);
+        list.print();
+        System.out.println("---------------");
+        oddEvenList(list.head);
+        list.print();
+        System.out.println("---------------");
+        list.head = reorderList(list.head);
+        list.print();
+        System.out.println("---------------");
+        list.head = partitionList(list.head, 6);
+        list.print();
         System.out.println("---------------");
         System.out.println("---------------");
     }
