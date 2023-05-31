@@ -1,6 +1,6 @@
 package Day233;
 
-public class MaximumProductSubarray {
+public class MaximumProductSubArray {
 
     public static int maxProduct(int[] nums) {
         if (nums == null || nums.length == 0) return 0;
