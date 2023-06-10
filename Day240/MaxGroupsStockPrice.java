@@ -22,11 +22,11 @@ public class MaxGroupsStockPrice {
             }
             stack.push(stockPrice[i]);
         }
-        return max;
+        return res + stockPrice.length;
     }
 
     public static void main(String[] args) {
-        int[] stockPrice = {7,2,6,4,8,3};
+        int[] stockPrice = {3,1,3,5};
         System.out.println(getMaxLength(stockPrice));
     }
 }

@@ -1,6 +1,5 @@
 package Day240;
 
-import OODAdv.A;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +26,10 @@ public class Subsets {
             getRes(res, nums, i + 1, list);
             list.remove(list.size() - 1);
         }
-        return;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {3,1,3,5};
+        System.out.println(subsets(nums));
     }
 }
