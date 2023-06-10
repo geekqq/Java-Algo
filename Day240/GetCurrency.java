@@ -3,7 +3,7 @@ package Day240;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class GerCurrency {
+public class GetCurrency {
 
     public static void main(String[] args) {
         double amount = 12345.67;
