@@ -3,7 +3,7 @@ package Day243;
 import java.math.BigInteger;
 import java.util.Scanner;
 
-public class BiIntegerDemo {
+public class BigIntegerDemo {
 
     public static void main(String[] args) {
 
