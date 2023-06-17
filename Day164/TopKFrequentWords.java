@@ -27,7 +27,7 @@ public class TopKFrequentWords {
             }
         });
 
-//        List<String> list = new ArrayList<>(map.keySet());
+//        List<String> list = new ArrayListDemo<>(map.keySet());
 //        Collections.sort(list, (a, b) -> map.get(b) - map.get(a));
 
         for (String str : map.keySet()) {

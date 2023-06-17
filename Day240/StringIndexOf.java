@@ -24,7 +24,7 @@ public class StringIndexOf {
             System.out.println(entry.getKey());
 
         }
-//        List<Integer> res = new ArrayList<>();
+//        List<Integer> res = new ArrayListDemo<>();
 //        for (int id : map.keySet()) {
 //            if (id >= 2) {
 //                res.add(id);
