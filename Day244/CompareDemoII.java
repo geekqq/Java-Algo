@@ -7,14 +7,14 @@ public class CompareDemoII {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        List<Student> studentList = new ArrayList<>();
+        List<Day245.Student> studentList = new ArrayList<>();
         Checker checker = new Checker();
         for (int i = 0; i < n; i++) {
             int id = sc.nextInt();
             String name = sc.next();
             double cgba = sc.nextDouble();
 
-            Student st = new Student(id, name, cgba);
+            Day245.Student st = new Day245.Student(id, name, cgba);
             studentList.add(st);
         }
 //        Collections.sort(studentList, Comparator.comparing(Student::getCgpa).reversed()
@@ -22,15 +22,15 @@ public class CompareDemoII {
 //                .thenComparing(Student::getCgpa));
 
         Collections.sort(studentList, checker);
-        for (Student st : studentList) {
+        for (Day245.Student st : studentList) {
             System.out.printf("%s\n", st.getName());
         }
     }
 }
 
-class Checker implements Comparator<Student> {
+class Checker implements Comparator<Day245.Student> {
     @Override
-    public int compare(Student s1, Student s2) {
+    public int compare(Day245.Student s1, Day245.Student s2) {
         double s1Cgba = s1.getCgpa();
         double s2Cgba = s2.getCgpa();
         String s1Name = s1.getName();
