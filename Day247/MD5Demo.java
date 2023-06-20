@@ -10,6 +10,7 @@ public class MD5Demo {
         Scanner sc = new Scanner(System.in);
         String s = sc.next();
         MessageDigest md5 = MessageDigest.getInstance("MD5");
+
         byte[] hash = md5.digest(s.getBytes());
         StringBuilder sb = new StringBuilder();
         for (byte b : hash) {
