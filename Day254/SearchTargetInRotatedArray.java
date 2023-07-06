@@ -60,10 +60,39 @@ public class SearchTargetInRotatedArray {
         return nums[r] == t;
     }
 
+    public static boolean searchIII(int[] nums, int t) {
+        if (nums == null || nums.length == 0) return false;
+        if (nums.length == 1) return nums[0] == t;
+        int left = 0;
+        int right = nums.length - 1;
+        while (left <= right) {
+            int mid = left + right >> 1;
+            if (nums[left] == t) return true;
+            if (nums[mid] == t) return true;
+            if (nums[right] == t) return true;
+            if (nums[left] == nums[mid]) left++;
+            else if (nums[right] == nums[mid]) right--;
+            else if (nums[mid] > nums[left]) {
+                if (t >= nums[left] && t <= nums[mid]) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
+            } else {
+                if (t >= nums[mid] && t <= nums[right]) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         int[] nums = {4,5,6,7,7,0,0,1,1,2,3,3,4,4,4};
         for (int i = -3; i < 11; i++) {
-            System.out.println("is " + i + " in the array ? " + searchII(nums, i));
+            System.out.println("is " + i + " in the array ? " + searchIII(nums, i));
         }
     }
 }
