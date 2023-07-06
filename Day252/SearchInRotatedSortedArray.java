@@ -42,9 +42,9 @@ public class SearchInRotatedSortedArray {
             if (nums[mid] >= nums[0] && t >= nums[0] || nums[mid] < nums[0] && t < nums[0]) {
                 if (nums[mid] >= t) r = mid;
                 else  l = mid + 1;
-            } else if (nums[mid] >= nums[0]) {
+            } else if (nums[mid] >= nums[0]) { //mid at left , t at right
                     l = mid + 1;
-            } else {
+            } else { // mid at right , t at left
                 r = mid - 1;
             }
         }

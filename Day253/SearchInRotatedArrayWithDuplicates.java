@@ -1,0 +1,40 @@
+package Day253;
+
+public class SearchInRotatedArrayWithDuplicates {
+    public static boolean searchRotatedArray(int[] nums, int t) {
+        int n = nums.length;
+        int R = n - 1;
+        while (R > 0 && nums[R] == nums[0]) R--;
+        if (R == 0) return nums[0] == t;
+
+        int l = 0;
+        int r = R;
+        while (l < r) {
+            int m = l + r + 1 >> 1;
+            if (nums[m] >= nums[0]) l = m;
+            else r = m - 1;
+        }
+
+        if (t >= nums[0]) {
+            l = 0;
+        } else {
+            l = r + 1;
+            r = R;
+        }
+        while (l < r) {
+            int m = l + r >> 1;
+            if (nums[m] < t) {
+                l = m + 1;
+            } else {
+                r = m;
+            }
+        }
+        return nums[r] == t;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {2,3,4,5,6,6,0,0,0,1,1,2};
+        int target = 8;
+        System.out.println(searchRotatedArray(nums, target));
+    }
+}
