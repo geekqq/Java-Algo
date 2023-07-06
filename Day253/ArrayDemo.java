@@ -56,7 +56,19 @@ public class ArrayDemo {
         arraySize++;
     }
 
-
+    public void linearSearchForValue(int value) {
+        boolean valueInArray = false;
+        System.out.println("The value was found in the following indexes: ");
+        for (int i = 0; i < arraySize; i++) {
+            if (theArray[i] == value) {
+                valueInArray = true;
+                System.out.print(i + " ");
+            }
+        }
+        if (!valueInArray) {
+            System.out.print("not found!");
+        }
+    }
     public static void main(String[] args) {
         ArrayDemo newArray = new ArrayDemo();
         newArray.generateRandomArray();
@@ -67,5 +79,6 @@ public class ArrayDemo {
         newArray.printArray();
         newArray.insertIndexAtEnd( 0);
         newArray.printArray();
+        newArray.linearSearchForValue(10);
     }
 }
