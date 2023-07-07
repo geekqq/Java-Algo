@@ -18,6 +18,19 @@ public class InsertionSort {
         }
     }
 
+    public static void insertSortII(int[] nums) {
+        //cc
+        for (int i = 1; i < nums.length; i++) {
+            int key = nums[i];
+            int j = i;
+            while (j > 0 && nums[j - 1] > key) {
+                nums[j] = nums[j - 1];
+                j--;
+            }
+            nums[j] = key;
+        }
+    }
+
     public static int[] generateRandomArray(int size, int min ,int max) {
         if (max - min + 1 < size) throw new IllegalArgumentException();
         int[] arr = new int[size];
@@ -34,9 +47,9 @@ public class InsertionSort {
         return arr;
     }
     public static void main(String[] args) {
-        int[] arr = generateRandomArray(8, 10, 20);
+        int[] arr = generateRandomArray(8, 5, 20);
         System.out.println(Arrays.toString(arr));
-        insertSort(arr);
+        insertSortII(arr);
         System.out.println(Arrays.toString(arr));
     }
 }
