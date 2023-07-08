@@ -19,8 +19,11 @@ public class MainDemo {
         Pair<Person> people = new Pair<>(new Person("Richard"), new Person("Stone"));
         System.out.println(people);
         List<String> list = List.of("Hello", "World");
+        List<Integer> anotherList = List.of(1,2,3,4,5,6);
         System.out.println(reverse(list));
         System.out.println(list);
+        System.out.println(anotherList);
+        System.out.println(reverse(anotherList));
     }
 
     public static <T> List<T> reverse(List<T> originalList) {
