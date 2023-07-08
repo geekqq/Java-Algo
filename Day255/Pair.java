@@ -1,5 +1,7 @@
 package Day255;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringJoiner;
 
 public class Pair<T> {
@@ -33,6 +35,11 @@ public class Pair<T> {
         Pair<Integer> integers = new Pair<>(42, 12);
         System.out.println(strings);
         System.out.println(integers);
+
+        Map<String, Integer> map = new HashMap<>();
+        map.put("Hello", 42);
+        map.put("World", 500);
+
     }
 
 }
