@@ -51,6 +51,10 @@ public class RandomArray {
         System.out.println(Arrays.toString(nums2));
         bubbleSort(nums2);
         System.out.println(Arrays.toString(nums2));
+        System.out.println("+++++++++++++++++++++++++++++++++++++");
+        int[] nums3 = generateRandomArrayWithNoDuplicates(6, 1, 16);
+        System.out.println(Arrays.toString(nums3));
+        System.out.println(Arrays.toString(countSort(nums3)));
     }
 
     public static int[] generateRandomArrayWithNoDuplicates(int size, int min, int max) {
@@ -106,5 +110,23 @@ public class RandomArray {
             }
             if (false) break;
         }
+    }
+
+    public static int[] countSort(int[] nums) {
+        int[] newArr = Arrays.copyOf(nums, nums.length);
+        int len = Arrays.stream(newArr).max().getAsInt() + 1;
+        int[] bucket = new int[len];
+        int indexSorted = 0;
+        for (int value : newArr) {
+            bucket[value]++;
+        }
+
+        for (int i = 0; i < len; i++) {
+            while (bucket[i] > 0) {
+                newArr[indexSorted++] = i;
+                bucket[i]--;
+            }
+        }
+        return newArr;
     }
 }
