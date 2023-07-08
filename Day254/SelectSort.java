@@ -11,9 +11,9 @@ public class SelectSort {
 
     public static void selectSort(int[] nums) {
         //cc
-        for (int i = 0; i < nums.length; i++) {
+        for (int i = 0; i < nums.length - 1; i++) {
             int min = i;
-            for (int j = i; j < nums.length; j++) {
+            for (int j = i + 1; j < nums.length; j++) {
                 if (nums[min] > nums[j]) {
                     min = j;
                 }
