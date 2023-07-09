@@ -37,6 +37,29 @@ public class SearchTargetInRotatedArray {
         return nums[r] == t;
     }
 
+    public static boolean searchII(int[] nums, int t) {
+        int r = nums.length - 1;
+        while (r > 0 && nums[r] == nums[0]) r--;
+        if (r == 0) return nums[0] == t;
+        int l = 0;
+        while (l < r) {
+            int m = l + r >> 1;
+            if (nums[0] <= nums[m] && nums[0] <= t
+            || nums[m] < nums[0] && t < nums[0]) {
+                if (nums[m] >= t) {
+                    r = m;
+                } else {
+                    l = m + 1;
+                }
+            } else if (nums[0] <= nums[m]) {
+                l = m + 1;
+            } else {
+                r = m - 1;
+            }
+        }
+        return nums[r] == t;
+    }
+
     public static void main(String[] args) {
         int[] nums = randomArray(10, 15);
         System.out.println(Arrays.toString(nums));
@@ -44,7 +67,7 @@ public class SearchTargetInRotatedArray {
         System.out.println(Arrays.toString(nums));
         int[] arr = {7, 8, 8, 10, 0, 2, 2, 5, 6, 6};
         for (int i = -2; i < 15; i++) {
-            System.out.println(i + " = " + search(nums, i));
+            System.out.println(i + " = " + searchII(arr, i));
         }
     }
 
