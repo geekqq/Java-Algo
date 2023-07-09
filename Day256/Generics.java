@@ -12,34 +12,22 @@ public class Generics {
         displayArray(doubleArray);
         displayArray(charArray);
         displayArray(stringArray);
+        System.out.println(getFirst(intArray));
+        System.out.println(getFirst(doubleArray));
+        System.out.println(getFirst(charArray));
+        System.out.println(getFirst(stringArray));
+
     }
 
-    public static void displayArray(Integer[] array) {
-        for (Integer x : array) {
+    public static <T> void displayArray(T[] array) {
+        for (T x : array) {
             System.out.print(x + " ");
         }
         System.out.println();
     }
 
-    public static void displayArray(Double[] array) {
-        for (Double x : array) {
-            System.out.print(x + " ");
-        }
-        System.out.println();
-    }
-
-    public static void displayArray(Character[] array) {
-        for (Character x : array) {
-            System.out.print(x + " ");
-        }
-        System.out.println();
-    }
-
-    public static void displayArray(String[] array) {
-        for (String x : array) {
-            System.out.print(x + " ");
-        }
-        System.out.println();
+    public static <Thing> Thing getFirst(Thing[] array) {
+        return array[0];
     }
 
 }
