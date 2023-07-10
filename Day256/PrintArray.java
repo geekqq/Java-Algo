@@ -28,10 +28,11 @@ public class PrintArray {
         for (int i = 0; i <= 5*n; i++) {
             System.out.print("-");
         }
+        System.out.println();
     }
 
     public static void main(String[] args) {
-        int[] nums = generateRandomArrayWithNoDuplicates(6, 2, 15);
+        int[] nums = generateRandomArrayWithNoDuplicates(8, 2, 15);
         printArray(nums);
     }
 }
