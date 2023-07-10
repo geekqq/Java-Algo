@@ -5,12 +5,12 @@ public class BinarySearchDemo {
     public static int bs(int[] nums, int t) {
         int l = 0;
         int r = nums.length - 1;
-        while (l < r) {
+        while (l <= r) {
             int m = l + r >> 1;
             if (nums[m] < t) {
                 l = m + 1;
             } else {
-                r = m;
+                r = m - 1;
             }
         }
         if (nums[r] == t) return r;
