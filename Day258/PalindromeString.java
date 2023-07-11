@@ -18,5 +18,6 @@ public class PalindromeString {
         System.out.println(isPalindrome("that"));
         System.out.println(isPalindrome("thataht"));
         System.out.println(isPalindrome("KaaK"));
+        System.out.println(isPalindrome("madam"));
     }
 }
