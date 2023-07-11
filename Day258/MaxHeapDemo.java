@@ -20,9 +20,20 @@ public class MaxHeapDemo {
         System.out.println(minHeap);
 
         PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+        PriorityQueue<Integer> maxHeap2 = new PriorityQueue<>((a, b) -> b -a);
+        PriorityQueue<Integer> maxHeap3 = new PriorityQueue<>((a, b) -> b.compareTo(a));
         for (int x : nums) {
             maxHeap.add(x);
         }
         System.out.println(maxHeap);
+        for (int x : nums) {
+            maxHeap2.offer(x);
+        }
+        System.out.println(maxHeap2);
+
+        for (int x : nums) {
+            maxHeap3.offer(x);
+        }
+        System.out.println(maxHeap3);
     }
 }
