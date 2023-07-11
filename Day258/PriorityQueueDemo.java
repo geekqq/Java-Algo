@@ -6,15 +6,18 @@ import java.util.PriorityQueue;
 public class PriorityQueueDemo {
 
     public static int findSecondMax(int[] nums) {
-        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder()); // initiate a queue reversed,max on the top
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        // initiate a queue reversed,max on the top
+        PriorityQueue<Integer> pq2= new PriorityQueue<>((a, b) -> b - a);
+        PriorityQueue<Integer> pq3 = new PriorityQueue<>((a, b) -> b.compareTo(a));
         for (int i = 0; i < nums.length; i++) {
-            pq.offer(nums[i]);
+            pq3.offer(nums[i]);
         }
-        int max = pq.poll();
-        while (pq.peek() == max) {
-            pq.poll();
+        int max = pq3.poll();
+        while (pq3.peek() == max) {
+            pq3.poll();
         }
-        return pq.peek();
+        return pq3.peek();
     }
 
     public static int findSecondMaxI(int[] nums) {
