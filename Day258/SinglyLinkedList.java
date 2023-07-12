@@ -16,9 +16,10 @@ public class SinglyLinkedList {
 
         ListNode temp = head;
         while (temp != null) {
-            System.out.print(temp.data + " ");
+            System.out.print(temp.data + " --> ");
             temp = temp.next;
         }
+        System.out.println("null");
     }
 
     public static void main(String[] args) {
