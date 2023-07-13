@@ -54,6 +54,30 @@ public class SinglyLinkedList {
         return head;
     }
 
+    public static ListNode insertPos(ListNode head, int pos, int data) {
+        ListNode newNode = new ListNode(data);
+        int countNode = countNode(head);
+        if (pos > countNode + 1) {
+            throw new IllegalArgumentException("The position to insert is not valid!");
+        }
+
+        if (pos == 1) {
+            newNode.next = head;
+            head = newNode;
+        } else {
+            ListNode prev = head;
+            int count = 1;
+            while (count < pos - 1) {
+                prev = prev.next;
+                count++;
+            }
+            ListNode cur = prev.next;
+            prev.next = newNode;
+            newNode.next = cur;
+        }
+        return head;
+    }
+
     public static void main(String[] args) {
         SinglyLinkedList sll = new SinglyLinkedList();
         sll.head = new ListNode(10);
@@ -69,6 +93,9 @@ public class SinglyLinkedList {
         sll.head = insertNode(sll.head, 5);
         printList(sll.head);
         insertLast(sll.head, 6);
+        printList(sll.head);
+        System.out.println("------------------------");
+        sll.head = insertPos(sll.head, 5, 7);
         printList(sll.head);
     }
 }
