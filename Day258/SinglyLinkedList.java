@@ -78,6 +78,14 @@ public class SinglyLinkedList {
         return head;
     }
 
+    public static ListNode deleteFirst(ListNode head) {
+        if (head == null) {
+            throw new IllegalArgumentException("The list doest not exist!");
+        }
+        head = head.next;
+        return head;
+    }
+
     public static void main(String[] args) {
         SinglyLinkedList sll = new SinglyLinkedList();
         sll.head = new ListNode(10);
@@ -96,6 +104,9 @@ public class SinglyLinkedList {
         printList(sll.head);
         System.out.println("------------------------");
         sll.head = insertPos(sll.head, 5, 7);
+        printList(sll.head);
+        System.out.println("------------------------");
+        sll.head = deleteFirst(sll.head);
         printList(sll.head);
     }
 }
