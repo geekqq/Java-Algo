@@ -82,6 +82,15 @@ public class SinglyLinkedList {
         if (head == null) {
             throw new IllegalArgumentException("The list doest not exist!");
         }
+        ListNode temp = head;
+        head = head.next;
+        temp.next = null;
+        return temp;
+    }
+
+
+    public static ListNode deleteFirstI(ListNode head) {
+        if (head == null) return null;
         head = head.next;
         return head;
     }
@@ -106,7 +115,11 @@ public class SinglyLinkedList {
         sll.head = insertPos(sll.head, 5, 7);
         printList(sll.head);
         System.out.println("------------------------");
-        sll.head = deleteFirst(sll.head);
+        sll.printList(sll.head);
+        System.out.println(deleteFirst(sll.head).data);
+        System.out.println("------------------------");
+        printList(sll.head);
+        sll.head = deleteFirstI(sll.head);
         printList(sll.head);
     }
 }
