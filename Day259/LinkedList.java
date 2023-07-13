@@ -45,6 +45,15 @@ public class LinkedList {
         return head;
     }
 
+    public ListNode deleteFirst(ListNode head) {
+        // delete the first node and return it to output
+        if (head == null) return null;
+        ListNode temp = head;
+        head = head.next;
+        temp.next = null;
+        return temp;
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         list.add(5);
@@ -59,6 +68,7 @@ public class LinkedList {
         list.printList(list.head);
         list.head = list.deleteNode(list.head, 8);
         list.printList(list.head);
+        System.out.println(list.deleteFirst(list.head).val);
     }
 }
 
