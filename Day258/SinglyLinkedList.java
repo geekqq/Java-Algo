@@ -22,6 +22,38 @@ public class SinglyLinkedList {
         System.out.println("null");
     }
 
+    public static int countNode(ListNode head) {
+        if (head == null) return 0;
+        int count = 0;
+        ListNode cur = head;
+        while (cur != null) {
+            count++;
+            cur = cur.next;
+        }
+        return count;
+    }
+
+    public static ListNode insertNode(ListNode head, int value) {
+        ListNode newNode = new ListNode(value);
+        if (head == null) {
+            head = newNode;
+        }
+        newNode.next = head;
+        head = newNode;
+        return head;
+    }
+
+    public static ListNode insertLast(ListNode head, int value) {
+        ListNode newNode = new ListNode(value);
+        if (head == null) head = newNode;
+        ListNode cur = head;
+        while (cur.next != null) {
+            cur = cur.next;
+        }
+        cur.next = newNode;
+        return head;
+    }
+
     public static void main(String[] args) {
         SinglyLinkedList sll = new SinglyLinkedList();
         sll.head = new ListNode(10);
@@ -32,6 +64,11 @@ public class SinglyLinkedList {
         second.next =third;
         third.next = fourth;
         System.out.println(sll);
+        printList(sll.head);
+        System.out.println(countNode(sll.head));
+        sll.head = insertNode(sll.head, 5);
+        printList(sll.head);
+        insertLast(sll.head, 6);
         printList(sll.head);
     }
 }
