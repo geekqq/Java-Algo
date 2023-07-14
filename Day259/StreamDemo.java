@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.*;
@@ -41,5 +42,9 @@ public class StreamDemo {
                         collectingAndThen(maxBy(Comparator.comparingDouble(Employee::getSalary)), Optional::get)
                         ));
         System.out.println(employeeMap1.toString());
+        System.out.println("===============================");
+        IntStream.rangeClosed(1, 12).forEach(t -> System.out.println(Thread.currentThread().getName() + " : " + t));
+        System.out.println("===============================");
+        IntStream.rangeClosed(1, 12).parallel().forEach(t -> System.out.println(Thread.currentThread().getName() + " : " + t));
     }
 }
