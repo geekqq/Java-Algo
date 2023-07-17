@@ -1,5 +1,7 @@
 package Day260;
 
+import java.util.Arrays;
+
 public class ClearSpaces {
 
     public static String clearSpaces(String s) {
@@ -19,5 +21,6 @@ public class ClearSpaces {
 
     public static void main(String[] args) {
         System.out.println(clearSpaces("   hello   world!  "));
+        String s = "ilovestone";
     }
 }
