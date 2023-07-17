@@ -3,20 +3,7 @@ package Day260;
 import static Day256.PrintArray.printArray;
 import static Day256.RandomArray.randomArray;
 
-public class FindSecondMax {
-    public static int findSecondMax(int[] nums) {
-        int max = Integer.MIN_VALUE;
-        int secondMax = Integer.MIN_VALUE;
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] > max) {
-                secondMax = max;
-                max = nums[i];
-            } else if (nums[i] > secondMax && nums[i] != max) {
-                secondMax = nums[i];
-            }
-        }
-        return secondMax;
-    }
+public class MergeSort {
 
     public static void merge(int[] nums, int l, int m, int r) {
         int leftLen = m - l + 1;
@@ -57,11 +44,9 @@ public class FindSecondMax {
     }
 
     public static void main(String[] args) {
-        int[] nums = randomArray(10, 16);
+        int[] nums = randomArray(10, 19);
         printArray(nums);
-        System.out.println(findSecondMax(nums));
         sort(nums, 0, nums.length - 1);
         printArray(nums);
-
     }
 }
