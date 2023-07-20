@@ -80,6 +80,19 @@ public class LinkedListDemo {
         }
     }
 
+    public boolean find(int val) {
+        if (head == null) return false;
+        ListNode cur = head;
+        while (cur != null) {
+            if (cur.val == val) {
+                return true;
+            } else {
+                cur = cur.next;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         LinkedListDemo list  =new LinkedListDemo();
         list.add(2);
@@ -96,7 +109,10 @@ public class LinkedListDemo {
         list.deleteLast();
         list.printList();
         System.out.println(list.countNodes());
-        list.deleteNode(2);
+        //list.deleteNode(9);
         list.printList();
+        System.out.println(list.find(5));
+        System.out.println(list.find(9));
+        System.out.println(list.find(4));
     }
 }
