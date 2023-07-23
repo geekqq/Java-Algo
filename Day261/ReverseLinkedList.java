@@ -50,6 +50,7 @@ public class ReverseLinkedList {
         }
         return count;
     }
+
     public ListNode reverseII(ListNode head) {
         if (head == null || head.next == null) return head;
         ListNode rest = reverseII(head.next);
@@ -99,6 +100,7 @@ public class ReverseLinkedList {
             head = newNode;
         }
     }
+
     public void removeDuplicates() {
         if (head == null || head.next == null) return;
         ListNode cur = head;
@@ -162,7 +164,7 @@ public class ReverseLinkedList {
 
     public boolean hasLoop(ListNode head) {
         if (head == null) return false;
-        ListNode fast  = head;
+        ListNode fast = head;
         ListNode slow = head;
         while (fast != null && fast.next != null) {
             fast = fast.next.next;
@@ -191,6 +193,58 @@ public class ReverseLinkedList {
         }
         return temp;
     }
+
+    public void removeLoop() {
+        if (head == null || head.next == null) return;
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (slow == fast) {
+                removeLoop(slow);
+                return;
+            }
+            ;
+        }
+    }
+
+    private void removeLoop(ListNode slow) {
+        ListNode temp = head;
+        while (head.next != slow.next) {
+            temp = temp.next;
+            slow = slow.next;
+        }
+        slow.next = null;
+    }
+
+    public ListNode mergeTwoSortedLinkedList(ListNode head1, ListNode head2) {
+        if (head1 == null) return head2;
+        if (head2 == null) return head1;
+        ListNode cur1 = head1;
+        ListNode cur2 = head2;
+        ListNode dummy = new ListNode(0);
+        ListNode cur = dummy;
+        while (cur1 != null && cur2 != null) {
+            if (cur1.val < cur2.val) {
+                cur.next = cur1;
+                cur1 = cur1.next;
+            } else {
+                cur.next = cur2;
+                cur2 = cur2.next;
+            }
+            cur = cur.next;
+        }
+        while (cur1 != null) {
+            cur.next = cur1;
+        }
+        while (cur2 != null) {
+            cur.next = cur2;
+        }
+        return dummy.next;
+    }
+
+
 
     public static void main(String[] args) {
         ReverseLinkedList list = new ReverseLinkedList();
@@ -245,6 +299,9 @@ public class ReverseLinkedList {
         //list.display(first);
         System.out.println(list.hasLoop(first));
         System.out.println(list.findStartingNodeInLoop(first).val);
+        System.out.println("----remove loop----");
+        list.removeLoop();
+        list.display(list.head);
     }
 }
 
