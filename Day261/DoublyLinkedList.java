@@ -1,5 +1,7 @@
 package Day261;
 
+import java.util.NoSuchElementException;
+
 public class DoublyLinkedList {
 
     private ListNode head;
@@ -36,11 +38,20 @@ public class DoublyLinkedList {
             head = newNode;
         } else {
             tail.next = newNode;
-
+            newNode.prev = tail;
         }
-        newNode.prev = tail;
         tail = newNode;
         length++;
+    }
+
+    public void addFirst(int val) {
+        ListNode newNode = new ListNode(val);
+        if (head == null) tail = newNode;
+        else {
+            head.prev = newNode;
+        }
+        newNode.next = head;
+        head = newNode;
     }
 
     public void printForward() {
@@ -63,6 +74,26 @@ public class DoublyLinkedList {
         System.out.println("null\n");
     }
 
+    public void deleteFirst() {
+        if (isEmpty()) return;
+        if (head.next == null) return;
+        head = head.next;
+        head.prev = null;
+    }
+
+    public ListNode deleteFirstAndReturnFirstNode() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("No node to be deleted!");
+        } else if (head == tail) {
+            tail = null;
+        } else {
+            head.next.prev = null;
+        }
+        ListNode temp = head;
+        head = head.next;
+        length--;
+        return temp;
+    }
     public static void main(String[] args) {
         DoublyLinkedList dll = new DoublyLinkedList();
         dll.addLast(4);
@@ -72,5 +103,20 @@ public class DoublyLinkedList {
         dll.addLast(5);
         dll.printForward();
         dll.printBackward();
+        System.out.println("----add first----");
+        dll.addFirst(1);
+        dll.printForward();
+        dll.printBackward();
+        System.out.println("----delete the first----");
+        dll.deleteFirst();
+        dll.printForward();
+        dll.printBackward();
+        System.out.println("----delete the first and return it----");
+        System.out.println(dll.deleteFirstAndReturnFirstNode().val);
+        System.out.println(dll.deleteFirstAndReturnFirstNode().val);
+        System.out.println(dll.deleteFirstAndReturnFirstNode().val);
+        System.out.println(dll.deleteFirstAndReturnFirstNode().val);
+        System.out.println(dll.deleteFirstAndReturnFirstNode().val);
+        System.out.println(dll.deleteFirstAndReturnFirstNode().val);
     }
 }
