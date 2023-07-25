@@ -84,13 +84,31 @@ public class DoublyLinkedList {
     public ListNode deleteFirstAndReturnFirstNode() {
         if (isEmpty()) {
             throw new NoSuchElementException("No node to be deleted!");
-        } else if (head == tail) {
+        }
+        ListNode temp = head;
+        if (head == tail) {
             tail = null;
         } else {
             head.next.prev = null;
         }
-        ListNode temp = head;
         head = head.next;
+        temp.next = null;
+        length--;
+        return temp;
+    }
+
+    public ListNode deleteLastNodeAndReturnLast() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("No node to be deleted");
+        }
+        ListNode temp = tail;
+        if (head == tail) {
+            head = null;
+        } else {
+            tail.prev.next = null;
+        }
+        tail = tail.prev;
+        temp.prev = null;
         length--;
         return temp;
     }
@@ -115,8 +133,8 @@ public class DoublyLinkedList {
         System.out.println(dll.deleteFirstAndReturnFirstNode().val);
         System.out.println(dll.deleteFirstAndReturnFirstNode().val);
         System.out.println(dll.deleteFirstAndReturnFirstNode().val);
-        System.out.println(dll.deleteFirstAndReturnFirstNode().val);
-        System.out.println(dll.deleteFirstAndReturnFirstNode().val);
-        System.out.println(dll.deleteFirstAndReturnFirstNode().val);
+        System.out.println("----delete the last and return it----");
+        dll.printForward();
+        System.out.println(dll.deleteLastNodeAndReturnLast().val);
     }
 }
