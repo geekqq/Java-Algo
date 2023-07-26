@@ -114,9 +114,10 @@ public class CircularSinglyLinkedList {
         csll.print();
         System.out.println(csll.length);
         System.out.println("----remove first----");
-        csll.removeFirst();
+        //csll.removeFirst();
+        System.out.println(csll.removeFirst().val);
         csll.print();
-        csll.removeFirst();
+        System.out.println(csll.removeFirst().val);
         csll.print();
     }
 }
