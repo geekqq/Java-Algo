@@ -2,6 +2,8 @@ package Day261;
 
 import Day243.LeapGame;
 
+import java.util.NoSuchElementException;
+
 public class CircularSinglyLinkedList {
 
     private ListNode last;
@@ -62,9 +64,49 @@ public class CircularSinglyLinkedList {
     }
 
     public void addFirst(int val) {
-        ListNode temp;
+        ListNode temp = new ListNode(val);
+        if (isEmpty()) {
+            last = temp;
+        } else {
+            temp.next = last.next;
+        }
+        last.next = temp;
+        length++;
     }
 
+    public void addLast(int val) {
+        ListNode temp = new ListNode(val);
+        if (isEmpty()) {
+            last = temp;
+        } else {
+            temp.next = last.next;
+        }
+        last.next = temp;
+        last = temp;
+        length++;
+    }
+
+    public ListNode removeFirst() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("The list is empty!");
+        }
+        ListNode temp = last.next;
+        if (last.next == last) {
+            last = null;
+        } else {
+            last.next = temp.next;
+        }
+        temp.next = null;
+        length--;
+        return temp;
+    }
+
+//    public ListNode removeLast() {
+//        if (isEmpty()) {
+//            throw new NoSuchElementException("The list is empty!");
+//        }
+//        ListNode temp =
+//    }
     public static void main(String[] args) {
         ListNode newNode = new ListNode();
         System.out.println(newNode.val);
@@ -72,5 +114,22 @@ public class CircularSinglyLinkedList {
         csll.createCircularLinkedList();
         csll.print();
         System.out.println(csll.length);
+        csll.addFirst(0);
+        csll.print();
+        System.out.println(csll.length);
+        csll.addLast(20);
+        csll.print();
+        System.out.println(csll.length);
+        CircularSinglyLinkedList csll2 = new CircularSinglyLinkedList();
+        csll2.addLast(0);
+        csll2.addLast(1);
+        csll2.addLast(5);
+        csll2.print();
+        System.out.println(csll2.length);
+        csll.removeFirst();
+        csll.print();
+        System.out.println(csll.length);
+        csll2.removeFirst();
+        csll2.print();
     }
 }
