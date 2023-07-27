@@ -21,7 +21,22 @@ public class GetLengthOfSubstring {
         return maxLen;
     }
 
+    public static int getLengthI(String s) {
+        //c
+        int maxLen = 0;
+        String test = "";
+        for (char c : s.toCharArray()) {
+            String cur = String.valueOf(c);
+            if (test.contains(cur)) {
+                test = test.substring(test.indexOf(cur) + 1);
+            }
+            test += cur;
+            maxLen = Math.max(maxLen, test.length());
+        }
+        return maxLen;
+    }
     public static void main(String[] args) {
         System.out.println(getLength("jinweihustone"));
+        System.out.println(getLengthI("jinweihustone"));
     }
 }
