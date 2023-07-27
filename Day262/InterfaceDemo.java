@@ -17,5 +17,9 @@ public class InterfaceDemo {
             System.out.println("Hello " + x + y);
         };
         myInterface2.message(name, symbol);
+
+        System.out.println("========================");
+        MyFrame myFrame = new MyFrame();
+
     }
 }
