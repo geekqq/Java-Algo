@@ -115,6 +115,17 @@ public class LinkedListDemo {
         return rest;
     }
 
+    public void removeDuplicates() {
+        ListNode slow = head;
+        while (slow != null) {
+            ListNode fast = slow.next;
+            while (fast != null && slow.val == fast.val) {
+                fast = fast.next;
+            }
+            slow.next = fast;
+            slow = slow.next;
+        }
+    }
     public static void main(String[] args) {
         LinkedListDemo list  =new LinkedListDemo();
         list.add(2);
@@ -138,5 +149,25 @@ public class LinkedListDemo {
         System.out.println(list.find(4));
         ListNode reverseListHead = list.reverseI(list.head);
         list.printList(reverseListHead);
+        list.add(10);
+        list.printList(reverseListHead);
+        list.removeDuplicates();
+        list.printList(reverseListHead);
+        System.out.println("========================");
+        LinkedListDemo list2 = new LinkedListDemo();
+        list2.add(1);
+        list2.add(1);
+        list2.add(2);
+        list2.add(3);
+        list2.add(4);
+        list2.add(4);
+        list2.add(6);
+        list2.add(8);
+        list2.add(10);
+        list2.add(10);
+        list2.printList(list2.head);
+        list2.removeDuplicates();
+        list2.printList(list2.head);
+
     }
 }
