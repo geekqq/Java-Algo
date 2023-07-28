@@ -28,18 +28,15 @@ public class StackDemo {
         while (temp != null) {
             System.out.print(temp.val + " -> ");
             temp = temp.next;
+
         }
         System.out.print("null\n");
     }
 
     public void push(int val) {
         ListNode temp = new ListNode(val);
-        if (top == null) {
-            top = temp;
-        } else {
-            temp.next = top;
-            top = temp;
-        }
+        temp.next = top;
+        top = temp;
         size++;
     }
 
