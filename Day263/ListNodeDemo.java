@@ -49,6 +49,19 @@ public class ListNodeDemo {
             temp.next = cur;
         }
     }
+
+    public void removeDuplicate() {
+        ListNode slow = head;
+        while (slow != null) {
+            ListNode fast = slow.next;
+            while (fast != null && fast.val == slow.val) {
+                fast = fast.next;
+            }
+            slow.next = fast;
+            slow = slow.next;
+        }
+    }
+
     public static void main(String[] args) {
         ListNodeDemo list = new ListNodeDemo();
         list.addFirst(1);
@@ -65,7 +78,10 @@ public class ListNodeDemo {
             list2.addLast(i);
         }
         list2.print();
-        list2.insertToSort(5);
+        list2.insertToSort(0);
+        list2.print();
+        System.out.println("----remove duplicates----");
+        list2.removeDuplicate();
         list2.print();
     }
 
