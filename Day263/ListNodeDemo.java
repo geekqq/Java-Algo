@@ -100,6 +100,101 @@ public class ListNodeDemo {
         }
     }
 
+    public ListNode reverseByRange(int left, int right) {
+        if (head == null || head.next == null) return head;
+        ListNode dummy = new ListNode();
+        dummy.next = head;
+        ListNode prev = dummy;
+        for (int i = 1; i < left; i++) {
+            prev = prev.next;
+        }
+        ListNode subStart = prev.next;
+        prev.next = null;
+        ListNode subEnd = subStart;
+        for (int i = left; i < right; i++) {
+            subEnd = subEnd.next;
+        }
+        ListNode next = subEnd.next;
+        subEnd.next = null;
+        prev.next = reverseI(subStart);
+        subStart.next = next;
+        return dummy.next;
+    }
+
+    public ListNode reverseInKGroup(ListNode head, int k) {
+        if (head == null || head.next == null || k <= 0) return head;
+        ListNode cur = head;
+        int count = 0;
+        while (cur != null && count < k) {
+            cur = cur.next;
+            count++;
+        }
+        ListNode prev = null;
+        ListNode next = null;
+        cur = head;
+        if (count < k) {
+            return head;
+        }
+        for (int i = 0; i < k; i++) {
+            next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        head.next = reverseInKGroup(cur, k);
+        return prev;
+    }
+
+    public int countNode() {
+        if (head == null) return 0;
+        ListNode cur = head;
+        int count = 0;
+        while (cur != null) {
+            cur = cur.next;
+            count++;
+        }
+        return count;
+    }
+
+    public ListNode mergeSortList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode slow = head;
+        ListNode fast = head;
+        ListNode prev = null;
+        while (fast != null && fast.next != null) {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        prev.next = null;
+        ListNode leftHead = mergeSortList(head);
+        ListNode rightHead = mergeSortList(slow);
+        return mergeList(leftHead, rightHead);
+    }
+    public ListNode mergeList(ListNode head1, ListNode head2) {
+        if (head1 == null) return head2;
+        if (head2 == null) return head1;
+        ListNode dummy = new ListNode();
+        ListNode cur = dummy;
+        while (head1 != null && head2 != null) {
+            if (head1.val < head2.val) {
+                cur.next = head1;
+                head1 = head1.next;
+            } else {
+                cur.next = head2;
+                head2 = head2.next;
+            }
+            cur = cur.next;
+        }
+        if (head1 != null) {
+            cur.next = head1;
+        }
+        if (head2 != null) {
+            cur.next = head2;
+        }
+            return dummy.next;
+
+    }
     public static void main(String[] args) {
         ListNodeDemo list = new ListNodeDemo();
         list.addFirst(1);
@@ -130,6 +225,16 @@ public class ListNodeDemo {
         list2.head = list2.insertNode(list2.head, 0);
         list2.insertNode(list2.head, 3);
         list2.insertNode(list2.head, 6);
+        list2.print();
+        System.out.println("---reverse by range----");
+        list2.head = list2.reverseByRange(1, 5);
+        list2.print();
+        System.out.println("----reverse by K group----");
+        System.out.println(list2.countNode());
+        list2.head = list2.reverseInKGroup(list2.head, 4);
+        list2.print();
+        System.out.println("----merge sort list----");
+        list2.head = list2.mergeSortList(list2.head);
         list2.print();
     }
 
