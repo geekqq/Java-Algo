@@ -50,6 +50,28 @@ public class ListNodeDemo {
         }
     }
 
+    public ListNode reverse() {
+        if (head == null || head.next == null) return head;
+        ListNode pre = null;
+        ListNode cur = head;
+        ListNode next = null;
+        while (cur != null) {
+            next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return pre;
+    }
+
+    public ListNode reverseI(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode rest = reverseI(head.next);
+        head.next.next = head;
+        head.next = null;
+        return rest;
+    }
+
     public void removeDuplicate() {
         ListNode slow = head;
         while (slow != null) {
@@ -82,6 +104,11 @@ public class ListNodeDemo {
         list2.print();
         System.out.println("----remove duplicates----");
         list2.removeDuplicate();
+        list2.print();
+        System.out.println("----reverse list----");
+        list2.head = list2.reverse();
+        list2.print();
+        list2.head = list2.reverseI(list2.head);
         list2.print();
     }
 
