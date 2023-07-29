@@ -50,6 +50,22 @@ public class ListNodeDemo {
         }
     }
 
+    public ListNode insertNode(ListNode head, int val) {
+        ListNode temp = new ListNode(val);
+        if (head == null || head.val >= val) {
+            temp.next = head;
+            head = temp;
+        } else {
+            ListNode cur = head;
+            while (cur.next != null && cur.next.val < val) {
+                cur = cur.next;
+            }
+            temp.next = cur.next;
+            cur.next = temp;
+        }
+        return head;
+    }
+
     public ListNode reverse() {
         if (head == null || head.next == null) return head;
         ListNode pre = null;
@@ -109,6 +125,11 @@ public class ListNodeDemo {
         list2.head = list2.reverse();
         list2.print();
         list2.head = list2.reverseI(list2.head);
+        list2.print();
+        System.out.println("----insert node----");
+        list2.head = list2.insertNode(list2.head, 0);
+        list2.insertNode(list2.head, 3);
+        list2.insertNode(list2.head, 6);
         list2.print();
     }
 
