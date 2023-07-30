@@ -225,8 +225,36 @@ public class ListNodeDemo {
             cur.next = head2;
         }
             return dummy.next;
-
     }
+
+    public ListNode reorderList() {
+        if (head == null || head.next == null) return head;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode temp = slow.next;
+        slow.next = null;
+        ListNode firstHead = head;
+        ListNode secondHead = reverseI(temp);
+
+        ListNode dummy = new ListNode();
+        temp = dummy;
+        while (firstHead != null && secondHead != null) {
+            temp.next = firstHead;
+            firstHead = firstHead.next;
+            temp = temp.next;
+
+            temp.next = secondHead;
+            secondHead = secondHead.next;
+            temp = temp.next;
+        }
+        temp.next = (firstHead != null ? firstHead : secondHead);
+        return dummy.next;
+    }
+
     public static void main(String[] args) {
         ListNodeDemo list = new ListNodeDemo();
         list.addFirst(1);
@@ -280,6 +308,9 @@ public class ListNodeDemo {
         list2.print();
         Instant endIt = Instant.now();
         System.out.println(Duration.between(startIt, endIt).getNano());
+        System.out.println("----reorder list----");
+        list2.head = list2.reorderList();
+        list2.print();
 
     }
 
