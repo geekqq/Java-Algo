@@ -27,5 +27,15 @@ public class LocalTimeDemo {
         System.out.println(localDateTime);
         LocalDateTime localDateTime1 = LocalDateTime.of(LocalDate.now(), LocalTime.now());
         System.out.println(localDateTime1);
+
+        LocalDateTime localDateTime2 = LocalDateTime.parse("2023-07-29T19:45:55");
+        System.out.println(localDateTime2);
+
+        LocalDate localDate = localDateTime2.toLocalDate();
+        LocalTime localTime = localDateTime2.toLocalTime();
+        System.out.println(localDate);
+        System.out.println(localTime);
+        System.out.println(localDateTime.MAX);
+        System.out.println(localDateTime.MIN);
     }
 }
