@@ -255,6 +255,27 @@ public class ListNodeDemo {
         return dummy.next;
     }
 
+    public ListNode partitionList(ListNode head, int x) {
+        if (head == null || head.next == null) return head;
+        ListNode cur = head;
+        ListNode small = new ListNode();
+        ListNode large = new ListNode();
+        ListNode curSmall = small;
+        ListNode curLarge = large;
+        while (cur != null) {
+            if (cur.val < x) {
+                curSmall.next = cur;
+                curSmall = curSmall.next;
+            } else {
+                curLarge.next = cur;
+                curLarge = curLarge.next;
+            }
+            cur = cur.next;
+        }
+        curSmall.next = large.next;
+        return small.next;
+    }
+
     public static void main(String[] args) {
         ListNodeDemo list = new ListNodeDemo();
         list.addFirst(1);
@@ -310,6 +331,9 @@ public class ListNodeDemo {
         System.out.println(Duration.between(startIt, endIt).getNano());
         System.out.println("----reorder list----");
         list2.head = list2.reorderList();
+        list2.print();
+        System.out.println("----partition list----");
+        list2.head = list2.partitionList(list2.head, 3);
         list2.print();
 
     }
