@@ -1,5 +1,8 @@
 package Day263;
 
+import java.time.Duration;
+import java.time.Instant;
+
 public class ListNodeDemo {
 
     private ListNode head;
@@ -156,6 +159,35 @@ public class ListNodeDemo {
         return count;
     }
 
+    public ListNode swapInPairs(ListNode head) {
+
+        if (head == null || head.next == null) return head;
+        ListNode postHead = swapInPairs(head.next.next);
+        ListNode newHead = head.next;
+        head.next.next = head;
+        head.next = postHead;
+        return newHead;
+    }
+
+    public ListNode swapInPairsI(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode pre = new ListNode();
+        pre.next = head;
+        ListNode newHead = head.next;
+        while (pre.next.next != null) {
+            ListNode first = pre.next;
+            ListNode second = pre.next.next;
+            ListNode tail = second.next;
+
+            pre.next = second;
+            second.next = first;
+            first.next = tail;
+            pre = pre.next.next;
+
+            if (pre == null || pre.next == null) break;
+        }
+        return newHead;
+    }
     public ListNode mergeSortList(ListNode head) {
         if (head == null || head.next == null) return head;
         ListNode slow = head;
@@ -236,6 +268,19 @@ public class ListNodeDemo {
         System.out.println("----merge sort list----");
         list2.head = list2.mergeSortList(list2.head);
         list2.print();
+        System.out.println("----swap in pairs----");
+        Instant startRe = Instant.now();
+        list2.head = list2.swapInPairs(list2.head);
+        list2.print();
+        Instant endRe = Instant.now();
+        System.out.println(Duration.between(startRe, endRe).getNano());
+
+        Instant startIt = Instant.now();
+        list2.head = list2.swapInPairsI(list2.head);
+        list2.print();
+        Instant endIt = Instant.now();
+        System.out.println(Duration.between(startIt, endIt).getNano());
+
     }
 
 }
