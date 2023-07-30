@@ -1,7 +1,10 @@
 package Day263;
 
+import Day262.StackDemo;
+
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Stack;
 
 public class ListNodeDemo {
 
@@ -276,6 +279,42 @@ public class ListNodeDemo {
         return small.next;
     }
 
+    public ListNode oddEvenList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode odd = head;
+        ListNode evenHead = head.next;
+        ListNode even = head.next;
+        while (even != null && even.next != null) {
+            odd.next = odd.next.next;
+            even.next = even.next.next;
+            odd = odd.next;
+            even = even.next;
+        }
+        odd.next = evenHead;
+        return head;
+    }
+
+    public void plusOne(ListNode head) {
+        if (head == null) return;
+        Stack<ListNode> stack = new Stack<>();
+        ListNode cur = head;
+        while (cur != null) {
+            stack.push(cur);
+            cur = cur.next;
+        }
+        while (!stack.isEmpty()) {
+            ListNode node = stack.pop();
+            if (node.val < 9) {
+                node.val++;
+                return;
+            } else {
+                node.val = 0;
+            }
+        }
+        ListNode newNode = new ListNode(1);
+        newNode.next = head;
+        head = newNode;
+    }
     public static void main(String[] args) {
         ListNodeDemo list = new ListNodeDemo();
         list.addFirst(1);
@@ -334,6 +373,14 @@ public class ListNodeDemo {
         list2.print();
         System.out.println("----partition list----");
         list2.head = list2.partitionList(list2.head, 3);
+        list2.print();
+        System.out.println("----odd even list----");
+        list2.head = list2.oddEvenList(list2.head);
+        list2.print();
+
+        System.out.println("----plus one----");
+        list2.print();
+        list2.plusOne(list2.head);
         list2.print();
 
     }
