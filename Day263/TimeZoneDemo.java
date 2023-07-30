@@ -6,10 +6,14 @@ import java.util.Set;
 public class TimeZoneDemo {
     public static void main(String[] args) {
 
+
+        Instant start = Instant.now();
+        System.out.println(start);
         ZoneId zoneId = ZoneId.of("Asia/Tokyo");
 
         Set<String> availableZoneIds = ZoneId.getAvailableZoneIds();
         availableZoneIds.forEach(System.out::println);
+
 
         System.out.println("=================");
         ZonedDateTime zonedDateTime = ZonedDateTime.of(LocalDateTime.now(), zoneId);
@@ -19,5 +23,11 @@ public class TimeZoneDemo {
         ZoneOffset offset = ZoneOffset.of("+15:00");
         OffsetDateTime offsetDateTime = OffsetDateTime.of(localDateTime, offset);
         System.out.println(offsetDateTime);
+        Instant end = Instant.now();
+        System.out.println("=================");
+        System.out.println(end);
+        long duration = Duration.between(start, end).getNano();
+        System.out.println(duration);
+
     }
 }
