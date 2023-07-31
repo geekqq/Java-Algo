@@ -58,7 +58,7 @@ public class EncryptionProgram {
         shuffledList.clear();
 
         for (int i = 32; i < 127; i++) {
-            list.add(Character.valueOf(character));
+            list.add(character);
             character++;
         }
 
