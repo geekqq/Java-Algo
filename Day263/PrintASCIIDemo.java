@@ -13,5 +13,9 @@ public class PrintASCIIDemo {
             c++;
         }
         System.out.println(list);
+        for (char x : list) {
+            System.out.print(x);
+        }
+        System.out.println();
     }
 }
