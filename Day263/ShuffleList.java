@@ -31,6 +31,15 @@ public class ShuffleList {
         }
         Collections.shuffle(list2);
         System.out.println(list2);
+        System.out.println(Character.valueOf('c'));
+        System.out.println("------list--------");
+        List<Character> list3 = new ArrayList<>();
+        Character character = ' ';
+        for (int i = 32; i < 127; i++) {
+            list3.add(Character.valueOf(character));
+            character++;
+        }
+        System.out.println(list);
     }
 
 }
