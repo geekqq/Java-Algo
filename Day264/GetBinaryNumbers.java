@@ -23,5 +23,6 @@ public class GetBinaryNumbers {
 
     public static void main(String[] args) {
         System.out.println(Arrays.toString(getBinaryNumbers(4)));
+        System.out.println(Arrays.toString(getBinaryNumbers(10)));
     }
 }
