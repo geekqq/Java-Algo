@@ -1,5 +1,7 @@
 package Day264;
 
+import java.util.NoSuchElementException;
+
 public class QueueDemo {
 
     private ListNode front;
@@ -64,6 +66,15 @@ public class QueueDemo {
         return temp;
     }
 
+    public int first() {
+        if (isEmpty()) throw new NoSuchElementException("Queue is empty!");
+        return front.data;
+    }
+
+    public int last() {
+        if (isEmpty()) throw new NoSuchElementException("Queue is empty!");
+        return rear.data;
+    }
 
     public static void main(String[] args) {
         QueueDemo queue = new QueueDemo();
@@ -82,9 +93,10 @@ public class QueueDemo {
         System.out.println(queue.length);
         queue.dequeue();
         queue.dequeue();
-        queue.dequeue();
         System.out.println(queue.length);
         queue.display();
-        queue.dequeue();
+        System.out.println("=========");
+        System.out.println(queue.first());
+        System.out.println(queue.last());
     }
 }
