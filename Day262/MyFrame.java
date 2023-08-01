@@ -1,7 +1,6 @@
 package Day262;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 
 public class MyFrame extends JFrame {
 
