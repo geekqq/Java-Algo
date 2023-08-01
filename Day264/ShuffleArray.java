@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Random;
 
 import static Day256.PrintArray.printArray;
-import static Day256.RandomArray.randomArray;
 import static Day37.SortedArray.swap;
 
 public class ShuffleArray {
