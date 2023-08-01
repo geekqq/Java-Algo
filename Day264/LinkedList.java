@@ -130,5 +130,7 @@ public class LinkedList {
         System.out.println("---reverse in k group----");
         list.head = list.reverseInKGroup(list.head, 4);
         list.print();
+        System.out.println("----count node----");
+        System.out.println(list.countNode(list.head));
     }
 }
