@@ -1,5 +1,7 @@
 package Day264;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
 import static Day256.PrintArray.printArray;
@@ -22,6 +24,8 @@ public class ShuffleArray {
         int[] nums = {3,1,4,52,23,1,34};
         printArray(nums);
         shuffleArray(nums);
+        printArray(nums);
+        Collections.shuffle(Arrays.asList(nums));
         printArray(nums);
     }
 }
