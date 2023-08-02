@@ -17,6 +17,10 @@ public class DistinctCountLimitDemo {
         System.out.println(vehicle.stream().distinct().count());
         System.out.println(vehicle.stream().count());
         System.out.println(vehicle.size());
-        vehicle.stream().limit(3).forEach(n -> System.out.print(n + " "));
+        vehicle.stream().distinct().limit(2).forEach(n -> System.out.print(n + " "));
+        System.out.println("===========================");
+        List<Integer> number = Arrays.asList(1, 2,3 ,4,5,6,7,8,9);
+        long evenNumberCount = number.stream().filter(n -> (n & 1) == 0).count();
+        System.out.println(evenNumberCount);
     }
 }
