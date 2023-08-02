@@ -167,6 +167,50 @@ public class LinkedList {
         return dummy.next;
     }
 
+
+    public void insertNode(ListNode head, int val) {
+        ListNode newNode = new ListNode(val);
+        if (head.data >= val) {
+            newNode.next = head;
+            head = newNode;
+        } else {
+            ListNode cur = head;
+            while (cur.next != null && cur.next.data < val) {
+                cur = cur.next;
+            }
+            newNode.next = cur.next;
+            cur.next = newNode;
+        }
+    }
+
+    public ListNode reOrderList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode temp = slow.next;
+        slow.next = null;
+        ListNode firstHead = head;
+        ListNode secondHead = reverse(temp);
+
+        ListNode dummy = new ListNode();
+        temp = dummy;
+        while (firstHead != null && secondHead != null) {
+            temp.next = firstHead;
+            firstHead = firstHead.next;
+            temp = temp.next;
+
+            temp.next = secondHead;
+            secondHead = secondHead.next;
+            temp = temp.next;
+        }
+        temp.next = firstHead != null ? firstHead : secondHead;
+        return dummy.next;
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 10; i++) {
@@ -189,6 +233,14 @@ public class LinkedList {
         list.print(list.head);
 
         list.removeDuplicates(list.head);
+        list.print(list.head);
+        list.insertNode(list.head, 3);
+        list.insertNode(list.head, 7);
+        list.print(list.head);
+        list.head = list.swapInPairs(list.head);
+        list.print(list.head);
+
+        list.head = list.reOrderList(list.head);
         list.print(list.head);
     }
 }
