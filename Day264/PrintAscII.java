@@ -15,5 +15,12 @@ public class PrintAscII {
         for (Character x : characterList) {
             System.out.print(x);
         }
+        System.out.println();
+        System.out.println("================================================================================");
+        Character x = ' ';
+        for (int i = 32; i < 128; i++) {
+            System.out.print(x++);
+
+        }
     }
 }
