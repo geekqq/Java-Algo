@@ -121,6 +121,52 @@ public class LinkedList {
         return prev;
     }
 
+    public void removeDuplicates(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode slow = head;
+        while (slow != null) {
+            ListNode fast = slow.next;
+            while (fast != null && slow.data == fast.data) {
+                fast = fast.next;
+            }
+            slow.next = fast;
+            slow = slow.next;
+        }
+    }
+
+    public ListNode mergeSort(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode slow = head;
+        ListNode fast = head;
+        ListNode prev = null;
+        while (fast != null && fast.next != null) {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        prev.next = null;
+        ListNode leftHead = mergeSort(head);
+        ListNode rightHead = mergeSort(slow);
+        return merge(leftHead, rightHead);
+    }
+
+    private ListNode merge(ListNode head1, ListNode head2) {
+        ListNode dummy = new ListNode();
+        ListNode cur = dummy;
+        while (head1 != null && head2 != null) {
+            if (head1.data < head2.data) {
+                cur.next = head1;
+                head1 = head1.next;
+            } else {
+                cur.next = head2;
+                head2 = head2.next;
+            }
+            cur = cur.next;
+        }
+        cur.next = (head1 != null ? head1 : head2);
+        return dummy.next;
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 10; i++) {
@@ -134,6 +180,15 @@ public class LinkedList {
         list.head = list.reverseByRange(list.head, 2, 6);
         list.print(list.head);
         list.head = list.reverseInKGroup(list.head, 4);
+        list.print(list.head);
+        list.addLast(5);
+        list.addLast(6);
+        list.print(list.head);
+
+        list.head = list.mergeSort(list.head);
+        list.print(list.head);
+
+        list.removeDuplicates(list.head);
         list.print(list.head);
     }
 }
