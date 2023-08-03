@@ -2,6 +2,7 @@ package Day265;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class StreamDemo {
 
@@ -35,5 +36,21 @@ public class StreamDemo {
 
         boolean one2 = fruits.stream().noneMatch(value -> value.startsWith("n"));
         System.out.println(one2);
+
+        System.out.println("============================");
+        List<String> strings = Arrays.asList( "three", "four", "one", "five", "two");
+        Optional<String> elements = strings.stream().findAny();
+        System.out.println(elements.get());
+        String s = strings.stream().findFirst().get();
+        System.out.println(s);
+
+        List<String> animals = Arrays.asList("Dog", "Cat", "Elephant");
+        List<String> birds = Arrays.asList("Peacock", "Parrot", "Crow");
+        Stream<String> animalStream = animals.stream();
+        Stream<String> birdsStream = birds.stream();
+
+        List<String> collect = Stream.concat(animalStream, birdsStream).collect(Collectors.toList());
+        System.out.println(collect);
+
     }
 }
