@@ -1,5 +1,7 @@
 package Day265;
 
+import java.util.Stack;
+
 public class LinkedList {
     private ListNode head;
 
@@ -211,6 +213,42 @@ public class LinkedList {
         return dummy.next;
     }
 
+    public void oddEvenList(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode evenHead = head.next;
+        while (even != null && even.next != null) {
+            odd.next = odd.next.next;
+            even.next = even.next.next;
+            odd = odd.next;
+            even = even.next;
+        }
+        odd.next = evenHead;
+    }
+
+    public void plusOne(ListNode head) {
+        if (head == null) return;
+        Stack<ListNode> stack = new Stack<>();
+        ListNode cur = head;
+        while (cur != null) {
+            stack.push(cur);
+            cur = cur.next;
+        }
+
+        while (!stack.isEmpty()) {
+            ListNode node = stack.pop();
+            if (node.data < 9) {
+                node.data++;
+                break;
+            } else {
+                node.data = 0;
+            }
+        }
+        ListNode newNode = new ListNode(1);
+        newNode.next = head;
+        head = newNode;
+    }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 10; i++) {
@@ -241,6 +279,8 @@ public class LinkedList {
         list.print(list.head);
 
         list.head = list.reOrderList(list.head);
+        list.print(list.head);
+        list.oddEvenList(list.head);
         list.print(list.head);
     }
 }
