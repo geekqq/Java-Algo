@@ -1,9 +1,9 @@
 package Day221;
 
 public class TreeNode {
-    int val;
-    TreeNode right;
-    TreeNode left;
+    public int val;
+    public TreeNode right;
+    public TreeNode left;
 
     public TreeNode(int val) {
         this.val = val;
