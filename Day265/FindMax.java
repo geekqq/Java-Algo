@@ -39,7 +39,7 @@ public class FindMax {
         root.left = new TreeNode(3);
         root.left.left = new TreeNode(5);
         root.left.right = new TreeNode(8);
-        root.right = new TreeNode(7);
+        root.right = new TreeNode(10);
         System.out.println(findMax(root));
         System.out.println(findMaxUsingRecursion(root));
     }
