@@ -43,9 +43,9 @@ public class RecursionDemo {
         System.out.println(countFive(1523525));
 
         System.out.println("--binary search using recursion---");
-        int[] nums = generateArray(10, 5, 16);
+        int[] nums = generateArray(10, 5, 20);
         printArray(nums);
-        selectSort(nums);
+        insertSort(nums);
         printArray(nums);
         System.out.println(binarySearch(nums, 14, 0, nums.length - 1));
     }
@@ -151,6 +151,20 @@ public class RecursionDemo {
                 }
             }
             swap(nums, i, min);
+        }
+    }
+
+    public static void insertSort(int[] nums) {
+        if (nums == null || nums.length == 0) return;
+        for (int i = 1; i < nums.length; i++) {
+            int key = nums[i];
+            int j = i - 1;
+
+            while (j >= 0 && nums[j] > key) {
+                nums[j + 1] = nums[j];
+                j--;
+            }
+            nums[j + 1] = key;
         }
     }
 }
