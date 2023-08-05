@@ -2,15 +2,15 @@ package Day265;
 
 public class BinarySearchTree {
 
-    private TreeNode root;
+    private Day266.TreeNode root;
 
     public void insertNode(int val) {
         root = insertNode(root, val);
     }
 
-    public TreeNode insertNode(TreeNode root, int val) {
+    public Day266.TreeNode insertNode(Day266.TreeNode root, int val) {
         if (root == null) {
-            TreeNode temp = new TreeNode(val);
+            Day266.TreeNode temp = new Day266.TreeNode(val);
             root = temp;
             return root;
         }
@@ -23,14 +23,14 @@ public class BinarySearchTree {
     }
 
 
-    public void inOrder(TreeNode root) {
+    public void inOrder(Day266.TreeNode root) {
         if (root == null) return;
         inOrder(root.left);
         System.out.print(root.data + " ");
         inOrder(root.right);
     }
 
-    public boolean search(TreeNode root, int key) {
+    public boolean search(Day266.TreeNode root, int key) {
         if (root == null) return false;
         if (key < root.data) {
             return search(root.left, key);
@@ -39,7 +39,7 @@ public class BinarySearchTree {
         }
     }
 
-    public TreeNode searchNode(TreeNode root, int key) {
+    public Day266.TreeNode searchNode(Day266.TreeNode root, int key) {
         if (root == null || root.data == key) return root;
         if (key < root.data) {
             return searchNode(root.left, key);
@@ -48,7 +48,7 @@ public class BinarySearchTree {
         }
     }
 
-    public boolean isValidBST(TreeNode root, long min, long max) {
+    public boolean isValidBST(Day266.TreeNode root, long min, long max) {
 
         if (root == null) return true; //base case
         if (root.data <= min || root.data >= max) return false;
@@ -60,7 +60,7 @@ public class BinarySearchTree {
         return false;
     }
 
-    public boolean isValidI(TreeNode root, long min, long max) {
+    public boolean isValidI(Day266.TreeNode root, long min, long max) {
         if (root == null) return true;
         if (root.data <= min || root.data >= max) return false;
         return isValidBST(root.left, min, root.data) && isValidBST(root.right, root.data, max);
@@ -87,8 +87,8 @@ public class BinarySearchTree {
 
 class TreeNode {
     int data;
-    TreeNode left;
-    TreeNode right;
+    Day266.TreeNode left;
+    Day266.TreeNode right;
 
     public TreeNode(int data) {
         this.data = data;
