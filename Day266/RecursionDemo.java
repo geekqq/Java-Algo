@@ -1,5 +1,11 @@
 package Day266;
 
+import java.util.Arrays;
+import java.util.Random;
+
+import static Day256.PrintArray.printArray;
+import static Day37.SortedArray.swap;
+
 public class RecursionDemo {
 
     public static void printNum(int num) {
@@ -35,6 +41,13 @@ public class RecursionDemo {
 
         System.out.println("---count five---");
         System.out.println(countFive(1523525));
+
+        System.out.println("--binary search using recursion---");
+        int[] nums = generateArray(10, 5, 16);
+        printArray(nums);
+        selectSort(nums);
+        printArray(nums);
+        System.out.println(binarySearch(nums, 14, 0, nums.length - 1));
     }
 
     public static int power(int base, int num) {
@@ -76,6 +89,68 @@ public class RecursionDemo {
             return 1 + countFive(num / 10);
         } else {
             return countFive(num / 10);
+        }
+    }
+
+    public static int binarySearch(int[] nums, int key, int start, int end) {
+        if (start <= end) {
+            int mid = start + (end - start) / 2;
+            if (nums[mid] < key) {
+                return binarySearch(nums, key, mid + 1, end);
+            } else if (key < nums[mid]) {
+                return binarySearch(nums, key, start, mid - 1);
+            } else {
+                return mid;
+            }
+        } else {
+            return -1;
+        }
+    }
+
+    public static int[] generateArray(int size, int min, int max) {
+        if (max - min + 1 < size) {
+            throw new IllegalArgumentException();
+        }
+        int[] arr = new int[size];
+        boolean[] used = new boolean[max - min + 1];
+        Arrays.fill(used, true);
+        Random rd = new Random();
+        int index = 0;
+        while (index < size) {
+            int num = rd.nextInt(max - min + 1) + min;
+            if (used[num - min]) {
+                arr[index++] = num;
+                used[num - min] = false;
+            }
+        }
+        return arr;
+    }
+
+    public static void bubbleSort(int[] nums) {
+        if (nums == null || nums.length == 0) return;
+        for (int i = 0; i < nums.length - 1; i++) {
+            boolean flag = true;
+            for (int j = 0; j < nums.length - 1 - i; j++) {
+                if (nums[j] > nums[j + 1]) {
+                    swap(nums, j, j + 1);
+                    flag = false;
+                }
+            }
+            if (flag) break;
+        }
+    }
+
+    public static void selectSort(int[] nums) {
+        if (nums == null || nums.length == 0) return;
+        int min;
+        for (int i = 0; i < nums.length - 1; i++) {
+            min = i;
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[j] < nums[min]) {
+                    min = j;
+                }
+            }
+            swap(nums, i, min);
         }
     }
 }
