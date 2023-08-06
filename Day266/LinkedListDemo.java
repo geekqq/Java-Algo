@@ -1,5 +1,7 @@
 package Day266;
 
+import java.util.Stack;
+
 public class LinkedListDemo {
 
     private ListNode head;
@@ -177,6 +179,100 @@ public class LinkedListDemo {
         }
         return head;
     }
+
+    public ListNode reOrderList() {
+        if (head == null || head.next == null) return head;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode temp = slow.next;
+        slow.next = null;
+        ListNode firstHead = head;
+        ListNode secondHead = reverseI(temp);
+
+        ListNode dummy = new ListNode();
+        temp = dummy;
+        while (firstHead != null && secondHead != null) {
+            temp.next = firstHead;
+            firstHead = firstHead.next;
+            temp = temp.next;
+
+            temp.next = secondHead;
+            secondHead = secondHead.next;
+            temp = temp.next;
+        }
+        temp.next = firstHead != null ? firstHead : secondHead;
+        return dummy.next;
+    }
+
+    public void oddEvenList() {
+        if (head == null || head.next == null) return;
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode evenHead = head.next;
+        while (even != null && even.next != null) {
+            odd.next = odd.next.next;
+            even.next = even.next.next;
+            odd = odd.next;
+            even = even.next;
+        }
+        odd.next = evenHead;
+    }
+
+    public void plusOne() {
+        if (head == null) return;
+        Stack<ListNode> stack = new Stack<>();
+        ListNode cur = head;
+        while (cur != null) {
+            stack.push(cur);
+            cur = cur.next;
+        }
+        while (!stack.isEmpty()) {
+            ListNode node = stack.pop();
+            if (node.data < 9) {
+                node.data++;
+                return;
+            } else {
+                node.data = 0;
+            }
+        }
+        ListNode newNode = new ListNode(1);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    public boolean hasCycle() {
+        if (head == null || head.next == null) return false;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) return true;
+        }
+        return false;
+    }
+
+    public ListNode getStartingNodeInCycle() {
+        if (head == null || head.next == null) return null;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) break;
+            else return null;
+        }
+        ListNode temp = head;
+        while (temp != slow) {
+            slow = slow.next;
+            temp = temp.next;
+        }
+        return temp;
+    }
     public static void main(String[] args) {
 
         LinkedListDemo list = new LinkedListDemo();
@@ -218,5 +314,13 @@ public class LinkedListDemo {
         System.out.println("---remove duplicates---");
         list.head = list.removeDuplicates();
         list.print(list.head);
+        System.out.println("---reorder list---");
+        list.head = list.reOrderList();
+        list.print(list.head);
+        System.out.println("---odd even list---");
+        list.oddEvenList();
+        list.print(list.head);
+        System.out.println("---get starting node of a cycle in list---");
+        System.out.println(list.getStartingNodeInCycle());
     }
 }
