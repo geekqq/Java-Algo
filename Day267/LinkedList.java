@@ -224,6 +224,50 @@ public class LinkedList {
         }
         return head;
     }
+
+    public void oddEvenList(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode evenHead = head.next;
+        while (even != null && even.next != null) {
+            odd.next = odd.next.next;
+            even.next = even.next.next;
+            odd = odd.next;
+            even = even.next;
+        }
+        odd.next = evenHead;
+    }
+
+    public boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) return false;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) return true;
+        }
+        return false;
+    }
+
+    public ListNode hasCycleStarting(ListNode head) {
+        if (head == null || head.next == null) return null;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow= slow.next;
+            fast = fast.next.next;
+            if (slow == fast) break;
+        }
+        if (slow != fast) return null;
+        ListNode temp = head;
+        while (slow != temp) {
+            slow = slow.next;
+            temp = temp.next;
+        }
+        return temp;
+    }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 10; i++) {
@@ -274,5 +318,12 @@ public class LinkedList {
         list.removeNode(3);
         list.removeNode(10);
         list.print(list.head);
+        System.out.println();
+        System.out.println("---odd even list---");
+        list.oddEvenList(list.head);
+        list.print(list.head);
+        System.out.println();
+        System.out.println("---has cycle---");
+        System.out.println(list.hasCycle(list.head));
     }
 }
