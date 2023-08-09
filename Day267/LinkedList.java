@@ -36,10 +36,9 @@ public class LinkedList {
     public ListNode reverseI(ListNode head) {
         if (head == null || head.next == null) return head;
         ListNode pre = null;
-        ListNode next = null;
         ListNode cur = head;
         while (cur != null) {
-            next = cur.next;
+            ListNode next = cur.next;
             cur.next = pre;
             pre = cur;
             cur = next;
@@ -94,6 +93,22 @@ public class LinkedList {
         return dummy.next;
     }
 
+    public ListNode reverseByK(ListNode head, int k) {
+        if (head == null) return head;
+        int count = countNode(head);
+        if (count < k) return head;
+        ListNode prev = null;
+        ListNode cur = head;
+        for (int i = 0; i < k; i++) {
+            ListNode next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        head.next = reverseByK(cur, k);
+        return prev;
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 10; i++) {
@@ -115,6 +130,10 @@ public class LinkedList {
         System.out.println();
         System.out.println("---reverse by range---");
         list.head = list.reverseByRange(list.head, 3, 10);
+        list.print(list.head);
+        System.out.println();
+        System.out.println("---reverse by k---");
+        list.head = list.reverseByK(list.head, 4);
         list.print(list.head);
     }
 }
