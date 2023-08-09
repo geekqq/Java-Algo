@@ -1,5 +1,8 @@
 package Day267;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PrintMatrixInSpiral {
 
     public static void main(String[] args) {
@@ -21,6 +24,9 @@ public class PrintMatrixInSpiral {
         printMatrixSpiral(matrix);
         printMatrixSpiral(matrix1);
         printMatrixSpiral(matrix2);
+        printMatrix(matrix);
+        printMatrix(matrix1);
+        printMatrix(matrix2);
     }
 
     public static void printMatrixSpiral(int[][] matrix) {
@@ -55,6 +61,37 @@ public class PrintMatrixInSpiral {
                 }
                 l++;
             }
+        }
+        System.out.println();
+    }
+
+    public static void printMatrix(int[][] matrix) {
+        List<Integer> res = new ArrayList<>();
+        int row = matrix.length;
+        int col = matrix[0].length;
+        boolean[][] seen = new boolean[row][col];
+        int[] dr = {0, 1, 0, -1};
+        int[] dc = {1, 0, -1, 0};
+        int x = 0;
+        int y = 0;
+        int di = 0;
+        for (int i = 0; i < row * col; i++) {
+            res.add(matrix[x][y]);
+            seen[x][y] = true;
+            int cr = x + dr[di];
+            int cc = y + dc[di];
+
+            if (cr >= 0 && cr < row && cc >= 0 && cc < col && !seen[cr][cc]) {
+                x = cr;
+                y = cc;
+            } else {
+                di = (di + 1) % 4;
+                x += dr[di];
+                y += dc[di];
+            }
+        }
+        for (Integer i : res) {
+            System.out.print(i + " ");
         }
         System.out.println();
     }
