@@ -109,6 +109,34 @@ public class LinkedList {
         return prev;
     }
 
+    public ListNode reOrder(ListNode head) {
+        //if (head == null || head.next == null) return head;
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode temp = slow.next;
+        slow.next = null;
+        ListNode firstHead = head;
+        ListNode secondHead = reverseI(temp);
+        ListNode dummy = new ListNode();
+        temp = dummy;
+        while (firstHead != null && secondHead != null) {
+            temp.next = firstHead;
+            firstHead = firstHead.next;
+            temp = temp.next;
+
+            temp.next = secondHead;
+            secondHead = secondHead.next;
+            temp = temp.next;
+        }
+        temp.next = (firstHead != null ? firstHead : secondHead);
+        return dummy.next;
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 10; i++) {
@@ -135,5 +163,10 @@ public class LinkedList {
         System.out.println("---reverse by k---");
         list.head = list.reverseByK(list.head, 4);
         list.print(list.head);
+        System.out.println();
+        System.out.println("---reorder list---");
+        list.head = list.reOrder(list.head);
+        list.print(list.head);
+        System.out.println();
     }
 }
