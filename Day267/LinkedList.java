@@ -137,6 +137,93 @@ public class LinkedList {
         return dummy.next;
     }
 
+    public ListNode mergeSortList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode slow = head;
+        ListNode fast = head;
+        ListNode prev = null;
+        while (fast != null && fast.next != null) {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        prev.next = null;
+        ListNode leftHead = mergeSortList(head);
+        ListNode rightHead = mergeSortList(slow);
+        return merge(leftHead, rightHead);
+    }
+
+    private ListNode merge(ListNode head1, ListNode head2) {
+        ListNode dummy = new ListNode();
+        ListNode cur = dummy;
+        while (head1 != null && head2 != null) {
+            if (head1.data < head2.data) {
+                cur.next = head1;
+                head1 = head1.next;
+            } else {
+                cur.next = head2;
+                head2 = head2.next;
+            }
+            cur = cur.next;
+        }
+        cur.next = (head1 != null ? head1 : head2);
+        return dummy.next;
+    }
+
+    public ListNode insertNode(int val) {
+        ListNode newNode = new ListNode(val);
+        if (head == null || head.data >= val) {
+            newNode.next = head;
+            head = newNode;
+        } else {
+            ListNode cur = head;
+            while (cur.next != null && cur.next.data < val) {
+                cur = cur.next;
+            }
+            newNode.next = cur.next;
+            cur.next = newNode;
+        }
+        return head;
+    }
+
+    public void removeDuplicates() {
+        if (head == null || head.next == null) return;
+        ListNode slow = head;
+        while (slow != null) {
+            ListNode fast = slow.next;
+            while (fast != null && slow.data == fast.data) {
+                fast = fast.next;
+            }
+            slow.next = fast;
+            slow = slow.next;
+        }
+    }
+
+    public ListNode removeNode(int val) {
+        if (head == null) {
+            throw new RuntimeException("The list is null");
+        }
+        if (head.next == null && head.data == val) {
+            System.out.println("head is the only node and can not be deleted!");
+        } else if (head.data == val) {
+            ListNode temp = head;
+            head = head.next;
+            temp.next = null;
+        }
+        else
+        {
+            ListNode cur = head;
+            while (cur.next != null && cur.next.data != val) {
+                cur = cur.next;
+            }
+            if (cur.next == null) {
+                System.out.println("the node is not present!");
+            } else {
+                cur.next = cur.next.next;
+            }
+        }
+        return head;
+    }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 10; i++) {
@@ -168,5 +255,24 @@ public class LinkedList {
         list.head = list.reOrder(list.head);
         list.print(list.head);
         System.out.println();
+        System.out.println("---merge sort list---");
+        list.head = list.mergeSortList(list.head);
+        list.print(list.head);
+        System.out.println();
+        System.out.println("---insert node---");
+        list.head = list.insertNode(0);
+        list.head = list.insertNode(3);
+        list.head = list.insertNode(10);
+        list.print(list.head);
+        System.out.println();
+        System.out.println("---remove duplicates---");
+        list.removeDuplicates();
+        list.print(list.head);
+        System.out.println();
+        System.out.println("---delete node---");
+        list.removeNode(0);
+        list.removeNode(3);
+        list.removeNode(10);
+        list.print(list.head);
     }
 }
