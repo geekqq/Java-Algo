@@ -1,5 +1,7 @@
 package Day268;
 
+import java.util.Arrays;
+
 import static Day256.PrintArray.printArray;
 
 public class MergeSort {
@@ -14,6 +16,7 @@ public class MergeSort {
     }
 
     private static void merge(int[] nums, int[] temp, int low, int mid, int high) {
+
         for (int i = low; i <= high ; i++) {
             temp[i] = nums[i];
         }
