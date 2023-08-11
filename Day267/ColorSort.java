@@ -21,10 +21,23 @@ public class ColorSort {
         }
     }
 
+    public static void colorSortI(int[] nums) {
+        int left = 0;
+        int right = nums.length - 1;
+
+        for (int i = 0; i <= right; i++) {
+            if (nums[i] == 0) {
+                swap(nums, left++, i);
+            } else if (nums[i] == 2) {
+                swap(nums, right--, i--);
+            }
+        }
+    }
+
     public static void main(String[] args) {
         int[] nums = randomArray(10, 2);
         printArray(nums);
-        colorSort(nums);
+        colorSortI(nums);
         printArray(nums);
     }
 }
