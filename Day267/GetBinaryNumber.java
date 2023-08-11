@@ -40,6 +40,18 @@ public class GetBinaryNumber {
         }
         return res;
     }
+
+    public static String getBinaryBit(int n) {
+        if (n == 0) return "0";
+        StringBuilder sb = new StringBuilder();
+
+        while (n > 0) {
+            int bit = n & 1;
+            sb.insert(0, bit);
+            n >>= 1;
+        }
+        return sb.toString();
+    }
     public static void main(String[] args) {
         for (int i = 0; i < 11; i++) {
             System.out.println(Arrays.toString(getBinaryNumber(i)));
@@ -47,6 +59,10 @@ public class GetBinaryNumber {
         System.out.println();
         for (int i = 0; i < 11; i++) {
             System.out.println(getBinaryI(i));
+        }
+        System.out.println();
+        for (int i = 0; i < 11; i++) {
+            System.out.println(getBinaryBit(i));
         }
     }
 }
