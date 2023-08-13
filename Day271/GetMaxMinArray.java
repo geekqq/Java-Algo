@@ -25,7 +25,7 @@ public class GetMaxMinArray {
     }
 
     public static void main(String[] args) {
-        int[] arr = randomArray(8, 18);
+        int[] arr = randomArray(12, 28);
         printArray(arr);
         selectSort(arr);
         printArray(arr);
