@@ -304,6 +304,7 @@ public class LinkedList {
         System.out.println();
         list.head = list.reverseI(list.head);
         list.print(list.head);
+        System.out.println();
         System.out.println("---count node---");
         System.out.println(list.countNode(list.head));
         System.out.println(list.countNodeIt(list.head));
