@@ -1,5 +1,7 @@
 package Day265;
 
+import Day266.TreeNode;
+
 public class BinarySearchTree {
 
     private TreeNode root;
@@ -93,6 +95,7 @@ public class BinarySearchTree {
         System.out.println(bst.searchNode(bst.root, 2));
         System.out.println(bst.isValidBST(bst.root, Long.MIN_VALUE, Long.MAX_VALUE));
         System.out.println(bst.isValidI(bst.root, Long.MIN_VALUE, Long.MAX_VALUE));
+
     }
 
 }
