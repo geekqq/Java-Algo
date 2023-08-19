@@ -159,6 +159,19 @@ public class LinkedList {
         return head;
     }
 
+    public static void removeDuplicates(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode slow = head;
+        while (slow != null) {
+            ListNode fast = slow.next;
+            while (fast !=null && slow.data == fast.data) {
+                fast = fast.next;
+            }
+            slow.next = fast;
+            slow = slow.next;
+        }
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 11; i++) {
@@ -187,6 +200,9 @@ public class LinkedList {
         list.head = insertNode(list.head,0);
         list.head = insertNode(list.head,5);
         list.head = insertNode(list.head,11);
+        list.print(list.head);
+        System.out.println("====remove duplicates node====");
+        removeDuplicates(list.head);
         list.print(list.head);
 
 
