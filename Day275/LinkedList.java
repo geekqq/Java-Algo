@@ -1,5 +1,7 @@
 package Day275;
 
+import java.util.Stack;
+
 public class LinkedList {
 
     private ListNode head;
@@ -23,7 +25,7 @@ public class LinkedList {
             System.out.print(cur.data + " -> ");
             cur = cur.next;
         }
-        System.out.print("null");
+        System.out.println("null");
     }
 
     public static ListNode reverseRe(ListNode head) {
@@ -233,6 +235,61 @@ public class LinkedList {
         }
         return head;
     }
+
+    public static boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) return false;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static ListNode getStartingNodeForCircularList(ListNode head) {
+        if (head == null || head.next == null) return null;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast =fast.next;
+            if (slow == fast) break;
+        }
+        if (slow != fast) return null;
+        ListNode temp = head;
+        while (temp != slow) {
+            slow = slow.next;
+            temp = temp.next;
+        }
+        return temp;
+    }
+
+    public static void plusOne(ListNode head) {
+        if (head == null) return;
+        Stack<ListNode> stack = new Stack<>();
+        ListNode cur = head;
+        while (cur != null) {
+            stack.push(cur);
+            cur = cur.next;
+        }
+        while (!stack.isEmpty()) {
+            ListNode node = stack.pop();
+            if (node.data < 9) {
+                node.data++;
+                return;
+            } else {
+                node.data = 0;
+            }
+        }
+        ListNode newNode = new ListNode(1);
+        newNode.next = head;
+        head = newNode;
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 11; i++) {
@@ -275,7 +332,16 @@ public class LinkedList {
         list.head = removeNode(list.head, 6);
         list.head = removeNode(list.head, 11);
         list.print(list.head);
-
+        System.out.println("====plus one===");
+        plusOne(list.head);
+        list.print(list.head);
+        removeDuplicates(list.head);
+        list.print(list.head);
+        list.head = removeNode(list.head, 8);
+        list.head = removeNode(list.head, 10);
+        list.print(list.head);
+        plusOne(list.head);
+        list.print(list.head);
     }
 }
 class ListNode {
