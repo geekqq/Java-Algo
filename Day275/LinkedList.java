@@ -57,6 +57,39 @@ public class LinkedList {
         return newHead;
     }
 
+    public static int countNode(ListNode head) {
+        ListNode cur = head;
+        if (head == null) return 0;
+        int count = 0;
+        while (cur != null) {
+            cur = cur.next;
+            count++;
+        }
+        return count;
+    }
+
+    public static int countNodeRe(ListNode head) {
+        if (head == null) return 0;
+        return 1 + countNodeRe(head.next);
+    }
+
+    public static ListNode reverseByK(ListNode head, int k) {
+        if (head == null || head.next == null || k <= 0) return head;
+        int count = countNode(head);
+        if (count < k) return head;
+        ListNode prev = null;
+        ListNode next = null;
+        ListNode cur = head;
+        for (int i = 0; i < k; i++) {
+            next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        head.next = reverseByK(cur, k);
+        return prev;
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 11; i++) {
@@ -70,6 +103,12 @@ public class LinkedList {
         list.print(list.head = reverseRe(list.head));
         System.out.println("====swap in pairs");
         list.print(list.head = swapInPair(list.head));
+        System.out.println("====count node====");
+        System.out.println(countNode(list.head));
+        System.out.println(countNodeRe(list.head));
+        System.out.println("====reverse by ke====");
+        list.head = reverseByK(list.head, 4);
+        list.print(list.head);
 
     }
 }
