@@ -199,6 +199,40 @@ public class LinkedList {
         return dummy.next;
     }
 
+    public static void oddEvenList(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode evenHead = head.next;
+        while (even != null && even.next != null) {
+            odd.next = odd.next.next;
+            even.next = even.next.next;
+            odd = odd.next;
+            even = even.next;
+        }
+        odd.next = evenHead;
+    }
+
+    public static ListNode removeNode(ListNode head, int val) {
+        if (head == null) throw new IllegalArgumentException("The list doesn't exist!");
+        if (head.data == val && head.next == null) {
+            System.out.println("head is the only node, can not be deleted!");
+        } else {
+            if (head.data == val) {
+                head = head.next;
+            } else {
+                ListNode cur = head;
+                while (cur.next != null && cur.next.data != val) {
+                    cur = cur.next;
+                }
+                if (cur.next == null) {
+                    System.out.println("the node is not present!");
+                }
+                cur.next = cur.next.next;
+            }
+        }
+        return head;
+    }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 11; i++) {
@@ -233,7 +267,14 @@ public class LinkedList {
         list.print(list.head);
         System.out.println("====reorder list====");
         list.print(list.head = reorderList(list.head));
-
+        System.out.println("====odd even list====");
+        oddEvenList(list.head);
+        list.print(list.head);
+        System.out.println("====delete nodes====");
+        list.head = removeNode(list.head, 0);
+        list.head = removeNode(list.head, 6);
+        list.head = removeNode(list.head, 11);
+        list.print(list.head);
 
     }
 }
