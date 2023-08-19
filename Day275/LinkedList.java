@@ -171,6 +171,33 @@ public class LinkedList {
             slow = slow.next;
         }
     }
+    public static ListNode reorderList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode temp = slow.next;
+        slow.next = null;
+        ListNode firstHead = head;
+        ListNode secondHead = reverseIt(temp);
+
+        ListNode dummy = new ListNode();
+        temp = dummy;
+        while (firstHead != null && secondHead != null) {
+            temp.next = firstHead;
+            firstHead = firstHead.next;
+            temp = temp.next;
+
+            temp.next = secondHead;
+            secondHead = secondHead.next;
+            temp = temp.next;
+        }
+        temp.next = (firstHead != null ? firstHead : secondHead);
+        return dummy.next;
+    }
 
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
@@ -204,6 +231,8 @@ public class LinkedList {
         System.out.println("====remove duplicates node====");
         removeDuplicates(list.head);
         list.print(list.head);
+        System.out.println("====reorder list====");
+        list.print(list.head = reorderList(list.head));
 
 
     }
