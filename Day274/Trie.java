@@ -34,7 +34,7 @@ public class Trie {
     }
 
     public boolean searchWord(String word) {
-        return true;
+        return true; //TODO
     }
 
     public static void main(String[] args) {
