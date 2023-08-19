@@ -90,6 +90,75 @@ public class LinkedList {
         return prev;
     }
 
+    public static ListNode reverseByRange(ListNode head, int left, int right) {
+        if (head == null || head.next == null) return  head;
+        ListNode dummy = new ListNode();
+        dummy.next = head;
+        ListNode prev = dummy;
+        for (int i = 1; i < left; i++) {
+            prev = prev.next;
+        }
+        ListNode subStart = prev.next;
+        prev.next = null;
+        ListNode subEnd = subStart;
+        for (int i = left; i < right; i++) {
+            subEnd = subEnd.next;
+        }
+        ListNode next = subEnd.next;
+        subEnd.next = null;
+        prev.next = reverseRe(subStart);
+        subStart.next = next;
+        return dummy.next;
+    }
+
+    public static ListNode mergeList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode slow = head;
+        ListNode fast = head;
+        ListNode prev = null;
+        while (fast != null && fast.next != null) {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        prev.next = null;
+        ListNode leftHead = mergeList(head);
+        ListNode rightHead = mergeList(slow);
+        return mergeTwoSortedArray(leftHead, rightHead);
+    }
+
+    public static ListNode mergeTwoSortedArray(ListNode leftHead, ListNode rightHead) {
+        ListNode dummy = new ListNode();
+        ListNode cur = dummy;
+        while (leftHead != null && rightHead != null) {
+            if (leftHead.data < rightHead.data) {
+                cur.next = leftHead;
+                leftHead = leftHead.next;
+            } else {
+                cur.next = rightHead;
+                rightHead = rightHead.next;
+            }
+            cur = cur.next;
+        }
+        cur.next = (leftHead != null ? leftHead : rightHead);
+        return dummy.next;
+    }
+
+    public static ListNode insertNode(ListNode head, int val) {
+        ListNode newNode = new ListNode(val);
+        if (head == null) {
+            head = newNode;
+        } else {
+            ListNode cur = head;
+            while (cur.next != null && cur.next.data < val) {
+                cur = cur.next;
+            }
+            newNode.next = cur.next;
+            cur.next = newNode;
+        }
+        return head;
+    }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 11; i++) {
@@ -109,6 +178,17 @@ public class LinkedList {
         System.out.println("====reverse by ke====");
         list.head = reverseByK(list.head, 4);
         list.print(list.head);
+        System.out.println("====reverse by range====");
+        list.print(list.head = reverseByRange(list.head, 5, 9));
+        System.out.println("====merge sort list====");
+        list.head = mergeList(list.head);
+        list.print(list.head);
+        System.out.println("====insert new node====");
+        list.head = insertNode(list.head,0);
+        list.head = insertNode(list.head,5);
+        list.head = insertNode(list.head,11);
+        list.print(list.head);
+
 
     }
 }
