@@ -13,11 +13,16 @@ public class IsPrime {
         return true;
     }
 
+
     public static void main(String[] args) {
-        for (int i = 0; i < 1113; i++) {
+        int count = 0;
+        for (int i = 0; i < 10000; i++) {
             if (isPrime(i)) {
                 System.out.print(i + " ");
+                count++;
             }
         }
+        System.out.println();
+        System.out.println(count);
     }
 }
