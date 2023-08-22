@@ -103,7 +103,7 @@ public class MyHashTable {
         table.put(15, "San Jose");
         System.out.println(table.size);
         System.out.println(table.get(16));
-        System.out.println(table.remove(32));
+        System.out.println(table.remove(30));
         System.out.println(table.size);
         Integer a = 1200;
         Integer b = 1200;
