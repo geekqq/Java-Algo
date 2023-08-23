@@ -50,11 +50,31 @@ public class TwoSum {
         return null;
     }
 
+    public static int[] twoSumSort(int[] arr, int target) {
+        if (arr == null || arr.length == 0) return null;
+        Arrays.sort(arr);
+        int[] res = new int[2];
+        int left = 0;
+        int right = arr.length - 1;
+        while (left < right) {
+            if (arr[left] + arr[right] == target) {
+                res[0] = arr[left];
+                res[1] = arr[right];
+                return res;
+            } else if (arr[left] + arr[right] < target) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return new int[0];
+    }
     public static void main(String[] args) {
         int[] nums = {2, 11, 5, 10, 8, 7};
         int target = 7;
         System.out.println(Arrays.toString(twoSum(nums, target)));
         System.out.println(Arrays.toString(twoSumI(nums, target)));
         System.out.println(Arrays.toString(twoSumForLoop(nums, target)));
+        System.out.println(Arrays.toString(twoSumSort(nums, target))); // this one will generate the elements not the index
     }
 }
