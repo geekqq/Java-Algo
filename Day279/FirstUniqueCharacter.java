@@ -23,5 +23,6 @@ public class FirstUniqueCharacter {
     public static void main(String[] args) {
         System.out.println(firstUniqueCharacter("codeforcode"));
         System.out.println(firstUniqueCharacter("racecars"));
+        System.out.println(firstUniqueCharacter("abab"));
     }
 }
