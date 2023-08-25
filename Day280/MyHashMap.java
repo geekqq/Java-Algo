@@ -80,16 +80,18 @@ public class MyHashMap {
             head = head.next;
         }
         if (head == null) return "The key is not present!";
-        else {
-            if (prev != null) {
-                prev.next = head.next;
-            } else {
-                buckets[bucketIndex] = head.next;
-            }
+
+        if (prev != null) {
+            prev.next = head.next;
+        } else {
+            buckets[bucketIndex] = head.next;
         }
         size--;
         return head.value;
+
     }
+
+
     public static void main(String[] args) {
         MyHashMap map = new MyHashMap();
         map.put(1, "stone");
@@ -101,8 +103,8 @@ public class MyHashMap {
         map.put(101, "jack");
 
         System.out.println(map.size);
-        System.out.println(map.get(11));
-        System.out.println(map.remove(15));
+        System.out.println(map.get(101));
+        System.out.println(map.remove(1));
         System.out.println(map.size);
     }
 }
