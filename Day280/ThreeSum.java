@@ -30,10 +30,38 @@ public class ThreeSum {
         }
     }
 
+    public static List<List<Integer>> threeSumI(int[] arr, int target) {
+        //cc
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(arr);
+        for (int i = 0; i < arr.length - 2; i++) {
+            int j = i + 1;
+            int k = arr.length - 1;
+            while (j < k) {
+                List<Integer> list = new ArrayList<>();
+                int sum = arr[i] + arr[j] + arr[k];
+                if (sum == target) {
+                    list.add(arr[i]);
+                    list.add(arr[j]);
+                    list.add(arr[k]);
+                    res.add(list);
+                    j++;
+                    k--;
+                } else if (sum < target) {
+                    j++;
+                } else {
+                    k--;
+                }
+            }
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         int[] arr = generateArrayWithoutDuplicates(10, 5, 15);
         printArray(arr);
         int target = 30;
         threeSum(arr, target);
+        System.out.println(threeSumI(arr,target));
     }
 }
