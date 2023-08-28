@@ -50,6 +50,6 @@ public class ShuffleList {
 
     public static void main(String[] args) {
 
-        System.out.println(shuffleSentence("I love your mon haha"));
+        System.out.println(shuffleSentence("I love your mon haha?"));
     }
 }
