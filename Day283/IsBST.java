@@ -24,6 +24,23 @@ public class IsBST {
             if (node.left != null) q.offer(node.left);
             if (node.right != null) q.offer(node.right);
         }
+        System.out.println();
+    }
+
+    public static void levelOrderByLevel(TreeNode root) {
+        if (root == null) return;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                TreeNode node = q.poll();
+                System.out.print(node.data + " ");
+                if (node.left != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+            System.out.println();
+        }
     }
 
     public static void main(String[] args) {
@@ -36,5 +53,6 @@ public class IsBST {
         root.right.right = new TreeNode(8);
         System.out.println(isBST(root, Long.MIN_VALUE, Long.MAX_VALUE));
         levelOrder(root);
+        levelOrderByLevel(root);
     }
 }
