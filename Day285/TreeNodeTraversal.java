@@ -49,7 +49,7 @@ public class TreeNodeTraversal {
         stack.push(root);
         while (!stack.isEmpty()) {
             TreeNode node = stack.pop();
-            if (node.left == null && node.right == null) {
+            if (isLeaf(node)) {
                 System.out.print(node.data + " ");
             }
             if (node.right != null) {
