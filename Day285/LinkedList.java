@@ -34,7 +34,7 @@ public class LinkedList {
         ListNode dummy = new ListNode();
         ListNode cur = dummy;
         while (l1 != null || l2 != null || carry != 0) {
-            int x = l1 != null ? l2.data : 0;
+            int x = l1 != null ? l1.data : 0;
             int y = l2 != null ? l2.data : 0;
             int sum = x + y + carry;
             carry = sum / 10;
@@ -88,8 +88,7 @@ public class LinkedList {
         l2.add(4);
         l3.head = addTwoNumbers(l1.head, l2.head);
         l3.print();
-        l3.head = addTwoNumbersI(l1.head, l2.head);
-        l3.print();
+
     }
 }
 

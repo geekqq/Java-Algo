@@ -1,14 +1,13 @@
-package Day283;
+package Day285;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class GetLongestSubString {
+public class LongestSubstringWithoutDuplicates {
 
-    public static int getLongestSubString(String s) {
-        if (s == null || s.length() == 0) {
-            throw new IllegalArgumentException();
-        }
+
+    public static int getLongestSubstring(String s) {
+        if (s == null || s.isEmpty()) throw new IllegalArgumentException();
         Map<Character, Integer> map = new HashMap<>();
         int start = 0;
         int maxLen = 0;
@@ -24,6 +23,6 @@ public class GetLongestSubString {
     }
 
     public static void main(String[] args) {
-        System.out.println(getLongestSubString("tmmzuxt"));
+        System.out.println(getLongestSubstring("tmmzuxt"));
     }
 }
