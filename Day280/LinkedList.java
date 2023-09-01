@@ -5,7 +5,7 @@ import java.util.Stack;
 
 public class LinkedList {
 
-    private ListNode head;
+    public ListNode head;
 
     class ListNode {
         int val;
