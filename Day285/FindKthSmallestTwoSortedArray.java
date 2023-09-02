@@ -37,9 +37,39 @@ public class FindKthSmallestTwoSortedArray {
         }
     }
 
+    public static int findKthSmallest(int[] arr1, int[] arr2, int k) {
+        if (arr1 == null) return arr2[k - 1];
+        if (arr2 == null) return arr1[k - 1];
+        int m = arr1.length;
+        int n = arr2.length;
+        int[] mergedArr = new int[m + n];
+        int i = 0;
+        int j = 0;
+        int p = 0;
+        while (i < m && j < n) {
+            if (arr1[i] < arr2[j]) {
+                mergedArr[p++] = arr1[i++];
+            } else {
+                mergedArr[p++] = arr2[j++];
+            }
+        }
+        while (i < m) {
+            mergedArr[p++] = arr1[i++];
+        }
+        while (j < n) {
+            mergedArr[p++] = arr2[j++];
+        }
+        return mergedArr[k - 1];
+    }
+
     public static void main(String[] args) {
-        int[] nums1 = {1,2, 4, 5, 6,9};
-        int[] nums2 = {3,7,8,10};
-        System.out.println(findKthSmallestSortedArray(nums1, nums2, 5));
+        int arr1[] = {2, 3, 6, 7, 9};
+        int arr2[] = {1, 4, 8, 10};
+        int[] arr3 = {100, 112, 256, 349, 770};
+        int[] arr4 = {72, 86, 113, 119, 265, 445, 892};
+        System.out.println(findKthSmallestSortedArray(arr1, arr2, 7));
+        System.out.println(findKthSmallestSortedArray(arr3, arr4, 7));
+        System.out.println(findKthSmallest(arr1, arr2, 7));
+        System.out.println(findKthSmallest(arr3, arr4, 7));
     }
 }
