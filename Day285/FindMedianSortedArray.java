@@ -22,7 +22,7 @@ public class FindMedianSortedArray {
         int iMax = m;
         int halfLen = (m + n + 1) / 2;
 
-        while (iMin <= iMin) {
+        while (iMin <= iMax) {
             int i = (iMin + iMax) / 2;
             int j = halfLen - i;
 
