@@ -65,7 +65,6 @@ public class FindMedianSortedArray {
         System.arraycopy(num1, 0, num3, 0, num1.length);
         System.arraycopy(num2, 0, num3, num1.length, num2.length);
         Arrays.sort(num3);
-
         if (num3.length % 2 == 0) {
             return (double) (num3[num3.length / 2] + num3[num3.length / 2 - 1]) / 2;
         } else {
