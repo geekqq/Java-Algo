@@ -31,7 +31,7 @@ public class FindMedianTwoSortedArray {
             int num2 = findKthSmallest(arr1, arr2, len / 2);
             return  (num1 + num2) / 2.0;
         } else {
-            return (double) findKthSmallest(arr1, arr2, len / 2);
+            return (double) findKthSmallest(arr1, arr2, len / 2 + 1);
         }
     }
 
