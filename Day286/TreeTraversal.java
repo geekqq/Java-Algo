@@ -3,9 +3,8 @@ package Day286;
 import Day266.TreeNode;
 import Day51.MinStack;
 
+import java.util.*;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
 
 public class TreeTraversal {
 
@@ -114,6 +113,31 @@ public class TreeTraversal {
         return root.left == null && root.right == null;
     }
 
+    public static void levelOrder(TreeNode root) {
+        if (root == null) return;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            System.out.print(node.data + " ");
+            if (node.left != null) q.offer(node.left);
+            if (node.right != null) q.offer(node.right);
+        }
+    }
+
+    public static List<Integer> levelOrderI(TreeNode root) {
+        List<Integer> res = new LinkedList<>();
+        if (root == null) return res;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            res.add(node.data);
+            if (node.left != null) q.offer(node.left);
+            if (node.right != null) q.offer(node.right);
+        }
+        return res;
+    }
     public static void printLeafNode(TreeNode root) {
         if (root == null) return;
         if (isLeaf(root)) System.out.print(root.data + " ");
@@ -159,5 +183,9 @@ public class TreeTraversal {
         System.out.println();
         System.out.println(postOrderI(root));
         System.out.println(postOrderII(root));
+        System.out.println("====level order====");
+        System.out.println(levelOrderI(root));
+        levelOrder(root);
+        System.out.println();
     }
 }
