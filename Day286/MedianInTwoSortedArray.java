@@ -30,7 +30,7 @@ public class MedianInTwoSortedArray {
             return dfs(arr2, start2, end2, arr1, start1, end1, k);
         }
         if (start1 > end1) {
-            return arr2[start2 + k - 1]; //arr1 is null, simply return arr2[start2 + k - 1], again k is 1 based, so -1 to 0 base
+            return arr2[start2 + k - 1]; //arr1 is exhausted, simply return arr2[start2 + k - 1], again k is 1 based, so -1 to 0 base
         }
         if (k == 1) {
             return Math.min(arr1[start1], arr2[start2]);
