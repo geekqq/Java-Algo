@@ -18,5 +18,19 @@ public class ListListString {
         list.add("you");
         list2.add("element!");
         System.out.println(res);
+
+        List<String> list3 = new LinkedList<>();
+        List<String> list4 = new LinkedList<>();
+        list3.add("list3");
+        list4.add("list3");
+        System.out.println(list3 == list4);
+        System.out.println(list3.equals(list4));
+        System.out.println("==== integer list equals====");
+        List<Integer> list5 = new LinkedList<>();
+        List<Integer> list6 = new LinkedList<>();
+        list5.add(3);
+        list6.add(3);
+        System.out.println(list5 == list6);
+        System.out.println(list5.equals(list5));
     }
 }
