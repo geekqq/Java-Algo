@@ -33,6 +33,36 @@ public class TreeNodeTraversal {
         preOrderList(root.right, res);
     }
 
+    public static void inOrder(TreeNode root) {
+        if (root == null) return;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        while (!stack.isEmpty() || cur != null) {
+            if (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            } else {
+                cur = stack.pop();
+                System.out.print(cur.data + " ");
+                cur = cur.right;
+            }
+        }
+    }
+
+    public static List<Integer> inOrderList(TreeNode root) {
+        List<Integer> res = new LinkedList<>();
+        if (root == null) return res;
+        inOrderList(root, res);
+        return res;
+    }
+
+    private static void inOrderList(TreeNode root, List<Integer> res) {
+        if (root == null) return;
+        inOrderList(root.left, res);
+        res.add(root.data);
+        inOrderList(root.right, res);
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(5);
         root.left = new TreeNode(3);
@@ -46,5 +76,9 @@ public class TreeNodeTraversal {
         preOrder(root);
         System.out.println();
         System.out.println(preOrderList(root));
+        System.out.println("==== in order ====");
+        inOrder(root);
+        System.out.println();
+        System.out.println(inOrderList(root));
     }
 }
