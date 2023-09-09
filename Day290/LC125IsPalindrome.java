@@ -3,7 +3,7 @@ package Day290;
 public class LC125IsPalindrome {
 
     public static boolean isPalindrome(String s) {
-        if (s == null || s.length() == 0) return true;
+        if (s == null || s.length() == 0) return false;
         String s1 = s.toLowerCase();
         StringBuilder sb = new StringBuilder();
         for (char c : s1.toCharArray()) {
@@ -32,6 +32,6 @@ public class LC125IsPalindrome {
         String s1 = "race a car";
         System.out.println(isPalindrome(s));
         System.out.println(isPalindrome(s1));
-        System.out.println(isValidPalindrome("amanaplanacanalpanama"));
+        System.out.println(isValidPalindrome("teet"));
     }
 }
