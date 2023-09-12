@@ -1,2 +1,7 @@
-package Day293;public class LeftMostOneInMatrix {
+package Day293;
+
+
+public class LeftMostOneInMatrix {
+
+
 }
