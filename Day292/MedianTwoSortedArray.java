@@ -26,8 +26,8 @@ public class MedianTwoSortedArray {
     }
 
     private static int dfs(int[] arr1, int start1, int end1, int[] arr2, int start2, int end2, int k) {
-        int l1 = arr1.length;
-        int l2 = arr2.length;
+        int l1 = end1 - start1 + 1;
+        int l2 = end2 - start2 + 1;
         if (l1 > l2) {
             return dfs(arr2, start2, end2, arr1, start1, end1, k);
         }
