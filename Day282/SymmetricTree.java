@@ -13,7 +13,7 @@ public class SymmetricTree {
 
     private static boolean isSymmetricTree(TreeNode leftNode, TreeNode rightNode) {
         if (leftNode == null && rightNode == null) return true;
-        if (leftNode == null || rightNode == null) return false;
+        if (leftNode == null || rightNode == null ||leftNode.data != rightNode.data) return false;
         return isSymmetricTree(leftNode.left, rightNode.right) && isSymmetricTree(leftNode.right, rightNode.left);
     }
 

@@ -2,7 +2,7 @@ package Day293;
 
 public class CharacterReplacement {
 
-    //LC424
+    //LC424LongestRepeatingCharacterReplacement
     public static int characterReplacement(String s, int k) {
         //cc
 

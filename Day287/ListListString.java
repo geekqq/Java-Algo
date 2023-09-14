@@ -32,5 +32,10 @@ public class ListListString {
         list6.add(3);
         System.out.println(list5 == list6);
         System.out.println(list5.equals(list5));
+        System.out.println("====char and int====");
+        System.out.println(10 - '1');
+        System.out.println((Integer.valueOf('5' - '1')));
+        System.out.println((Integer.valueOf('0')));
+
     }
 }

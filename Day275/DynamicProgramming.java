@@ -14,6 +14,7 @@ public class DynamicProgramming {
     }
 
     public static int fibI(int n) {
+        if (n < 2 && n >= 0) return n;
         int[] table = new int[n + 1];
         table[0] = 0;
         table[1] = 1;
@@ -51,5 +52,17 @@ public class DynamicProgramming {
         System.out.println(fibII(new int[41], 40));
         Instant endFibII = Instant.now();
         System.out.println(Duration.between(startFibII, endFibII).getNano());
+
+        for (int i = 0; i < 15; i++) {
+            System.out.print(fib(i) + " ");
+        }
+        System.out.println();
+
+        for (int i = 0; i < 15; i++) {
+            System.out.print(fibI(i) + " ");
+        }
+        System.out.println();
+
+
     }
 }

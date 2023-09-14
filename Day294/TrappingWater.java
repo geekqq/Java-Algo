@@ -10,7 +10,7 @@ public class TrappingWater {
         int rMax = height[r];
         int res = 0;
         while (l < r) {
-            if (lMax > rMax) {
+            if (height[l] > height[r]) {
                 r--;
                 rMax = Math.max(rMax, height[r]);
                 res += rMax - height[r];
