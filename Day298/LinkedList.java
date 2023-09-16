@@ -2,6 +2,8 @@ package Day298;
 
 import Day266.ListNode;
 
+import java.util.Stack;
+
 public class LinkedList {
 
     private ListNode head;
@@ -199,6 +201,72 @@ public class LinkedList {
         }
         return head;
     }
+
+    public void plusOne() {
+        if (head == null) return;
+        Stack<ListNode> stack = new Stack<>();
+        ListNode cur = head;
+        while (cur != null) {
+            stack.push(cur);
+            cur = cur.next;
+        }
+
+        while (!stack.isEmpty()) {
+            ListNode node = stack.pop();
+            if (node.data < 9) {
+                node.data++;
+                return;
+            } else {
+                node.data = 0;
+            }
+        }
+        ListNode newNode = new ListNode(1);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    public ListNode reOrderList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        ListNode temp = slow.next;
+        slow.next = null;
+        ListNode firstHead = head;
+        ListNode secondHead = reverse(temp);
+        ListNode dummy = new ListNode();
+        temp = dummy;
+        while (firstHead != null && secondHead != null) {
+            temp.next = firstHead;
+            firstHead = firstHead.next;
+            temp = temp.next;
+
+            temp.next = secondHead;
+            secondHead = secondHead.next;
+            temp = temp.next;
+        }
+        temp.next = firstHead != null ? firstHead : secondHead;
+        return dummy.next;
+    }
+
+    public ListNode oddEvenList() {
+        if (head == null || head.next == null) return head;
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode evenHead = head.next;
+        while (even != null && even.next != null) {
+            odd.next = odd.next.next;
+            even.next = even.next.next;
+            odd = odd.next;
+            even = even.next;
+        }
+        odd.next = evenHead;
+        return head;
+    }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 12; i++) {
@@ -234,6 +302,19 @@ public class LinkedList {
         list.head = list.deleteNode(11);
         list.head = list.deleteNode(11);
         list.print(list.head);
-
+        System.out.println("====plus one====");
+        list.head = list.deleteNode(10);
+        list.plusOne();
+        list.print(list.head);
+        list.plusOne();
+        list.print(list.head);
+        System.out.println("====reorder====");
+        list.head = list.reOrderList(list.head);
+        list.print(list.head);
+        list.head = list.oddEvenList();
+        list.print(list.head);
+        System.out.println("====count node====");
+        System.out.println(list.count(list.head));
+        System.out.println(list.countNode(list.head));
     }
 }
