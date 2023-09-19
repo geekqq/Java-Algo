@@ -1,5 +1,7 @@
 package Day300;
 
+import java.util.Arrays;
+
 public class PermutationStringI {
 
     public static boolean permutationString(String s, String t) {
@@ -51,10 +53,7 @@ public class PermutationStringI {
      }
 
      private static boolean isAnagramCount(int[] count1, int[] count2) {
-         for (int i = 0; i < 26; i++) {
-             if (count1[i] != count2[i]) return false;
-         }
-         return true;
+         return Arrays.equals(count1, count2);
      }
     public static void main(String[] args) {
         System.out.println(permutationString("ab", "eidbaooo"));
