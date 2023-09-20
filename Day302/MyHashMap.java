@@ -1,11 +1,10 @@
-package Day301;
+package Day302;
 
 public class MyHashMap {
 
     private HashNode[] buckets;
     private int numOfBuckets;
     private int size;
-
     class HashNode {
         private Integer key;
         private String value;
@@ -33,11 +32,10 @@ public class MyHashMap {
     public int getBucketIndex(int key) {
         return key % numOfBuckets;
     }
-
     public void put(Integer key, String value) {
-        if (key == null || value == null) return;
-        int bucketIndex = getBucketIndex(key);
-        HashNode head = buckets[bucketIndex];
+        if (key == null || value == null) throw new IllegalArgumentException("Invalid input!");
+        int bucketIdx = getBucketIndex(key);
+        HashNode head = buckets[bucketIdx];
         while (head != null) {
             if (head.key.equals(key)) {
                 head.value = value;
@@ -46,28 +44,27 @@ public class MyHashMap {
             head = head.next;
         }
         size++;
-        head = buckets[bucketIndex];
+        head = buckets[bucketIdx];
         HashNode node = new HashNode(key, value);
-        buckets[bucketIndex] = node;
+        buckets[bucketIdx] = node;
         node.next = head;
     }
 
     public String get(Integer key) {
         if (key == null) return null;
-        int bucketIndex = getBucketIndex(key);
-        HashNode head = buckets[bucketIndex];
-        while (head != null) {
-            if (head.key.equals(key)) return head.value;
+        int bucketIdx = getBucketIndex(key);
+        HashNode head = buckets[bucketIdx];
+        while (head != null && !head.key.equals(key)) {
             head = head.next;
         }
         if (head == null) return "The key is not present!";
-        return head.value;
+        else return head.value;
     }
 
     public String remove(Integer key) {
         if (key == null) return null;
-        int bucketIndex = getBucketIndex(key);
-        HashNode head = buckets[bucketIndex];
+        int bucketIdx = getBucketIndex(key);
+        HashNode head = buckets[bucketIdx];
         HashNode prev = null;
         while (head != null && !head.key.equals(key)) {
             prev = head;
@@ -75,7 +72,7 @@ public class MyHashMap {
         }
         if (head == null) return "The key is not present!";
         if (prev == null) {
-            buckets[bucketIndex] = head.next;
+            buckets[bucketIdx] = head.next;
         } else {
             prev.next = head.next;
         }
@@ -98,8 +95,11 @@ public class MyHashMap {
         System.out.println(map.get(23));
         System.out.println(map.get(104));
         System.out.println(map.get(101));
+        System.out.println(map.size);
         System.out.println(map.remove(101));
         System.out.println(map.get(101));
+        System.out.println(map.size);
+        System.out.println(map.remove(1));
         System.out.println(map.size);
     }
 }
