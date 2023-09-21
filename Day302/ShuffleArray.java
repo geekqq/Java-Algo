@@ -1,6 +1,5 @@
 package Day302;
 
-import java.util.Arrays;
 import java.util.Random;
 
 import static Day256.PrintArray.printArray;
