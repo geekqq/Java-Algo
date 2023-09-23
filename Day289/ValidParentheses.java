@@ -18,6 +18,8 @@ public class ValidParentheses {
                     || top == '(' && c == ')'
                     || top == '{' && c == '}') {
                         stack.pop();
+                    } else {
+                        stack.push(c);
                     }
                 }
             }
