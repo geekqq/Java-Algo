@@ -27,6 +27,6 @@ public class IsValidParentheses {
     }
 
     public static void main(String[] args) {
-        System.out.println(isValidParentheses("()()[]"));
+        System.out.println(isValidParentheses("(])"));
     }
 }
