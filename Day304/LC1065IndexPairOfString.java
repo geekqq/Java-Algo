@@ -1,6 +1,5 @@
 package Day304;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class LC1065IndexPairOfString {
         }
         // if text is "ababa", check "ababa", "baba". "aba", "ba", "a" individually
         int len = text.length();
-        List<int[]> list = new ArrayList<>();
+        List<int[]> list = new LinkedList<>();
         for (int i = 0; i < len; i++) {
             Trie cur = trie;
             char cc = text.charAt(i);
