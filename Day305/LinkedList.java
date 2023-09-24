@@ -28,7 +28,7 @@ public class LinkedList {
         System.out.println("null");
     }
 
-    public static ListNode reverse(ListNode head) {
+    public ListNode reverse(ListNode head) {
         if (head == null || head.next == null) return head;
         ListNode prev = null;
         ListNode cur = head;
@@ -42,7 +42,7 @@ public class LinkedList {
         return prev;
     }
 
-    public static ListNode reverseRecursion(ListNode head) {
+    public ListNode reverseRecursion(ListNode head) {
         if (head == null || head.next == null) return head;
         ListNode rest = reverseRecursion(head.next);
         head.next.next = head;
@@ -50,7 +50,7 @@ public class LinkedList {
         return rest;
     }
 
-    public static ListNode swapPairs(ListNode head) {
+    public ListNode swapPairs(ListNode head) {
         if (head == null || head.next == null) return head;
         ListNode postHead = swapPairs(head.next.next);
         ListNode newHead = head.next;
@@ -59,7 +59,7 @@ public class LinkedList {
         return newHead;
     }
 
-    public static ListNode reverseByRange(ListNode head, int left, int right) {
+    public ListNode reverseByRange(ListNode head, int left, int right) {
         if (head == null || head.next == null) return head;
         ListNode dummy = new ListNode();
         dummy.next = head;
@@ -81,12 +81,12 @@ public class LinkedList {
     }
 
 
-    public static int count(ListNode head) {
+    public int count(ListNode head) {
         if (head == null) return 0;
         return 1 + count(head.next);
     }
 
-    public static int countNode(ListNode head) {
+    public int countNode(ListNode head) {
         if (head == null) return 0;
         ListNode cur = head;
         int count = 0;
@@ -97,7 +97,7 @@ public class LinkedList {
         return count;
     }
 
-    public static ListNode reverseByK(ListNode head, int k) {
+    public ListNode reverseByK(ListNode head, int k) {
         if (head == null || head.next == null) return head;
         int count = countNode(head);
         if (count < k) return head;
@@ -114,6 +114,128 @@ public class LinkedList {
         return prev;
     }
 
+    public ListNode mergeSort(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode slow = head;
+        ListNode fast = head;
+        ListNode prev = head;
+        while (fast != null && fast.next != null) {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        prev.next = null;
+        ListNode leftHead = mergeSort(head);
+        ListNode rightHead = mergeSort(slow);
+        return merge(leftHead, rightHead);
+    }
+
+    private ListNode merge(ListNode leftHead, ListNode rightHead) {
+        ListNode dummy = new ListNode();
+        ListNode cur = dummy;
+        while (leftHead != null && rightHead != null) {
+            if (leftHead.data < rightHead.data) {
+                cur.next = leftHead;
+                leftHead = leftHead.next;
+            } else {
+                cur.next = rightHead;
+                rightHead = rightHead.next;
+            }
+            cur = cur.next;
+        }
+        cur.next = leftHead != null ? leftHead : rightHead;
+        return dummy.next;
+    }
+
+
+    public ListNode reOrderList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode temp = slow.next;
+        slow.next = null;
+        ListNode firstHead = head;
+        ListNode secondHead = reverseRecursion(temp);
+        ListNode dummy = new ListNode();
+        temp = dummy;
+        while (firstHead != null && secondHead != null) {
+            temp.next = firstHead;
+            firstHead = firstHead.next;
+            temp = temp.next;
+
+            temp.next = secondHead;
+            secondHead = secondHead.next;
+            temp = temp.next;
+        }
+        temp.next = firstHead != null ? firstHead : secondHead;
+        return dummy.next;
+    }
+
+    public ListNode insertNode(int val) {
+        ListNode node = new ListNode(val);
+        if (head == null) head = node;
+        else {
+            ListNode cur = head;
+            while (cur.next != null && cur.next.data < val) {
+                cur = cur.next;
+            }
+            node.next = cur.next;
+            cur.next = node;
+        }
+        return head;
+    }
+
+    public void removeDuplicate() {
+        if (head == null || head.next == null) return;
+        ListNode slow = head;
+        while (slow != null) {
+            ListNode fast = slow.next;
+            while (fast != null && slow.data == fast.data) {
+                fast = fast.next;
+            }
+            slow.next = fast;
+            slow = slow.next;
+        }
+    }
+    public static void oddEvenList(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode evenHead = head.next;
+        while (even != null && even.next != null) {
+            odd.next = odd.next.next;
+            even.next = even.next.next;
+            odd = odd.next;
+            even = even.next;
+        }
+        odd.next = evenHead;
+    }
+
+    public void removeNode(int val) {
+        if (head == null) return;
+        if (head.data == val) {
+            if (head.next == null) System.out.println("Head is the only node, can not be removed!");
+            else {
+                ListNode newHead = head.next;
+                head.next = null;
+                head = newHead;
+            }
+        } else {
+            ListNode cur = head;
+            while (cur.next != null && cur.next.data != val) {
+                cur = cur.next;
+            }
+            if (cur.next == null) System.out.println("The node is not present!");
+            else {
+                cur.next = cur.next.next;
+            }
+        }
+
+    }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 15; i++) {
@@ -121,19 +243,48 @@ public class LinkedList {
         }
         list.print(list.head);
         System.out.println("====reverse list====");
-        list.head = reverse(list.head);
+        list.head = list.reverse(list.head);
         list.print(list.head);
-        list.head = reverseRecursion(list.head);
+        list.head = list.reverseRecursion(list.head);
         list.print(list.head);
 
         System.out.println("====swap pairs====");
-        list.head = swapPairs(list.head);
+        list.head = list.swapPairs(list.head);
         list.print(list.head);
         System.out.println("====reverse by range====");
-        list.head = reverseByRange(list.head, 5, 10);
+        list.head = list.reverseByRange(list.head, 5, 10);
         list.print(list.head);
         System.out.println("====reverse in k====");
-        list.head = reverseByK(list.head, 6);
+        list.head = list.reverseByK(list.head, 6);
+        list.print(list.head);
+        System.out.println("====merge sort====");
+        list.head = list.mergeSort(list.head);
+        list.print(list.head);
+        System.out.println("====insert node===");
+        list.insertNode(0);
+        list.insertNode(5);
+        list.insertNode(5);
+        list.insertNode(15);
+        list.print(list.head);
+        System.out.println("====remove node====");
+        list.removeDuplicate();
+        list.print(list.head);
+        System.out.println("====reorder list====");
+        list.head = list.reOrderList(list.head);
+        list.print(list.head);
+        System.out.println("====odd even list====");
+        oddEvenList(list.head);
+        list.print(list.head);
+        System.out.println("====remove node====");
+        list.removeNode(0);
+        list.removeNode(15);
+        list.removeNode(14);
+        list.removeNode(13);
+        list.removeNode(12);
+        list.removeNode(11);
+        list.removeNode(10);
+        list.removeNode(8);
+        list.removeNode(89);
         list.print(list.head);
     }
 }
