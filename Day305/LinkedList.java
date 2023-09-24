@@ -2,6 +2,8 @@ package Day305;
 
 import Day266.ListNode;
 
+import java.util.Stack;
+
 public class LinkedList {
 
     private ListNode head;
@@ -234,7 +236,28 @@ public class LinkedList {
                 cur.next = cur.next.next;
             }
         }
+    }
 
+    public void plusOne() {
+        if (head == null) return;
+        Stack<ListNode> stack = new Stack<>();
+        ListNode cur = head;
+        while (cur != null) {
+            stack.push(cur);
+            cur = cur.next;
+        }
+        while (!stack.isEmpty()) {
+            ListNode node = stack.pop();
+            if (node.data < 9) {
+                node.data++;
+                return;
+            } else {
+                node.data = 0;
+            }
+        }
+        ListNode newNode = new ListNode(1);
+        newNode.next = head;
+        head = newNode;
     }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
@@ -285,6 +308,12 @@ public class LinkedList {
         list.removeNode(10);
         list.removeNode(8);
         list.removeNode(89);
+        list.print(list.head);
+        System.out.println("====plus one====");
+        list.plusOne();
+        list.print(list.head);
+        list.removeNode(0);
+        list.plusOne();
         list.print(list.head);
     }
 }
