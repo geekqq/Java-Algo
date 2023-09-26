@@ -1,20 +1,17 @@
-package Day305;
-
-import Day256.Link;
+package Day308;
 
 import java.util.*;
-import java.util.LinkedList;
 
 public class AnagramGroup {
 
     public static List<List<String>> anagramGroup(String[] strs) {
         if (strs == null || strs.length == 0) return null;
-        List<List<String>> res = new java.util.LinkedList<>();
+        List<List<String>> res = new LinkedList<>();
         Map<String, List<String>> map = new HashMap<>();
         for (String str : strs) {
             char[] chars = str.toCharArray();
             Arrays.sort(chars);
-            String key = String.valueOf(chars);
+            String key = String.valueOf(str);
             List<String> list = map.getOrDefault(key, new LinkedList<>());
             list.add(str);
             map.put(key, list);
