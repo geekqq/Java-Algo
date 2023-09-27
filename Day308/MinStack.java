@@ -1,4 +1,5 @@
-package Day306;
+package Day308;
+
 
 import java.util.EmptyStackException;
 import java.util.Stack;
@@ -9,8 +10,8 @@ public class MinStack {
     private Stack<Integer> stackMin;
 
     public MinStack() {
-        stackStr = new Stack<Integer>();
-        stackMin = new Stack<Integer>();
+        stackStr = new Stack<>();
+        stackMin = new Stack<>();
     }
 
     public void push(int val) {
@@ -24,12 +25,13 @@ public class MinStack {
     }
 
     public void pop() {
-        if (stackStr.isEmpty()) throw new EmptyStackException();
-        stackMin.pop();
+        if (stackStr.isEmpty()) throw new IllegalArgumentException("Invalid input!");
         stackStr.pop();
+        stackMin.pop();
     }
 
     public int getMin() {
+        if (stackStr.isEmpty()) throw new EmptyStackException();
         return stackMin.peek();
     }
 
