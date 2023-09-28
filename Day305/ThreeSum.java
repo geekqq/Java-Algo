@@ -21,7 +21,7 @@ public class ThreeSum {
                 else k--;
             }
         }
-        return new LinkedList<>(res);
+        return new ArrayList<>(res);
     }
 
     public static List<List<Integer>> threeSumI(int[] arr, int target) {
@@ -36,7 +36,7 @@ public class ThreeSum {
                 }
             }
         }
-        return new LinkedList<>(res);
+        return new ArrayList<>(res);
     }
 
     public static void main(String[] args) {
