@@ -32,8 +32,8 @@ import java.security.Key;
 //            //1。 两个对象的hash值不同，一定不是同一个对象
 //            //2。 hash值相同，两个对象不一定相等
 //            if (p.hash == hash && (k = p.key) == key || (key != null & key.equals(k)))) e = p;
-//            else if (p instanceof TreeNode)//存储的节点的key不存在，判断是否为树节点（是不是已经转化为红黑树）
-//                e = ((TreeNode<K, V>)p).putTreeVal(this, tab, hash, key, value);
+//            else if (p instanceof TreeNodeTraversal)//存储的节点的key不存在，判断是否为树节点（是不是已经转化为红黑树）
+//                e = ((TreeNodeTraversal<K, V>)p).putTreeVal(this, tab, hash, key, value);
 //            else {
 //                for (int binCount = 0; ; ++binCount) {
 //                    if ((e = p.next) == null) { //直接找到链表的尾部，直接插入

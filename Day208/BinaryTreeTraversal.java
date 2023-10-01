@@ -428,7 +428,7 @@ public class BinaryTreeTraversal {
         System.out.println(maxDepthI(root));
         System.out.println("----min depth----");
         TreeNode root1 = new TreeNode(1);
-        //root1.left = new TreeNode(5);
+        //root1.left = new TreeNodeTraversal(5);
         root1.right = new TreeNode(2);
         root1.right.right = new TreeNode(3);
         root1.right.right.right = new TreeNode(4);
