@@ -21,6 +21,8 @@ public class MinLengthSum {
         return minLen == list.size() + 1 ? -1 : minLen;
     }
 
+
+
     public static void main(String[] args) {
         List<Integer> test1 = new ArrayList<>(Arrays.asList(1, 4, 45, 6, 10, 19));
         int target = 51;
