@@ -28,6 +28,8 @@ public class MinWindowSubstring {
 
     public static void main(String[] args) {
         System.out.println(minWindowSubstring("ADOBECODEBANC", "ABC"));
+        System.out.println(minWindowSubstring("a", "a"));
+        System.out.println(minWindowSubstring("a", "aa"));
 
     }
 }
