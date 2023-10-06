@@ -1,0 +1,32 @@
+package Day316;
+
+public class MaxProfitAssigningWorkDP {
+
+    public static int maxProfit(int[] difficulty, int[] profit, int[] workers) {
+        int[] dp = new int[100001];
+        for (int i = 0; i < difficulty.length; i++) {
+            dp[difficulty[i]] = Math.max(dp[difficulty[i]], profit[i]);
+        }
+        for (int i = 0; i < dp.length; i++) {
+            if (i > 0) {
+                dp[i] = Math.max(dp[i - 1], dp[i]);
+            }
+        }
+        int sum = 0;
+        for (int i : workers) {
+            sum += dp[i];
+        }
+        return sum;
+    }
+
+    public static void main(String[] args) {
+        int[] difficulty = {2, 4, 6, 8, 10};
+        int[] profit = {10, 20, 30, 40, 50};
+        int[] worker = {4, 5, 6, 7};
+        int[] difficulty1 = {85, 47, 57};
+        int[] profit1 = {24, 66, 99};
+        int[] worker1 = {40, 25, 25};
+        System.out.println(maxProfit(difficulty, profit, worker));
+        System.out.println(maxProfit(difficulty1, profit1, worker1));
+    }
+}
