@@ -1,6 +1,6 @@
-package Day315;
+package Day319;
 
-public class TrappingWater {
+public class MaxWaterTrapped {
 
     public static int trappingWater(int[] height) {
         if (height == null || height.length == 0) return 0;
