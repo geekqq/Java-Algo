@@ -1,14 +1,15 @@
-package Day320;
+package Day321;
 
 public class CharacterReplacement {
 
-    public static int characterReplacement(String s, int k) {
+    public static int characterRePlacement(String s, int k) {
         if (s == null || s.length() == 0) return 0;
-        int l = 0; int r = 0;
-        int maxFreq = 0;
-        int res =0 ;
         int[] count = new int[26];
-        while (r < s.length()){
+        int l = 0;
+        int r = 0;
+        int maxFreq = 0;
+        int res = 0;
+        while (r < s.length()) {
             maxFreq = Math.max(maxFreq, ++count[s.charAt(r) - 'A']);
             while (r - l + 1 - maxFreq > k) {
                 count[s.charAt(l++) - 'A']--;
@@ -20,7 +21,7 @@ public class CharacterReplacement {
     }
 
     public static void main(String[] args) {
-        System.out.println(characterReplacement("ABAB", 2));
-        System.out.println(characterReplacement("AABBABA", 2));
+        System.out.println(characterRePlacement("ABAB", 2));
+        System.out.println(characterRePlacement("AABBABA", 2));
     }
 }
