@@ -1,19 +1,16 @@
-package Day311;
+package Day322;
 
 import Day266.ListNode;
 
 import java.util.Stack;
 
 public class LinkedList {
-
-    public ListNode head;
-
+    private ListNode head;
 
     public void add(int val) {
         ListNode node = new ListNode(val);
-        if (head == null) {
-            head = node;
-        } else {
+        if (head == null) head = node;
+        else {
             ListNode cur = head;
             while (cur.next != null) {
                 cur = cur.next;
@@ -46,17 +43,17 @@ public class LinkedList {
         return prev;
     }
 
-    public ListNode reverseRecursion(ListNode head) {
+    public ListNode reverseI(ListNode head) {
         if (head == null || head.next == null) return head;
-        ListNode rest = reverseRecursion(head.next);
+        ListNode rest = reverseI(head.next);
         head.next.next = head;
         head.next = null;
         return rest;
     }
 
-    public ListNode swapInPair(ListNode head) {
+    public ListNode swapInPairs(ListNode head) {
         if (head == null || head.next == null) return head;
-        ListNode postHead = swapInPair(head.next.next);
+        ListNode postHead = swapInPairs(head.next.next);
         ListNode newHead = head.next;
         head.next.next = head;
         head.next = postHead;
@@ -75,34 +72,23 @@ public class LinkedList {
         prev.next = null;
         ListNode subEnd = subStart;
         for (int i = left; i < right; i++) {
-            subEnd = subEnd.next;
+           subEnd = subEnd.next;
         }
         ListNode next = subEnd.next;
         subEnd.next = null;
-        prev.next = reverse(subStart);
+        prev.next = reverseI(subStart);
         subStart.next = next;
         return dummy.next;
     }
 
-    public int countNode(ListNode head) {
+    public int count(ListNode head) {
         if (head == null) return 0;
-        return 1 + countNode(head.next);
+        return 1 + count(head.next);
     }
 
-    public int count() {
-        if (head == null) return 0;
-        int count = 0;
-        ListNode cur = head;
-        while (cur != null) {
-            count++;
-            cur = cur.next;
-        }
-        return count;
-    }
-
-    public ListNode reverseByK(ListNode head, int k) {
+    public ListNode reverseInKGroup(ListNode head, int k) {
         if (head == null || head.next == null) return head;
-        int count = countNode(head);
+        int count = count(head);
         if (count < k) return head;
         ListNode prev = null;
         ListNode cur = head;
@@ -113,11 +99,32 @@ public class LinkedList {
             prev = cur;
             cur = next;
         }
-        head.next = reverseByK(cur, k);
+        head.next = reverseInKGroup(cur, k);
         return prev;
     }
 
-    public ListNode mergeSort(ListNode head) {
+    public ListNode partitionList(ListNode head, int k) {
+        if (head == null || head.next == null) return head;
+        ListNode small = new ListNode();
+        ListNode large = new ListNode();
+        ListNode curSmall = small;
+        ListNode curLarge = large;
+        ListNode cur = head;
+        while (cur != null) {
+            if (cur.data < k) {
+                curSmall.next = cur;
+                curSmall = curSmall.next;
+            } else {
+                curLarge.next = cur;
+                curLarge = curLarge.next;
+            }
+            cur = cur.next;
+        }
+        curSmall.next = large.next;
+        return small.next;
+    }
+
+    public ListNode mergeSortList(ListNode head) {
         if (head == null || head.next == null) return head;
         ListNode slow = head;
         ListNode fast = head;
@@ -128,36 +135,34 @@ public class LinkedList {
             fast = fast.next.next;
         }
         prev.next = null;
-        ListNode leftHead = mergeSort(head);
-        ListNode rightHead = mergeSort(slow);
-        return merge(leftHead, rightHead);
+        ListNode leftNode = mergeSortList(head);
+        ListNode rightNode = mergeSortList(slow);
+        return merge(leftNode, rightNode);
     }
-
-    private ListNode merge(ListNode leftHead, ListNode rightHead) {
+    private ListNode merge(ListNode leftNode, ListNode rightNode) {
         ListNode dummy = new ListNode();
         ListNode cur = dummy;
-        while (leftHead != null && rightHead != null) {
-            if (leftHead.data < rightHead.data) {
-                cur.next = leftHead;
-                leftHead = leftHead.next;
+        while (leftNode != null && rightNode != null) {
+            if (leftNode.data < rightNode.data) {
+                cur.next = leftNode;
+                leftNode = leftNode.next;
             } else {
-                cur.next = rightHead;
-                rightHead = rightHead.next;
+                cur.next = rightNode;
+                rightNode = rightNode.next;
             }
             cur = cur.next;
         }
-        cur.next = leftHead != null ? leftHead : rightHead;
+        cur.next = leftNode != null ? leftNode : rightNode;
         return dummy.next;
     }
 
     public ListNode insertNode(int val) {
         ListNode node = new ListNode(val);
-        if (head == null || head.data >= val) {
-            node.next = head;
+        if (head == null) {
             head = node;
         } else {
             ListNode cur = head;
-            while (cur.next != null && cur.next.data != val) {
+            while (cur.next != null && cur.next.data < val) {
                 cur = cur.next;
             }
             node.next = cur.next;
@@ -166,7 +171,7 @@ public class LinkedList {
         return head;
     }
 
-    public void removeDuplicates() {
+    public void removeDuplicates(ListNode head) {
         if (head == null || head.next == null) return;
         ListNode slow = head;
         while (slow != null) {
@@ -175,12 +180,11 @@ public class LinkedList {
                 fast = fast.next;
             }
             slow.next = fast;
-            slow= slow.next;
+            slow = slow.next;
         }
     }
 
     public ListNode reOrderList(ListNode head) {
-
         if (head == null || head.next == null) return head;
         ListNode slow = head;
         ListNode fast = head;
@@ -191,7 +195,7 @@ public class LinkedList {
         ListNode temp = slow.next;
         slow.next = null;
         ListNode firstHead = head;
-        ListNode secondHead = reverse(temp);
+        ListNode secondHead = reverseI(temp);
         ListNode dummy = new ListNode();
         temp = dummy;
         while (firstHead != null && secondHead != null) {
@@ -208,16 +212,14 @@ public class LinkedList {
     }
 
     public ListNode oddEvenList(ListNode head) {
-        if (head == null || head.next == null) {
-            return head;
-        }
+        if (head == null || head.next == null) return head;
         ListNode odd = head;
         ListNode even = head.next;
         ListNode evenHead = head.next;
         while (even != null && even.next != null) {
             odd.next = odd.next.next;
-            even.next = even.next.next;
             odd = odd.next;
+            even.next = even.next.next;
             even = even.next;
         }
         odd.next = evenHead;
@@ -225,10 +227,10 @@ public class LinkedList {
     }
 
     public ListNode removeNode(int val) {
-        if (head == null) throw new IllegalArgumentException();
+        if (head == null) return null;
         if (head.data == val) {
             if (head.next == null) {
-                System.out.println("Head is the only node, can not be deleted!");
+                System.out.println("head is the only node, can not be removed!");
             } else {
                 ListNode newHead = head.next;
                 head.next = null;
@@ -239,10 +241,8 @@ public class LinkedList {
             while (cur.next != null && cur.next.data != val) {
                 cur = cur.next;
             }
-            if (cur.next == null) System.out.println("The node is not present");
-            else {
-                cur.next = cur.next.next;
-            }
+            if (cur.next == null) System.out.println("The node is not present!");
+            else {cur.next = cur.next.next;}
         }
         return head;
     }
@@ -268,57 +268,61 @@ public class LinkedList {
         newNode.next = head;
         head = newNode;
     }
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 14; i++) {
             list.add(i);
         }
+        System.out.println("====reverse list====");
         list.print(list.head);
-        System.out.println("==== reverse ====");
         list.head = list.reverse(list.head);
         list.print(list.head);
-        list.head = list.reverseRecursion(list.head);
+        list.head = list.reverseI(list.head);
         list.print(list.head);
-        System.out.println("==== reverse by range====");
-        list.head = list.reverseByRange(list.head, 5, 10);
+        System.out.println("====swap in pairs====");
+        list.head = list.swapInPairs(list.head);
         list.print(list.head);
-        System.out.println("==== reverse by k====");
-        list.head = list.reverseByK(list.head, 4);
+        System.out.println("====reverse in k group====");
+        list.head = list.reverseInKGroup(list.head, 3);
         list.print(list.head);
-        System.out.println("==== merge sort list ====");
-        list.head = list.mergeSort(list.head);
+        System.out.println("====reverse by range====");
+        list.head = list.reverseByRange(list.head, 4,10);
         list.print(list.head);
-        System.out.println("==== insert node ====");
-        list.insertNode(0);
-        list.insertNode(5);
-        list.insertNode(14);
-        list.insertNode(15);
+        System.out.println("====partition list====");
+        list.head = list.partitionList(list.head, 10);
         list.print(list.head);
-        System.out.println("==== remove duplicates ====");
-        list.removeDuplicates();
+        System.out.println("====merge sort list====");
+        list.head = list.mergeSortList(list.head);
         list.print(list.head);
-        System.out.println("==== partition list ====");
+        System.out.println("====insert node====");
+        list.head = list.insertNode(0);
+        list.head = list.insertNode(5);
+        list.head = list.insertNode(14);
+        list.head = list.insertNode(15);
+        list.print(list.head);
+        System.out.println("====remove duplicate nodes====");
+        list.removeDuplicates(list.head);
+        list.print(list.head);
+        System.out.println("====re order list====");
         list.head = list.reOrderList(list.head);
         list.print(list.head);
-        System.out.println("==== odd even list ====");
+        System.out.println("====odd even list====");
         list.head = list.oddEvenList(list.head);
         list.print(list.head);
-        System.out.println("==== remove node ====");
+        System.out.println("====remove node====");
         list.head = list.removeNode(0);
-        list.head = list.removeNode(5);
-        list.head = list.removeNode(14);
         list.head = list.removeNode(15);
+        list.head = list.removeNode(14);
+        list.head = list.removeNode(13);
         list.head = list.removeNode(13);
         list.head = list.removeNode(12);
         list.head = list.removeNode(11);
         list.head = list.removeNode(10);
-        list.head = list.removeNode(8);
+        System.out.println(list.count(list.head));
         list.print(list.head);
-        System.out.println("==== plus one ====");
+        System.out.println("====plus one====");
         list.plusOne();
-        list.print(list.head);
-        list.plusOne();
-        list.print(list.head);
         list.plusOne();
         list.print(list.head);
     }
