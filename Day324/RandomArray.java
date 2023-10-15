@@ -1,6 +1,8 @@
 package Day324;
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 import static Day256.PrintArray.printArray;
 
@@ -21,8 +23,24 @@ public class RandomArray {
         return arr;
     }
 
+    public static int[] generateArraySet(int size, int min, int max) {
+        if (max - min + 1 < size) throw new IllegalArgumentException();
+        Set<Integer> set = new HashSet<>();
+        int[] arr = new int[size];
+        Random rd = new Random();
+        while (set.size() < size){
+            int num = rd.nextInt(max - min + 1) + min;
+            set.add(num);
+        }
+        int index = 0;
+        for (int i : set) {
+            arr[index++] = i;
+        }
+        return arr;
+    }
+
     public static void main(String[] args) {
-        int[] arr = randomArray(5, 4, 10);
+        int[] arr = generateArraySet(5, 4, 10);
         printArray(arr);
     }
 }
