@@ -70,6 +70,22 @@ public class LinkedList {
         return dummy.next;
     }
 
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        ListNode dummy = new ListNode();
+        dummy.next = head;
+        ListNode prev = dummy;
+        for (int i = 1; i < left; i++) {
+            prev = prev.next;
+        }
+        ListNode cur = prev.next;
+        for (int i = left; i < right; i++) {
+            ListNode temp = cur.next;
+            cur.next = temp.next;
+            temp.next = prev.next;
+            prev.next = temp;
+        }
+        return dummy.next;
+    }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 15; i++) {
@@ -83,6 +99,9 @@ public class LinkedList {
         list.print(list.head);
         System.out.println("====reverse by range====");
         list.head = list.reverseByRange(list.head, 5, 10);
+        list.print(list.head);
+        System.out.println("====reverse between====");
+        list.head = list.reverseBetween(list.head, 5, 10);
         list.print(list.head);
     }
 
