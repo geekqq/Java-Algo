@@ -117,6 +117,57 @@ public class LinkedList {
         head.next = postHead;
         return newHead;
     }
+
+    public ListNode mergeSortList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode prev = null;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        prev.next = null;
+        ListNode leftHead = mergeSortList(head);
+        ListNode rightHead = mergeSortList(slow);
+        return merge(leftHead, rightHead);
+    }
+    private ListNode merge(ListNode leftHead, ListNode rightHead) {
+        ListNode dummy = new ListNode();
+        ListNode cur = dummy;
+        while (leftHead != null && rightHead != null) {
+            if (leftHead.data < rightHead.data) {
+                cur.next = leftHead;
+                leftHead = leftHead.next;
+            } else {
+                cur.next = rightHead;
+                rightHead = rightHead.next;
+            }
+            cur = cur.next;
+        }
+        cur.next = leftHead != null ? leftHead : rightHead;
+        return dummy.next;
+    }
+    public ListNode insertNode(int val) {
+        ListNode node = new ListNode(val);
+        if (head == null) {
+            head = node;
+        } else {
+            if (head.data >= val) {
+                node.next = head;
+                head = node;
+            } else {
+                ListNode cur = head;
+                while (cur.next != null && cur.next.data < val) {
+                    cur = cur.next;
+                }
+                node.next = cur.next;
+                cur.next = node;
+            }
+        }
+        return head;
+    }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 15; i++) {
@@ -139,6 +190,14 @@ public class LinkedList {
         list.print(list.head);
         System.out.println("====swap in pairs====");
         list.head = list.swapInPairs(list.head);
+        list.print(list.head);
+        System.out.println("====merge sort list====");
+        list.head = list.mergeSortList(list.head);
+        list.print(list.head);
+        System.out.println("==== insert node====");
+        list.head = list.insertNode(0);
+        list.head = list.insertNode(4);
+        list.head = list.insertNode(15);
         list.print(list.head);
     }
 
