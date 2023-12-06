@@ -86,6 +86,37 @@ public class LinkedList {
         }
         return dummy.next;
     }
+
+    public ListNode reverseByGroup(ListNode head, int k) {
+        if (head == null || head.next == null) return head;
+        ListNode cur = head;
+        int count = 0;
+        while (cur != null) {
+            cur = cur.next;
+            count++;
+        }
+        if (count < k) return head;
+        ListNode prev = null;
+        ListNode next = null;
+        cur = head;
+        for (int i = 0; i < k; i++) {
+            next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        head.next = reverseByGroup(cur, k);
+        return prev;
+    }
+
+    public ListNode swapInPairs(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode postHead = swapInPairs(head.next.next);
+        ListNode newHead = head.next;
+        head.next.next = head;
+        head.next = postHead;
+        return newHead;
+    }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 15; i++) {
@@ -102,6 +133,12 @@ public class LinkedList {
         list.print(list.head);
         System.out.println("====reverse between====");
         list.head = list.reverseBetween(list.head, 5, 10);
+        list.print(list.head);
+        System.out.println("====reverse by K group====");
+        list.head = list.reverseByGroup(list.head, 4);
+        list.print(list.head);
+        System.out.println("====swap in pairs====");
+        list.head = list.swapInPairs(list.head);
         list.print(list.head);
     }
 
