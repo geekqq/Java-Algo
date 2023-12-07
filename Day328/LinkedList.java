@@ -168,6 +168,67 @@ public class LinkedList {
         }
         return head;
     }
+
+    public void removeDuplicateNode(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode slow = head;
+        while (slow != null && slow.next != null) {
+            ListNode fast = slow.next;
+            while (fast != null && fast.data == slow.data) {
+                fast = fast.next;
+            }
+            slow.next = fast;
+            slow = slow.next;
+        }
+    }
+
+    public ListNode reorderList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode temp = slow.next;
+        slow.next = null;
+        ListNode firstHead = head;
+        ListNode secondHead = reverse(temp);
+        ListNode dummy = new ListNode();
+        temp = dummy;
+        while (firstHead != null && secondHead != null) {
+            temp.next = firstHead;
+            firstHead = firstHead.next;
+            temp = temp.next;
+
+            temp.next = secondHead;
+            secondHead = secondHead.next;
+            temp = temp.next;
+        }
+        temp.next = firstHead != null ? firstHead : secondHead;
+        return dummy.next;
+    }
+    public ListNode partitionList(ListNode head, int val) {
+        if (head ==null || head.next == null) return head;
+        ListNode small = new ListNode();
+        ListNode large = new ListNode();
+        ListNode curSmall = small;
+        ListNode curLarge = large;
+        ListNode cur = head;
+        while (cur != null) {
+            if (cur.data < val) {
+                curSmall.next = cur;
+                curSmall = curSmall.next;
+            } else {
+                curLarge.next = cur;
+                curLarge = curLarge.next;
+            }
+            cur = cur.next;
+        }
+        cur.next = curSmall != null ? curSmall : curLarge;
+        curSmall.next = large;
+        return small.next;
+    }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 15; i++) {
@@ -194,10 +255,16 @@ public class LinkedList {
         System.out.println("====merge sort list====");
         list.head = list.mergeSortList(list.head);
         list.print(list.head);
-        System.out.println("==== insert node====");
+        System.out.println("====insert node====");
         list.head = list.insertNode(0);
         list.head = list.insertNode(4);
         list.head = list.insertNode(15);
+        list.print(list.head);
+        System.out.println("====remove duplicates====");
+        list.removeDuplicateNode(list.head);
+        list.print(list.head);
+        System.out.println("====reorder list====");
+        list.head = list.reorderList(list.head);
         list.print(list.head);
     }
 
