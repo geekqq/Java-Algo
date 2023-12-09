@@ -225,8 +225,7 @@ public class LinkedList {
             }
             cur = cur.next;
         }
-        cur.next = curSmall != null ? curSmall : curLarge;
-        curSmall.next = large;
+        curSmall.next = large.next;
         return small.next;
     }
     public static void main(String[] args) {
@@ -265,6 +264,9 @@ public class LinkedList {
         list.print(list.head);
         System.out.println("====reorder list====");
         list.head = list.reorderList(list.head);
+        list.print(list.head);
+        System.out.println("====partition list====");
+        list.head = list.partitionList(list.head, 5);
         list.print(list.head);
     }
 
