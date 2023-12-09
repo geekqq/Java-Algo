@@ -228,6 +228,21 @@ public class LinkedList {
         curSmall.next = large.next;
         return small.next;
     }
+
+    public ListNode oddEvenList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode evenHead = head.next;
+        while (even != null && even.next != null) {
+            odd.next = odd.next.next;
+            odd = odd.next;
+            even.next = even.next.next;
+            even = even.next;
+        }
+        odd.next = evenHead;
+        return head;
+    }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 15; i++) {
@@ -267,6 +282,9 @@ public class LinkedList {
         list.print(list.head);
         System.out.println("====partition list====");
         list.head = list.partitionList(list.head, 5);
+        list.print(list.head);
+        System.out.println("====odd even list====");
+        list.head = list.oddEvenList(list.head);
         list.print(list.head);
     }
 
