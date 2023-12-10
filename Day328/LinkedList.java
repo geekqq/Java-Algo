@@ -243,6 +243,26 @@ public class LinkedList {
         odd.next = evenHead;
         return head;
     }
+
+    public ListNode remove(ListNode head, int val) {
+        if (head == null) return null;
+
+        if (head.data == val) {
+            if (head.next == null) {
+                System.out.println("The only node can not be deleted!");
+            } else {
+                head = head.next;
+            }
+        } else {
+            ListNode cur = head;
+            while (cur.next != null && cur.next.data != val) {
+                cur = cur.next;
+            }
+            if (cur.next == null) System.out.println("The node is not present!");
+            cur.next = cur.next.next;
+        }
+        return head;
+    }
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < 15; i++) {
@@ -285,6 +305,11 @@ public class LinkedList {
         list.print(list.head);
         System.out.println("====odd even list====");
         list.head = list.oddEvenList(list.head);
+        list.print(list.head);
+        System.out.println("====remove node from list====");
+        list.head = list.remove(list.head, 5);
+        list.head = list.remove(list.head, 0);
+        list.head = list.remove(list.head, 8);
         list.print(list.head);
     }
 
